@@ -1,0 +1,22 @@
+@format 1
+@kostur  Zbroj po grupi
+@opis    Zbroj iznosa po vrijednosti stupca, uz ukupni zbroj.
+@kontekst  gumb,izvjesce
+@kategorija  Izračuni
+@utor tablica : tablica                                  "Koja tablica?"
+@utor grupa   : stupac(tablica)                          "Po kojem stupcu grupirati?"
+@utor iznos   : stupac:broj(tablica)                     "Koji iznos zbrajati?"
+@preduvjet tablica ima stupac tipa broj
+@predlazi  tablica ima stupac tipa broj => preporuci
+---
+MAIN
+  DEFINE kljuc TEXT
+  DEFINE zbroj, ukupno DECIMAL(14,2)
+  LET ukupno = 0
+  DECLARE c CURSOR FOR SELECT {grupa}, SUM({iznos}) FROM {tablica} GROUP BY {grupa} ORDER BY 2 DESC
+  FOREACH c INTO kljuc, zbroj
+    DISPLAY kljuc, " ", zbroj
+    LET ukupno = ukupno + zbroj
+  END FOREACH
+  DISPLAY "Ukupno ", ukupno
+END MAIN

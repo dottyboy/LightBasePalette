@@ -1,0 +1,203 @@
+naziv;skupina;datoteke
+add;Radnje;svijetle/svg/add.svg, tamne/svg/add.svg, png16/24/32/64/128/256
+addfields;Radnje;svijetle/svg/addfields.svg, tamne/svg/addfields.svg, png16/24/32/64/128/256
+adduser;Radnje i sustav;svijetle/svg/adduser.svg, tamne/svg/adduser.svg, png16/24/32/64/128/256
+advance;Novac;svijetle/svg/advance.svg, tamne/svg/advance.svg, png16/24/32/64/128/256
+align_ab;Poravnanje i raspored;svijetle/svg/align_ab.svg, tamne/svg/align_ab.svg, png16/24/32/64/128/256
+align_ac;Poravnanje i raspored;svijetle/svg/align_ac.svg, tamne/svg/align_ac.svg, png16/24/32/64/128/256
+align_al;Poravnanje i raspored;svijetle/svg/align_al.svg, tamne/svg/align_al.svg, png16/24/32/64/128/256
+align_am;Poravnanje i raspored;svijetle/svg/align_am.svg, tamne/svg/align_am.svg, png16/24/32/64/128/256
+align_ar;Poravnanje i raspored;svijetle/svg/align_ar.svg, tamne/svg/align_ar.svg, png16/24/32/64/128/256
+align_at;Poravnanje i raspored;svijetle/svg/align_at.svg, tamne/svg/align_at.svg, png16/24/32/64/128/256
+anchors;Radnje;svijetle/svg/anchors.svg, tamne/svg/anchors.svg, png16/24/32/64/128/256
+annex;Dokumenti;svijetle/svg/annex.svg, tamne/svg/annex.svg, png16/24/32/64/128/256
+app;Objekti baze;svijetle/svg/app.svg, tamne/svg/app.svg, png16/24/32/64/128/256
+archive;Radnje i sustav;svijetle/svg/archive.svg, tamne/svg/archive.svg, png16/24/32/64/128/256
+arrow_back;Radnje i sustav;svijetle/svg/arrow_back.svg, tamne/svg/arrow_back.svg, png16/24/32/64/128/256
+arrow_forward;Radnje i sustav;svijetle/svg/arrow_forward.svg, tamne/svg/arrow_forward.svg, png16/24/32/64/128/256
+article;Roba i skladište;svijetle/svg/article.svg, tamne/svg/article.svg, png16/24/32/64/128/256
+at;Podaci i komunikacija;svijetle/svg/at.svg, tamne/svg/at.svg, png16/24/32/64/128/256
+attach;Podaci i komunikacija;svijetle/svg/attach.svg, tamne/svg/attach.svg, png16/24/32/64/128/256
+back;Poravnanje i raspored;svijetle/svg/back.svg, tamne/svg/back.svg, png16/24/32/64/128/256
+bank;Novac;svijetle/svg/bank.svg, tamne/svg/bank.svg, png16/24/32/64/128/256
+bankcard;Ljudi i tvrtke;svijetle/svg/bankcard.svg, tamne/svg/bankcard.svg, png16/24/32/64/128/256
+barcodescan;Roba i skladište;svijetle/svg/barcodescan.svg, tamne/svg/barcodescan.svg, png16/24/32/64/128/256
+bell;Radnje i sustav;svijetle/svg/bell.svg, tamne/svg/bell.svg, png16/24/32/64/128/256
+c_barcode;Kontrole;svijetle/svg/c_barcode.svg, tamne/svg/c_barcode.svg, png16/24/32/64/128/256
+c_button;Kontrole;svijetle/svg/c_button.svg, tamne/svg/c_button.svg, png16/24/32/64/128/256
+c_calendar;Kontrole;svijetle/svg/c_calendar.svg, tamne/svg/c_calendar.svg, png16/24/32/64/128/256
+c_chart;Kontrole;svijetle/svg/c_chart.svg, tamne/svg/c_chart.svg, png16/24/32/64/128/256
+c_checkbox;Kontrole;svijetle/svg/c_checkbox.svg, tamne/svg/c_checkbox.svg, png16/24/32/64/128/256
+c_combobox;Kontrole;svijetle/svg/c_combobox.svg, tamne/svg/c_combobox.svg, png16/24/32/64/128/256
+c_hyperlink;Kontrole;svijetle/svg/c_hyperlink.svg, tamne/svg/c_hyperlink.svg, png16/24/32/64/128/256
+c_image;Kontrole;svijetle/svg/c_image.svg, tamne/svg/c_image.svg, png16/24/32/64/128/256
+c_label;Kontrole;svijetle/svg/c_label.svg, tamne/svg/c_label.svg, png16/24/32/64/128/256
+c_line;Kontrole;svijetle/svg/c_line.svg, tamne/svg/c_line.svg, png16/24/32/64/128/256
+c_listbox;Kontrole;svijetle/svg/c_listbox.svg, tamne/svg/c_listbox.svg, png16/24/32/64/128/256
+c_memo;Kontrole;svijetle/svg/c_memo.svg, tamne/svg/c_memo.svg, png16/24/32/64/128/256
+c_optiongroup;Kontrole;svijetle/svg/c_optiongroup.svg, tamne/svg/c_optiongroup.svg, png16/24/32/64/128/256
+c_pagebreak;Kontrole;svijetle/svg/c_pagebreak.svg, tamne/svg/c_pagebreak.svg, png16/24/32/64/128/256
+c_pages;Kontrole;svijetle/svg/c_pages.svg, tamne/svg/c_pages.svg, png16/24/32/64/128/256
+c_panel;Kontrole;svijetle/svg/c_panel.svg, tamne/svg/c_panel.svg, png16/24/32/64/128/256
+c_progress;Kontrole;svijetle/svg/c_progress.svg, tamne/svg/c_progress.svg, png16/24/32/64/128/256
+c_rectangle;Kontrole;svijetle/svg/c_rectangle.svg, tamne/svg/c_rectangle.svg, png16/24/32/64/128/256
+c_richtext;Kontrole;svijetle/svg/c_richtext.svg, tamne/svg/c_richtext.svg, png16/24/32/64/128/256
+c_sidemenu;Kontrole;svijetle/svg/c_sidemenu.svg, tamne/svg/c_sidemenu.svg, png16/24/32/64/128/256
+c_subform;Kontrole;svijetle/svg/c_subform.svg, tamne/svg/c_subform.svg, png16/24/32/64/128/256
+c_subreport;Kontrole;svijetle/svg/c_subreport.svg, tamne/svg/c_subreport.svg, png16/24/32/64/128/256
+c_tabcontrol;Kontrole;svijetle/svg/c_tabcontrol.svg, tamne/svg/c_tabcontrol.svg, png16/24/32/64/128/256
+c_textbox;Kontrole;svijetle/svg/c_textbox.svg, tamne/svg/c_textbox.svg, png16/24/32/64/128/256
+c_togglebutton;Kontrole;svijetle/svg/c_togglebutton.svg, tamne/svg/c_togglebutton.svg, png16/24/32/64/128/256
+calculator;Izvješća i analitika;svijetle/svg/calculator.svg, tamne/svg/calculator.svg, png16/24/32/64/128/256
+calendar;Vrijeme i putovanje;svijetle/svg/calendar.svg, tamne/svg/calendar.svg, png16/24/32/64/128/256
+car;Vrijeme i putovanje;svijetle/svg/car.svg, tamne/svg/car.svg, png16/24/32/64/128/256
+cart;Roba i skladište;svijetle/svg/cart.svg, tamne/svg/cart.svg, png16/24/32/64/128/256
+cash;Novac;svijetle/svg/cash.svg, tamne/svg/cash.svg, png16/24/32/64/128/256
+cashbook;Novac;svijetle/svg/cashbook.svg, tamne/svg/cashbook.svg, png16/24/32/64/128/256
+category;Roba i skladište;svijetle/svg/category.svg, tamne/svg/category.svg, png16/24/32/64/128/256
+check;Radnje;svijetle/svg/check.svg, tamne/svg/check.svg, png16/24/32/64/128/256
+checkcircle;Radnje i sustav;svijetle/svg/checkcircle.svg, tamne/svg/checkcircle.svg, png16/24/32/64/128/256
+chev_down;Radnje i sustav;svijetle/svg/chev_down.svg, tamne/svg/chev_down.svg, png16/24/32/64/128/256
+chev_left;Radnje i sustav;svijetle/svg/chev_left.svg, tamne/svg/chev_left.svg, png16/24/32/64/128/256
+chev_right;Radnje i sustav;svijetle/svg/chev_right.svg, tamne/svg/chev_right.svg, png16/24/32/64/128/256
+chev_up;Radnje i sustav;svijetle/svg/chev_up.svg, tamne/svg/chev_up.svg, png16/24/32/64/128/256
+clipboard;Dokumenti;svijetle/svg/clipboard.svg, tamne/svg/clipboard.svg, png16/24/32/64/128/256
+clock;Vrijeme i putovanje;svijetle/svg/clock.svg, tamne/svg/clock.svg, png16/24/32/64/128/256
+close;Radnje;svijetle/svg/close.svg, tamne/svg/close.svg, png16/24/32/64/128/256
+coins;Novac;svijetle/svg/coins.svg, tamne/svg/coins.svg, png16/24/32/64/128/256
+company;Ljudi i tvrtke;svijetle/svg/company.svg, tamne/svg/company.svg, png16/24/32/64/128/256
+contract;Dokumenti;svijetle/svg/contract.svg, tamne/svg/contract.svg, png16/24/32/64/128/256
+cost;Novac;svijetle/svg/cost.svg, tamne/svg/cost.svg, png16/24/32/64/128/256
+count;Izvješća i analitika;svijetle/svg/count.svg, tamne/svg/count.svg, png16/24/32/64/128/256
+creditnote;Dokumenti;svijetle/svg/creditnote.svg, tamne/svg/creditnote.svg, png16/24/32/64/128/256
+customer;Ljudi i tvrtke;svijetle/svg/customer.svg, tamne/svg/customer.svg, png16/24/32/64/128/256
+cut;Radnje i sustav;svijetle/svg/cut.svg, tamne/svg/cut.svg, png16/24/32/64/128/256
+dashboard;Izvješća i analitika;svijetle/svg/dashboard.svg, tamne/svg/dashboard.svg, png16/24/32/64/128/256
+database;Objekti baze;svijetle/svg/database.svg, tamne/svg/database.svg, png16/24/32/64/128/256
+deadline;Vrijeme i putovanje;svijetle/svg/deadline.svg, tamne/svg/deadline.svg, png16/24/32/64/128/256
+delete;Radnje;svijetle/svg/delete.svg, tamne/svg/delete.svg, png16/24/32/64/128/256
+deliverynote;Dokumenti;svijetle/svg/deliverynote.svg, tamne/svg/deliverynote.svg, png16/24/32/64/128/256
+design;Radnje;svijetle/svg/design.svg, tamne/svg/design.svg, png16/24/32/64/128/256
+distribute_h;Poravnanje i raspored;svijetle/svg/distribute_h.svg, tamne/svg/distribute_h.svg, png16/24/32/64/128/256
+distribute_v;Poravnanje i raspored;svijetle/svg/distribute_v.svg, tamne/svg/distribute_v.svg, png16/24/32/64/128/256
+down;Radnje;svijetle/svg/down.svg, tamne/svg/down.svg, png16/24/32/64/128/256
+duplicate;Radnje;svijetle/svg/duplicate.svg, tamne/svg/duplicate.svg, png16/24/32/64/128/256
+edit;Radnje i sustav;svijetle/svg/edit.svg, tamne/svg/edit.svg, png16/24/32/64/128/256
+employee;Ljudi i tvrtke;svijetle/svg/employee.svg, tamne/svg/employee.svg, png16/24/32/64/128/256
+errorcircle;Radnje i sustav;svijetle/svg/errorcircle.svg, tamne/svg/errorcircle.svg, png16/24/32/64/128/256
+euro;Novac;svijetle/svg/euro.svg, tamne/svg/euro.svg, png16/24/32/64/128/256
+export;Radnje;svijetle/svg/export.svg, tamne/svg/export.svg, png16/24/32/64/128/256
+expression;Radnje;svijetle/svg/expression.svg, tamne/svg/expression.svg, png16/24/32/64/128/256
+f_bool;Vrste polja;svijetle/svg/f_bool.svg, tamne/svg/f_bool.svg, png16/24/32/64/128/256
+f_code;Vrste polja;svijetle/svg/f_code.svg, tamne/svg/f_code.svg, png16/24/32/64/128/256
+f_color;Vrste polja;svijetle/svg/f_color.svg, tamne/svg/f_color.svg, png16/24/32/64/128/256
+f_currency;Vrste polja;svijetle/svg/f_currency.svg, tamne/svg/f_currency.svg, png16/24/32/64/128/256
+f_date;Vrste polja;svijetle/svg/f_date.svg, tamne/svg/f_date.svg, png16/24/32/64/128/256
+f_email;Vrste polja;svijetle/svg/f_email.svg, tamne/svg/f_email.svg, png16/24/32/64/128/256
+f_id;Vrste polja;svijetle/svg/f_id.svg, tamne/svg/f_id.svg, png16/24/32/64/128/256
+f_image;Vrste polja;svijetle/svg/f_image.svg, tamne/svg/f_image.svg, png16/24/32/64/128/256
+f_link;Vrste polja;svijetle/svg/f_link.svg, tamne/svg/f_link.svg, png16/24/32/64/128/256
+f_memo;Vrste polja;svijetle/svg/f_memo.svg, tamne/svg/f_memo.svg, png16/24/32/64/128/256
+f_number;Vrste polja;svijetle/svg/f_number.svg, tamne/svg/f_number.svg, png16/24/32/64/128/256
+f_percent;Vrste polja;svijetle/svg/f_percent.svg, tamne/svg/f_percent.svg, png16/24/32/64/128/256
+f_phone;Vrste polja;svijetle/svg/f_phone.svg, tamne/svg/f_phone.svg, png16/24/32/64/128/256
+f_quantity;Vrste polja;svijetle/svg/f_quantity.svg, tamne/svg/f_quantity.svg, png16/24/32/64/128/256
+f_status;Vrste polja;svijetle/svg/f_status.svg, tamne/svg/f_status.svg, png16/24/32/64/128/256
+f_text;Vrste polja;svijetle/svg/f_text.svg, tamne/svg/f_text.svg, png16/24/32/64/128/256
+f_unit;Vrste polja;svijetle/svg/f_unit.svg, tamne/svg/f_unit.svg, png16/24/32/64/128/256
+f_url;Vrste polja;svijetle/svg/f_url.svg, tamne/svg/f_url.svg, png16/24/32/64/128/256
+filter;Radnje;svijetle/svg/filter.svg, tamne/svg/filter.svg, png16/24/32/64/128/256
+first;Radnje;svijetle/svg/first.svg, tamne/svg/first.svg, png16/24/32/64/128/256
+flag;Vrijeme i putovanje;svijetle/svg/flag.svg, tamne/svg/flag.svg, png16/24/32/64/128/256
+form;Objekti baze;svijetle/svg/form.svg, tamne/svg/form.svg, png16/24/32/64/128/256
+front;Poravnanje i raspored;svijetle/svg/front.svg, tamne/svg/front.svg, png16/24/32/64/128/256
+fuel;Vrijeme i putovanje;svijetle/svg/fuel.svg, tamne/svg/fuel.svg, png16/24/32/64/128/256
+globe;Podaci i komunikacija;svijetle/svg/globe.svg, tamne/svg/globe.svg, png16/24/32/64/128/256
+grid;Izvješća i analitika;svijetle/svg/grid.svg, tamne/svg/grid.svg, png16/24/32/64/128/256
+group;Izvješća i analitika;svijetle/svg/group.svg, tamne/svg/group.svg, png16/24/32/64/128/256
+help;Radnje;svijetle/svg/help.svg, tamne/svg/help.svg, png16/24/32/64/128/256
+history;Vrijeme i putovanje;svijetle/svg/history.svg, tamne/svg/history.svg, png16/24/32/64/128/256
+home;Objekti baze;svijetle/svg/home.svg, tamne/svg/home.svg, png16/24/32/64/128/256
+html;Radnje;svijetle/svg/html.svg, tamne/svg/html.svg, png16/24/32/64/128/256
+idcard;Ljudi i tvrtke;svijetle/svg/idcard.svg, tamne/svg/idcard.svg, png16/24/32/64/128/256
+import;Radnje;svijetle/svg/import.svg, tamne/svg/import.svg, png16/24/32/64/128/256
+info;Radnje;svijetle/svg/info.svg, tamne/svg/info.svg, png16/24/32/64/128/256
+inventory;Dokumenti;svijetle/svg/inventory.svg, tamne/svg/inventory.svg, png16/24/32/64/128/256
+invoice;Dokumenti;svijetle/svg/invoice.svg, tamne/svg/invoice.svg, png16/24/32/64/128/256
+key;Radnje i sustav;svijetle/svg/key.svg, tamne/svg/key.svg, png16/24/32/64/128/256
+labels;Radnje;svijetle/svg/labels.svg, tamne/svg/labels.svg, png16/24/32/64/128/256
+last;Radnje;svijetle/svg/last.svg, tamne/svg/last.svg, png16/24/32/64/128/256
+letter;Objekti baze;svijetle/svg/letter.svg, tamne/svg/letter.svg, png16/24/32/64/128/256
+lightbulb;Radnje i sustav;svijetle/svg/lightbulb.svg, tamne/svg/lightbulb.svg, png16/24/32/64/128/256
+linechart;Izvješća i analitika;svijetle/svg/linechart.svg, tamne/svg/linechart.svg, png16/24/32/64/128/256
+link;Podaci i komunikacija;svijetle/svg/link.svg, tamne/svg/link.svg, png16/24/32/64/128/256
+list;Izvješća i analitika;svijetle/svg/list.svg, tamne/svg/list.svg, png16/24/32/64/128/256
+location;Podaci i komunikacija;svijetle/svg/location.svg, tamne/svg/location.svg, png16/24/32/64/128/256
+lock;Radnje i sustav;svijetle/svg/lock.svg, tamne/svg/lock.svg, png16/24/32/64/128/256
+macro;Objekti baze;svijetle/svg/macro.svg, tamne/svg/macro.svg, png16/24/32/64/128/256
+menu;Radnje i sustav;svijetle/svg/menu.svg, tamne/svg/menu.svg, png16/24/32/64/128/256
+merge;Radnje i sustav;svijetle/svg/merge.svg, tamne/svg/merge.svg, png16/24/32/64/128/256
+milestone;Vrijeme i putovanje;svijetle/svg/milestone.svg, tamne/svg/milestone.svg, png16/24/32/64/128/256
+module;Objekti baze;svijetle/svg/module.svg, tamne/svg/module.svg, png16/24/32/64/128/256
+more;Radnje i sustav;svijetle/svg/more.svg, tamne/svg/more.svg, png16/24/32/64/128/256
+new;Radnje;svijetle/svg/new.svg, tamne/svg/new.svg, png16/24/32/64/128/256
+next;Radnje;svijetle/svg/next.svg, tamne/svg/next.svg, png16/24/32/64/128/256
+note;Dokumenti;svijetle/svg/note.svg, tamne/svg/note.svg, png16/24/32/64/128/256
+offer;Dokumenti;svijetle/svg/offer.svg, tamne/svg/offer.svg, png16/24/32/64/128/256
+open;Radnje;svijetle/svg/open.svg, tamne/svg/open.svg, png16/24/32/64/128/256
+order;Dokumenti;svijetle/svg/order.svg, tamne/svg/order.svg, png16/24/32/64/128/256
+overdue;Vrijeme i putovanje;svijetle/svg/overdue.svg, tamne/svg/overdue.svg, png16/24/32/64/128/256
+pagesetup;Radnje;svijetle/svg/pagesetup.svg, tamne/svg/pagesetup.svg, png16/24/32/64/128/256
+paste;Radnje i sustav;svijetle/svg/paste.svg, tamne/svg/paste.svg, png16/24/32/64/128/256
+payment;Novac;svijetle/svg/payment.svg, tamne/svg/payment.svg, png16/24/32/64/128/256
+pdf;Radnje;svijetle/svg/pdf.svg, tamne/svg/pdf.svg, png16/24/32/64/128/256
+percent;Novac;svijetle/svg/percent.svg, tamne/svg/percent.svg, png16/24/32/64/128/256
+phone;Podaci i komunikacija;svijetle/svg/phone.svg, tamne/svg/phone.svg, png16/24/32/64/128/256
+piechart;Izvješća i analitika;svijetle/svg/piechart.svg, tamne/svg/piechart.svg, png16/24/32/64/128/256
+power;Radnje i sustav;svijetle/svg/power.svg, tamne/svg/power.svg, png16/24/32/64/128/256
+prev;Radnje;svijetle/svg/prev.svg, tamne/svg/prev.svg, png16/24/32/64/128/256
+preview;Radnje;svijetle/svg/preview.svg, tamne/svg/preview.svg, png16/24/32/64/128/256
+pricetag;Roba i skladište;svijetle/svg/pricetag.svg, tamne/svg/pricetag.svg, png16/24/32/64/128/256
+print;Radnje;svijetle/svg/print.svg, tamne/svg/print.svg, png16/24/32/64/128/256
+proforma;Dokumenti;svijetle/svg/proforma.svg, tamne/svg/proforma.svg, png16/24/32/64/128/256
+program;Objekti baze;svijetle/svg/program.svg, tamne/svg/program.svg, png16/24/32/64/128/256
+qr;Podaci i komunikacija;svijetle/svg/qr.svg, tamne/svg/qr.svg, png16/24/32/64/128/256
+query;Objekti baze;svijetle/svg/query.svg, tamne/svg/query.svg, png16/24/32/64/128/256
+receipt;Dokumenti;svijetle/svg/receipt.svg, tamne/svg/receipt.svg, png16/24/32/64/128/256
+redo;Radnje;svijetle/svg/redo.svg, tamne/svg/redo.svg, png16/24/32/64/128/256
+refresh;Radnje;svijetle/svg/refresh.svg, tamne/svg/refresh.svg, png16/24/32/64/128/256
+remove;Radnje;svijetle/svg/remove.svg, tamne/svg/remove.svg, png16/24/32/64/128/256
+report;Objekti baze;svijetle/svg/report.svg, tamne/svg/report.svg, png16/24/32/64/128/256
+resize;Poravnanje i raspored;svijetle/svg/resize.svg, tamne/svg/resize.svg, png16/24/32/64/128/256
+route;Vrijeme i putovanje;svijetle/svg/route.svg, tamne/svg/route.svg, png16/24/32/64/128/256
+run;Radnje;svijetle/svg/run.svg, tamne/svg/run.svg, png16/24/32/64/128/256
+same_height;Poravnanje i raspored;svijetle/svg/same_height.svg, tamne/svg/same_height.svg, png16/24/32/64/128/256
+same_width;Poravnanje i raspored;svijetle/svg/same_width.svg, tamne/svg/same_width.svg, png16/24/32/64/128/256
+save;Radnje;svijetle/svg/save.svg, tamne/svg/save.svg, png16/24/32/64/128/256
+search;Radnje;svijetle/svg/search.svg, tamne/svg/search.svg, png16/24/32/64/128/256
+send;Podaci i komunikacija;svijetle/svg/send.svg, tamne/svg/send.svg, png16/24/32/64/128/256
+settings;Radnje;svijetle/svg/settings.svg, tamne/svg/settings.svg, png16/24/32/64/128/256
+shield;Radnje i sustav;svijetle/svg/shield.svg, tamne/svg/shield.svg, png16/24/32/64/128/256
+sigma;Izvješća i analitika;svijetle/svg/sigma.svg, tamne/svg/sigma.svg, png16/24/32/64/128/256
+sortasc;Izvješća i analitika;svijetle/svg/sortasc.svg, tamne/svg/sortasc.svg, png16/24/32/64/128/256
+sortdesc;Izvješća i analitika;svijetle/svg/sortdesc.svg, tamne/svg/sortdesc.svg, png16/24/32/64/128/256
+star;Izvješća i analitika;svijetle/svg/star.svg, tamne/svg/star.svg, png16/24/32/64/128/256
+stockin;Roba i skladište;svijetle/svg/stockin.svg, tamne/svg/stockin.svg, png16/24/32/64/128/256
+stockout;Roba i skladište;svijetle/svg/stockout.svg, tamne/svg/stockout.svg, png16/24/32/64/128/256
+suitcase;Vrijeme i putovanje;svijetle/svg/suitcase.svg, tamne/svg/suitcase.svg, png16/24/32/64/128/256
+supplier;Ljudi i tvrtke;svijetle/svg/supplier.svg, tamne/svg/supplier.svg, png16/24/32/64/128/256
+sync;Radnje i sustav;svijetle/svg/sync.svg, tamne/svg/sync.svg, png16/24/32/64/128/256
+table;Objekti baze;svijetle/svg/table.svg, tamne/svg/table.svg, png16/24/32/64/128/256
+tag;Roba i skladište;svijetle/svg/tag.svg, tamne/svg/tag.svg, png16/24/32/64/128/256
+trophy;Izvješća i analitika;svijetle/svg/trophy.svg, tamne/svg/trophy.svg, png16/24/32/64/128/256
+undo;Radnje;svijetle/svg/undo.svg, tamne/svg/undo.svg, png16/24/32/64/128/256
+unlink;Podaci i komunikacija;svijetle/svg/unlink.svg, tamne/svg/unlink.svg, png16/24/32/64/128/256
+unlock;Radnje i sustav;svijetle/svg/unlock.svg, tamne/svg/unlock.svg, png16/24/32/64/128/256
+up;Radnje;svijetle/svg/up.svg, tamne/svg/up.svg, png16/24/32/64/128/256
+user;Ljudi i tvrtke;svijetle/svg/user.svg, tamne/svg/user.svg, png16/24/32/64/128/256
+users;Ljudi i tvrtke;svijetle/svg/users.svg, tamne/svg/users.svg, png16/24/32/64/128/256
+wallet;Novac;svijetle/svg/wallet.svg, tamne/svg/wallet.svg, png16/24/32/64/128/256
+warehouse;Roba i skladište;svijetle/svg/warehouse.svg, tamne/svg/warehouse.svg, png16/24/32/64/128/256
+warning;Radnje;svijetle/svg/warning.svg, tamne/svg/warning.svg, png16/24/32/64/128/256
+word;Radnje;svijetle/svg/word.svg, tamne/svg/word.svg, png16/24/32/64/128/256
+wrench;Radnje i sustav;svijetle/svg/wrench.svg, tamne/svg/wrench.svg, png16/24/32/64/128/256

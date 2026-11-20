@@ -1,0 +1,89 @@
+// Mali obrt: opis cijele aplikacije u jednoj datoteci.
+// Izrada: typhaccess --make-app=mali-obrt.opis MaliObrt.db   (ili Baza > Nova: aplikacija iz opisa)
+
+aplikacija "Mali obrt"
+  naslov: Mali obrt d.o.o.
+  izbornik: bocni
+
+// ---------- sifrarnici ----------
+
+tablica gradovi "Gradovi"
+  naziv Text obavezno
+  postanski Text
+
+tablica partneri "Partneri"
+  naziv Text obavezno
+  oib Text
+    pravilo: [oib] = "" OR Len([oib]) = 11 | OIB ima 11 znamenki
+  grad_id Integer veza=gradovi.id
+  aktivan YesNo zadano=1
+
+tablica artikli "Artikli"
+  sifra Text obavezno
+  naziv Text obavezno
+  jmj Text zadano='kom'
+  cijena Currency
+    zadano: 0
+    pravilo: [cijena] >= 0 | Cijena ne može biti negativna
+  pdv_stopa Decimal/0 zadano=25
+
+// ---------- dokumenti: jedna forma za sve vrste ----------
+
+tablica dokument bezforme bezizvjesca
+  vrsta Text obavezno
+  broj Text
+  datum Date
+    zadano: Today()
+  partner_id Integer veza=partneri.id
+  napomena Memo
+
+tablica dokument_stavke
+  dokument_id Integer veza=dokument.id kaskada
+  artikl_id Integer veza=artikli.id
+  opis Text
+  kolicina Decimal zadano=1
+  cijena Decimal/4 zadano=0
+  iznos Currency zadano=0
+
+forma Dokument
+  izvor: dokument
+  polja: broj, datum, partner_id, napomena
+  detalji: dokument_stavke(dokument_id)
+  izracun: kolicina,cijena -> iznos = Zaokruzi([kolicina] * [cijena], 2)
+  autofill: artikl_id>artikli.id:opis=naziv,cijena=cijena
+  izracunato: Ukupno = Nz(DSum("iznos", "dokument_stavke", "dokument_id = " & [id]), 0)
+  dokument: vrsta, broj
+
+vrsta ponuda "Ponuda" prefiks=pon
+vrsta otp "Otpremnica" prefiks=otp srodne=rv
+vrsta rv "Revers" prefiks=rv srodne=otp
+
+// ---------- izvjesca ----------
+
+izvjesce "Artikli po cijeni"
+  izvor: artikli
+  polja: sifra, naziv, jmj, cijena
+  poredak: cijena
+  opadajuce: da
+
+// ---------- izbornik i prava ----------
+
+izbornik
+  # Dokumenti
+  Ponude -> forma Dokument vrsta=ponuda
+  Otpremnice -> forma Dokument vrsta=otp
+  Reversi -> forma Dokument vrsta=rv
+  # Šifrarnici
+  Partneri -> forma Partneri
+  Artikli -> forma Artikli
+  Gradovi -> forma Gradovi
+  # Izvješća
+  Artikli po cijeni -> izvjesce Artikli po cijeni
+  Popis partnera -> izvjesce Popis: Partneri
+  Izlaz -> zatvori
+
+prava
+  izvjesce Artikli po cijeni: korisnik
+
+postavke
+  firma.naziv: Mali obrt d.o.o.

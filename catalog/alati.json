@@ -1,0 +1,295 @@
+{
+ "id": "alati",
+ "title": "Alati i oprema",
+ "descr": "Popis alata i opreme: stanje, mjesto pohrane, posudbe prijateljima ili kolegama i održavanje.",
+ "tags": "osobno,alati,oprema",
+ "tables": [
+  {
+   "name": "alat",
+   "caption": "Alati",
+   "descr": "Alati i oprema s osnovnim podacima.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra alata.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv alata.",
+     "required": true
+    },
+    {
+     "name": "marka",
+     "caption": "Marka",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Proizvođač."
+    },
+    {
+     "name": "model",
+     "caption": "Model",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv modela."
+    },
+    {
+     "name": "serijski_broj",
+     "caption": "Serijski broj",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj s naljepnice uređaja; potreban za jamstvo i servis."
+    },
+    {
+     "name": "datum_kupnje",
+     "caption": "Kupljeno",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je kupljena.",
+     "default": "Date()"
+    },
+    {
+     "name": "nabavna_cijena",
+     "caption": "Nabavna cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Zadnja nabavna cijena po jedinici.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "stanje_alata",
+     "caption": "Stanje",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Je li alat upotrebljiv.",
+     "choices": "Ispravan,Za servis,Neispravan,Otpisan",
+     "default": "\"Ispravan\""
+    },
+    {
+     "name": "mjesto_pohrane",
+     "caption": "Mjesto pohrane",
+     "type": "text",
+     "role": "opis",
+     "descr": "Gdje se predmet drži (ormar, polica, kutija)."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Bušilica",
+     "Bosch",
+     "GSB 18V",
+     "BSH-0012345",
+     "2023-03-12",
+     140,
+     "Ispravan",
+     "Garaža, polica 2",
+     1,
+     null
+    ],
+    [
+     2,
+     "Kutna brusilica",
+     "Makita",
+     "GA5030",
+     "MKT-998877",
+     "2022-10-01",
+     70,
+     "Ispravan",
+     "Garaža, polica 2",
+     1,
+     null
+    ],
+    [
+     3,
+     "Ljestve 3 m",
+     "Hailo",
+     "L80",
+     null,
+     "2020-05-05",
+     85,
+     "Za servis",
+     "Podrum",
+     1,
+     "Labava stepenica"
+    ]
+   ]
+  },
+  {
+   "name": "posudba_alata",
+   "caption": "Posudbe alata",
+   "descr": "Tko je posudio koji alat i do kada.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra posudbe.",
+     "pk": true
+    },
+    {
+     "name": "alat_id",
+     "caption": "Alat",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Posuđeni alat.",
+     "ref": "alat.sifra",
+     "required": true
+    },
+    {
+     "name": "posudio",
+     "caption": "Posudio",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Tko je posudio.",
+     "required": true
+    },
+    {
+     "name": "datum_posudbe",
+     "caption": "Posuđeno",
+     "type": "date",
+     "role": "datum",
+     "descr": "Dan posudbe.",
+     "default": "Date()"
+    },
+    {
+     "name": "rok_vracanja",
+     "caption": "Rok vraćanja",
+     "type": "date",
+     "role": "datum",
+     "descr": "Do kada treba vratiti."
+    },
+    {
+     "name": "datum_vracanja",
+     "caption": "Vraćeno",
+     "type": "date",
+     "role": "datum",
+     "descr": "Dan stvarnog vraćanja; prazno dok je još posuđeno."
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "Marko (susjed)",
+     "2026-02-20",
+     "2026-03-05",
+     null,
+     null
+    ],
+    [
+     2,
+     2,
+     "Ivan",
+     "2026-01-10",
+     "2026-01-20",
+     "2026-01-18",
+     null
+    ]
+   ]
+  },
+  {
+   "name": "odrzavanje_alata",
+   "caption": "Održavanje alata",
+   "descr": "Servisiranje, oštrenje i popravci alata.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra zapisa.",
+     "pk": true
+    },
+    {
+     "name": "alat_id",
+     "caption": "Alat",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Alat.",
+     "ref": "alat.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum održavanja.",
+     "default": "Date()"
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Što je napravljeno."
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Trošak održavanja.",
+     "decimals": 2
+    },
+    {
+     "name": "sljedeci_servis",
+     "caption": "Sljedeći servis",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada treba ponovno na servis."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     3,
+     "2026-02-01",
+     "Pregledana i učvršćena stepenica, čeka zamjenu.",
+     0,
+     "2026-04-01"
+    ],
+    [
+     2,
+     1,
+     "2025-11-15",
+     "Zamijenjene ugljene četkice.",
+     12,
+     null
+    ]
+   ]
+  }
+ ]
+}

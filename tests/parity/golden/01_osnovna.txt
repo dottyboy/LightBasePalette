@@ -1,0 +1,109 @@
+== 01_osnovna
+-- otvoreno | caption=F01
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Alfa] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[150] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/5 state=browse
+-- dva naprijed | caption=F01
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Gama] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Rijeka] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[300] ro=0 bg=000000 fg=000000 b=0
+  query: rec=3/5 state=browse
+-- izmijenjeno, nespremljeno | caption=F01
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Gama izmijenjena] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Rijeka] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[300] ro=0 bg=000000 fg=000000 b=0
+  query: rec=3/5 state=browse
+-- spremljeno | caption=F01
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Gama izmijenjena] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Rijeka] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[300] ro=0 bg=000000 fg=000000 b=0
+  query: rec=3/5 state=browse
+-- nazad | caption=F01
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Beta] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Split] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[50] ro=0 bg=000000 fg=000000 b=0
+  query: rec=2/5 state=browse
+-- novi | caption=F01
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  query: rec=6/5 state=insert
+-- novi spremljen | caption=F01
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Novi partner] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[12.5] ro=0 bg=000000 fg=000000 b=0
+  query: rec=6/6 state=browse
+-- zadnji | caption=F01
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Novi partner] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[12.5] ro=0 bg=000000 fg=000000 b=0
+  query: rec=6/6 state=browse
+-- obrisan | caption=F01
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Epsilon] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Pula] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[99.5] ro=0 bg=000000 fg=000000 b=0
+  query: rec=5/5 state=browse
+  MSG: POTVRDA: Obrisati zapis? -> da
+-- prvi | caption=F01
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Alfa] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[150] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/5 state=browse
+-- snimka 01_osnovna.png
+-- tablica partneri
+   | 1 | Alfa | Zagreb | 1 | 150
+   | 2 | Beta | Split | 0 | 50
+   | 3 | Gama izmijenjena | Rijeka | 0 | 300
+   | 4 | Delta | Zagreb | 0 | 10
+   | 5 | Epsilon | Pula | 1 | 99.5

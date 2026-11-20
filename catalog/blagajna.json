@@ -1,0 +1,220 @@
+{
+ "id": "blagajna",
+ "title": "Blagajnički dnevnik",
+ "descr": "Gotovinsko poslovanje: blagajnički nalozi (uplatnice i isplatnice) i dnevni izvještaji sa stanjem blagajne. Primjer za učenje i polaznu točku; stope, konta i obrasce uskladi s važećim propisima i svojim računovođom.",
+ "tags": "hrvatska,racunovodstvo,gotovina",
+ "tables": [
+  {
+   "name": "blagajna_nalog",
+   "caption": "Blagajnički nalozi",
+   "descr": "Uplatnice i isplatnice s rednim brojem i opisom.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra naloga.",
+     "pk": true
+    },
+    {
+     "name": "broj",
+     "caption": "Broj",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Službeni broj dokumenta u obliku godina-redni broj (npr. 2026-0001).",
+     "required": true,
+     "width": 110
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum naloga.",
+     "default": "Date()"
+    },
+    {
+     "name": "vrsta_blag_naloga",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Uplata u blagajnu ili isplata iz nje.",
+     "choices": "Uplatnica,Isplatnica",
+     "default": "\"Uplatnica\""
+    },
+    {
+     "name": "partner",
+     "caption": "Partner",
+     "type": "text",
+     "role": "naziv",
+     "descr": "S kim je razmjena obavljena."
+    },
+    {
+     "name": "svrha",
+     "caption": "Svrha",
+     "type": "text",
+     "role": "opis",
+     "descr": "Kratki opis (npr. Konzum, kirija ožujak).",
+     "width": 220
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos naloga.",
+     "decimals": 2
+    },
+    {
+     "name": "broj_dokumenta",
+     "caption": "Dokument",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj primke, izdatnice ili računa na koji se kretanje odnosi."
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "U-2026-001",
+     "2026-03-02",
+     "Uplatnica",
+     "Marija Horvat",
+     "Gotovinsko plaćanje računa 2026-0002",
+     150,
+     "2026-0002",
+     null
+    ],
+    [
+     2,
+     "I-2026-001",
+     "2026-03-03",
+     "Isplatnica",
+     "Papir i ured d.o.o.",
+     "Uredski materijal",
+     45.5,
+     "R-77/26",
+     null
+    ],
+    [
+     3,
+     "I-2026-002",
+     "2026-03-05",
+     "Isplatnica",
+     "HAK",
+     "Cestarina",
+     18.6,
+     null,
+     null
+    ]
+   ],
+   "report": true,
+   "report_group": "vrsta_blag_naloga",
+   "report_sort": "datum"
+  },
+  {
+   "name": "blagajna_izvjestaj",
+   "caption": "Dnevni izvještaji",
+   "descr": "Stanje blagajne na kraju dana: početno stanje + uplate - isplate = završno stanje.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra izvještaja.",
+     "pk": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Dan izvještaja.",
+     "default": "Date()"
+    },
+    {
+     "name": "pocetno_stanje",
+     "caption": "Početno stanje",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Stanje na dan početka vođenja; trenutno stanje = početno + promet.",
+     "decimals": 2,
+     "default": "0"
+    },
+    {
+     "name": "ukupne_uplate",
+     "caption": "Uplate",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Zbroj uplatnica u danu.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    },
+    {
+     "name": "ukupne_isplate",
+     "caption": "Isplate",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Zbroj isplatnica u danu.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    },
+    {
+     "name": "zavrsno_stanje",
+     "caption": "Završno stanje",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Stanje blagajne na kraju dana.",
+     "decimals": 2
+    },
+    {
+     "name": "blagajnik",
+     "caption": "Blagajnik",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Tko vodi blagajnu."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "2026-03-02",
+     200,
+     150,
+     0,
+     350,
+     "Ivan Horvat"
+    ],
+    [
+     2,
+     "2026-03-03",
+     350,
+     0,
+     45.5,
+     304.5,
+     "Ivan Horvat"
+    ],
+    [
+     3,
+     "2026-03-05",
+     304.5,
+     0,
+     18.6,
+     285.9,
+     "Ivan Horvat"
+    ]
+   ]
+  }
+ ]
+}

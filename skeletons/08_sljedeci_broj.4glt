@@ -1,0 +1,14 @@
+@format 1
+@kostur  Sljedeći broj dokumenta
+@opis    Najveći broj u stupcu uvećan za jedan (npr. broj računa).
+@kontekst  gumb
+@kategorija  Održavanje
+@utor tablica : tablica                                   "Koja tablica?"
+@utor stupac  : stupac:broj(tablica) zadano=kljuc         "Stupac s brojem"
+@preduvjet tablica ima stupac tipa broj
+---
+MAIN
+  DEFINE sljedeci INTEGER
+  SELECT COALESCE(MAX({stupac}), 0) + 1 INTO sljedeci FROM {tablica}
+  DISPLAY "Sljedeći broj ({tablica}.{stupac}): ", sljedeci
+END MAIN

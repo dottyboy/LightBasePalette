@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+<defs>
+<g>
+<g id="glyph-0-0">
+<path d="M 6.421875 -4.71875 L 4.515625 -2.8125 L 6.421875 -0.921875 L 5.671875 -0.1875 L 3.765625 -2.078125 L 1.859375 -0.1875 L 1.125 -0.921875 L 3.03125 -2.8125 L 1.125 -4.71875 L 1.859375 -5.46875 L 3.765625 -3.5625 L 5.671875 -5.46875 Z M 6.421875 -4.71875 "/>
+</g>
+</g>
+</defs>
+<path fill-rule="nonzero" fill="rgb(11.764706%, 22.745098%, 54.117647%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 8.5 6.398438 L 14.101562 9.199219 L 8.5 12 L 2.898438 9.199219 Z M 8.5 6.398438 "/>
+<path fill-rule="nonzero" fill="rgb(11.764706%, 16.078431%, 23.137255%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 2.898438 9.199219 L 8.5 12 L 8.5 18.300781 L 2.898438 15.5 Z M 2.898438 9.199219 "/>
+<path fill-rule="nonzero" fill="rgb(20%, 25.490196%, 33.333333%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 14.101562 9.199219 L 8.5 12 L 8.5 18.300781 L 14.101562 15.5 Z M 14.101562 9.199219 "/>
+<g fill="rgb(37.647059%, 64.705882%, 98.039216%)" fill-opacity="1">
+<use xlink:href="#glyph-0-0" x="14.230469" y="15.5"/>
+</g>
+</svg>

@@ -1,0 +1,425 @@
+{
+ "id": "projekti",
+ "title": "Projekti i zadaci",
+ "descr": "Vođenje projekata: projekt s rokom i proračunom, zadaci po osobama, utrošeni sati i ključni događaji.",
+ "tags": "posao,projekti,planiranje",
+ "tables": [
+  {
+   "name": "projekt",
+   "caption": "Projekti",
+   "descr": "Poslovi koji se vode kroz rokove, zadatke i sate.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra projekta.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv projekta.",
+     "required": true
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Cilj i opseg projekta."
+    },
+    {
+     "name": "klijent",
+     "caption": "Klijent",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Za koga se projekt radi."
+    },
+    {
+     "name": "voditelj",
+     "caption": "Voditelj",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Tko vodi projekt."
+    },
+    {
+     "name": "pocetak",
+     "caption": "Početak",
+     "type": "date",
+     "role": "datum",
+     "descr": "Planirani ili stvarni početak."
+    },
+    {
+     "name": "rok",
+     "caption": "Rok",
+     "type": "date",
+     "role": "datum",
+     "descr": "Do kada projekt mora biti gotov."
+    },
+    {
+     "name": "status_projekta",
+     "caption": "Status",
+     "type": "text",
+     "role": "status",
+     "descr": "Stanje projekta.",
+     "choices": "Planiran,U tijeku,Na čekanju,Završen,Otkazan",
+     "default": "\"Planiran\""
+    },
+    {
+     "name": "proracun_sati",
+     "caption": "Proračun (sati)",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Planirani broj sati.",
+     "decimals": 1,
+     "validation": "[value] >= 0",
+     "validation_msg": "Sati ne mogu biti negativni."
+    },
+    {
+     "name": "budzet_projekta",
+     "caption": "Budžet",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Odobreni novčani okvir.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Budžet ne može biti negativan."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Web portal za kupce",
+     "Novi portal s prijavom i narudžbama.",
+     "Kvaka d.o.o.",
+     "Marta Novak",
+     "2026-01-15",
+     "2026-06-30",
+     "U tijeku",
+     400,
+     24000
+    ],
+    [
+     2,
+     "Preseljenje poslužitelja",
+     "Prebacivanje sustava u oblak.",
+     "Adria promet d.d.",
+     "Ivan Horvat",
+     "2026-03-01",
+     "2026-04-15",
+     "Planiran",
+     120,
+     6500
+    ]
+   ],
+   "report": true,
+   "report_group": "status_projekta",
+   "report_sort": "rok"
+  },
+  {
+   "name": "zadatak",
+   "caption": "Zadaci",
+   "descr": "Pojedinačni poslovi unutar projekta.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra zadatka.",
+     "pk": true
+    },
+    {
+     "name": "projekt_id",
+     "caption": "Projekt",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Projekt kojem zadatak pripada.",
+     "ref": "projekt.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Što treba napraviti.",
+     "required": true
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Detalji i kriteriji gotovosti."
+    },
+    {
+     "name": "zaduzeni",
+     "caption": "Zaduženi",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Osoba koja radi zadatak."
+    },
+    {
+     "name": "prioritet",
+     "caption": "Prioritet",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Hitnost zadatka.",
+     "choices": "Nizak,Srednji,Visok,Hitno",
+     "default": "\"Srednji\""
+    },
+    {
+     "name": "status_zadatka",
+     "caption": "Status",
+     "type": "text",
+     "role": "status",
+     "descr": "Napredak zadatka.",
+     "choices": "Za napraviti,U tijeku,Provjera,Gotovo",
+     "default": "\"Za napraviti\""
+    },
+    {
+     "name": "rok",
+     "caption": "Rok",
+     "type": "date",
+     "role": "datum",
+     "descr": "Do kada zadatak mora biti gotov."
+    },
+    {
+     "name": "procjena_sati",
+     "caption": "Procjena (sati)",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Procijenjeno trajanje.",
+     "decimals": 1,
+     "validation": "[value] >= 0",
+     "validation_msg": "Procjena ne može biti negativna."
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "Dizajn sučelja",
+     "Skice i prototip svih ekrana.",
+     "Ana Kovač",
+     "Visok",
+     "Gotovo",
+     "2026-02-15",
+     40,
+     null
+    ],
+    [
+     2,
+     1,
+     "Prijava korisnika",
+     "Prijava, registracija, zaboravljena lozinka.",
+     "Petar Marić",
+     "Visok",
+     "U tijeku",
+     "2026-03-31",
+     60,
+     null
+    ],
+    [
+     3,
+     1,
+     "Narudžbe",
+     "Košarica i povijest narudžbi.",
+     "Petar Marić",
+     "Srednji",
+     "Za napraviti",
+     "2026-05-15",
+     90,
+     "Ovisi o prijavi"
+    ],
+    [
+     4,
+     2,
+     "Popis sustava za selidbu",
+     "Inventura aplikacija i baza.",
+     "Ivan Horvat",
+     "Srednji",
+     "U tijeku",
+     "2026-03-20",
+     16,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "evidencija_rada",
+   "caption": "Evidencija rada",
+   "descr": "Sati utrošeni na zadatke; osnova za obračun i praćenje proračuna.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra unosa.",
+     "pk": true
+    },
+    {
+     "name": "zadatak_id",
+     "caption": "Zadatak",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Na kojem zadatku je radio.",
+     "ref": "zadatak.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Dan rada.",
+     "default": "Date()"
+    },
+    {
+     "name": "zaduzeni",
+     "caption": "Zaduženi",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Osoba koja radi zadatak."
+    },
+    {
+     "name": "sati",
+     "caption": "Sati",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Utrošeni sati (do 24).",
+     "decimals": 2,
+     "required": true,
+     "validation": "[value] > 0 And [value] <= 24",
+     "validation_msg": "Sati su između 0 i 24."
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Što je napravljeno."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-02-03",
+     "Ana Kovač",
+     6.5,
+     "Skice početne stranice."
+    ],
+    [
+     2,
+     1,
+     "2026-02-10",
+     "Ana Kovač",
+     8,
+     "Prototip u alatu."
+    ],
+    [
+     3,
+     2,
+     "2026-03-04",
+     "Petar Marić",
+     7,
+     "Obrazac za prijavu."
+    ],
+    [
+     4,
+     4,
+     "2026-03-09",
+     "Ivan Horvat",
+     4,
+     "Popis baza."
+    ]
+   ]
+  },
+  {
+   "name": "kljucni_dogadjaj",
+   "caption": "Ključni događaji",
+   "descr": "Važne točke projekta (isporuke, odobrenja).",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra događaja.",
+     "pk": true
+    },
+    {
+     "name": "projekt_id",
+     "caption": "Projekt",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Projekt.",
+     "ref": "projekt.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv događaja (npr. Prva isporuka).",
+     "required": true
+    },
+    {
+     "name": "rok",
+     "caption": "Rok",
+     "type": "date",
+     "role": "datum",
+     "descr": "Do kada se događaj mora dogoditi."
+    },
+    {
+     "name": "ostvareno",
+     "caption": "Ostvareno",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Označi kad je događaj ostvaren.",
+     "default": "False"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "Prototip odobren",
+     "2026-02-20",
+     1
+    ],
+    [
+     2,
+     1,
+     "Prva isporuka",
+     "2026-04-30",
+     0
+    ],
+    [
+     3,
+     2,
+     "Prebacivanje završeno",
+     "2026-04-15",
+     0
+    ]
+   ]
+  }
+ ]
+}

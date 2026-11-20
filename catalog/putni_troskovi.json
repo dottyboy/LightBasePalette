@@ -1,0 +1,296 @@
+{
+ "id": "putni_troskovi",
+ "title": "Putni troškovi",
+ "descr": "Službena putovanja: odredište, akontacija, troškovi po vrsti i dnevnice za obračun putnog naloga.",
+ "tags": "posao,putovanja,troskovi",
+ "tables": [
+  {
+   "name": "putovanje",
+   "caption": "Putovanja",
+   "descr": "Službena putovanja za obračun.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra putovanja.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Kratki naziv putovanja.",
+     "required": true
+    },
+    {
+     "name": "odrediste",
+     "caption": "Odredište",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Grad ili država."
+    },
+    {
+     "name": "pocetak",
+     "caption": "Početak",
+     "type": "date",
+     "role": "datum",
+     "descr": "Prvi dan."
+    },
+    {
+     "name": "kraj",
+     "caption": "Kraj",
+     "type": "date",
+     "role": "datum",
+     "descr": "Zadnji dan."
+    },
+    {
+     "name": "svrha",
+     "caption": "Svrha",
+     "type": "text",
+     "role": "opis",
+     "descr": "Kratki opis (npr. Konzum, kirija ožujak).",
+     "width": 220
+    },
+    {
+     "name": "status_putovanja",
+     "caption": "Status",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Stanje obračuna.",
+     "choices": "Planirano,U tijeku,Završeno,Obračunano",
+     "default": "\"Planirano\""
+    },
+    {
+     "name": "akontacija",
+     "caption": "Akontacija",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Unaprijed isplaćen iznos.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Akontacija ne može biti negativna."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Sajam u Münchenu",
+     "München, Njemačka",
+     "2026-04-20",
+     "2026-04-23",
+     "Sajam opreme",
+     "Planirano",
+     400
+    ],
+    [
+     2,
+     "Sastanak u Splitu",
+     "Split",
+     "2026-02-10",
+     "2026-02-11",
+     "Sastanak s klijentom",
+     "Obračunano",
+     100
+    ]
+   ]
+  },
+  {
+   "name": "trosak_putovanja",
+   "caption": "Troškovi putovanja",
+   "descr": "Pojedinačni troškovi s računima.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra troška.",
+     "pk": true
+    },
+    {
+     "name": "putovanje_id",
+     "caption": "Putovanje",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Putovanje.",
+     "ref": "putovanje.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum troška.",
+     "default": "Date()"
+    },
+    {
+     "name": "vrsta_putnog_troska",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Što je plaćeno.",
+     "choices": "Prijevoz,Smještaj,Prehrana,Gorivo,Cestarina,Parking,Ostalo",
+     "default": "\"Prijevoz\""
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos troška.",
+     "decimals": 2
+    },
+    {
+     "name": "valuta",
+     "caption": "Valuta",
+     "type": "text",
+     "role": "oznaka",
+     "descr": "Oznaka valute (npr. EUR).",
+     "default": "\"EUR\""
+    },
+    {
+     "name": "nacin_placanja",
+     "caption": "Način plaćanja",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Kako kupac plaća.",
+     "choices": "Virman,Gotovina,Kartica,Pouzeće",
+     "default": "\"Kartica\""
+    },
+    {
+     "name": "broj_racuna",
+     "caption": "Broj računa",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj računa za knjigovodstvo."
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     2,
+     "2026-02-10",
+     "Gorivo",
+     42,
+     "EUR",
+     "Kartica",
+     "R-4411",
+     null
+    ],
+    [
+     2,
+     2,
+     "2026-02-10",
+     "Cestarina",
+     18.6,
+     "EUR",
+     "Gotovina",
+     null,
+     null
+    ],
+    [
+     3,
+     2,
+     "2026-02-11",
+     "Prehrana",
+     21,
+     "EUR",
+     "Kartica",
+     "R-4420",
+     "Ručak s klijentom"
+    ],
+    [
+     4,
+     1,
+     "2026-04-15",
+     "Smještaj",
+     320,
+     "EUR",
+     "Kartica",
+     "HT-8812",
+     "Rezervirano unaprijed"
+    ]
+   ]
+  },
+  {
+   "name": "dnevnica",
+   "caption": "Dnevnice",
+   "descr": "Dnevnice za dane provedene na putu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra dnevnice.",
+     "pk": true
+    },
+    {
+     "name": "putovanje_id",
+     "caption": "Putovanje",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Putovanje.",
+     "ref": "putovanje.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Dan za koji se obračunava.",
+     "default": "Date()"
+    },
+    {
+     "name": "sati",
+     "caption": "Sati",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Utrošeni sati (do 24).",
+     "decimals": 2,
+     "required": true,
+     "validation": "[value] > 0 And [value] <= 24",
+     "validation_msg": "Sati su između 0 i 24."
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos dnevnice.",
+     "decimals": 2
+    }
+   ],
+   "sample": [
+    [
+     1,
+     2,
+     "2026-02-10",
+     12,
+     26.54
+    ],
+    [
+     2,
+     2,
+     "2026-02-11",
+     8,
+     13.27
+    ]
+   ]
+  }
+ ]
+}

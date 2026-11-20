@@ -1,0 +1,26 @@
+== 20_ukupno_stavki
+-- racun 1 | caption=F20
+  txtBroj TextBox v=1 e=1 text=[R-1] ro=0 bg=000000 fg=000000 b=0
+  txtUk TextBox v=1 e=1 text=[30.00] ro=1 bg=000000 fg=000000 b=0
+  subSt Subform v=1 e=1 bg=000000
+  query: rec=1/2 state=browse
+-- nakon unosa stavke u mrezu | caption=F20
+  txtBroj TextBox v=1 e=1 text=[R-1] ro=0 bg=000000 fg=000000 b=0
+  txtUk TextBox v=1 e=1 text=[37.50] ro=1 bg=000000 fg=000000 b=0
+  subSt Subform v=1 e=1 bg=000000
+  query: rec=1/2 state=browse
+-- racun 2 (prazan) | caption=F20
+  txtBroj TextBox v=1 e=1 text=[R-2] ro=0 bg=000000 fg=000000 b=0
+  txtUk TextBox v=1 e=1 text=[0.00] ro=1 bg=000000 fg=000000 b=0
+  subSt Subform v=1 e=1 bg=000000
+  query: rec=2/2 state=browse
+-- natrag na racun 1 | caption=F20
+  txtBroj TextBox v=1 e=1 text=[R-1] ro=0 bg=000000 fg=000000 b=0
+  txtUk TextBox v=1 e=1 text=[37.50] ro=1 bg=000000 fg=000000 b=0
+  subSt Subform v=1 e=1 bg=000000
+  query: rec=1/2 state=browse
+-- snimka 20_ukupno_stavki.png
+-- tablica stavke
+   | 1 | 1 | a | 10
+   | 2 | 1 | b | 20
+   | 3 | 1 | c | 7.5

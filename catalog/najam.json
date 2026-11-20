@@ -1,0 +1,554 @@
+{
+ "id": "najam",
+ "title": "Nekretnine i najam",
+ "descr": "Najam stanova i poslovnih prostora: nekretnine, najmoprimci, ugovori, mjesečne uplate i troškovi održavanja.",
+ "tags": "nekretnine,najam,financije",
+ "tables": [
+  {
+   "name": "nekretnina",
+   "caption": "Nekretnine",
+   "descr": "Stanovi, kuće i prostori koji se iznajmljuju.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra nekretnine.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Kratak naziv (npr. Stan Savska 12).",
+     "required": true
+    },
+    {
+     "name": "vrsta_nekretnine",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Vrsta nekretnine.",
+     "choices": "Stan,Kuća,Poslovni prostor,Garaža,Zemljište",
+     "default": "\"Stan\""
+    },
+    {
+     "name": "adresa",
+     "caption": "Adresa",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Ulica i kućni broj.",
+     "width": 200
+    },
+    {
+     "name": "postanski_broj",
+     "caption": "Poštanski broj",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Poštanski broj mjesta."
+    },
+    {
+     "name": "mjesto",
+     "caption": "Mjesto",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Grad ili naselje."
+    },
+    {
+     "name": "povrsina_m2",
+     "caption": "Površina (m²)",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Korisna površina.",
+     "decimals": 1,
+     "validation": "[value] > 0",
+     "validation_msg": "Površina mora biti veća od nule."
+    },
+    {
+     "name": "broj_soba",
+     "caption": "Broj soba",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Broj soba bez kuhinje i kupaonice.",
+     "validation": "[value] >= 0",
+     "validation_msg": "Broj soba ne može biti negativan."
+    },
+    {
+     "name": "mjesecna_najamnina",
+     "caption": "Najamnina (mjesečno)",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Tražena mjesečna najamnina.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Najamnina ne može biti negativna."
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Opis, oprema, napomene."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Stan Savska 12",
+     "Stan",
+     "Savska cesta 12",
+     "10000",
+     "Zagreb",
+     62.5,
+     2,
+     650,
+     "Dvosoban stan, 3. kat, lift.",
+     1
+    ],
+    [
+     2,
+     "Ured Ilica 5",
+     "Poslovni prostor",
+     "Ilica 5",
+     "10000",
+     "Zagreb",
+     48,
+     2,
+     900,
+     "Ured u centru, klima.",
+     1
+    ],
+    [
+     3,
+     "Garaža Vrbik",
+     "Garaža",
+     "Vrbik 3",
+     "10000",
+     "Zagreb",
+     15,
+     0,
+     90,
+     null,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "najmoprimac",
+   "caption": "Najmoprimci",
+   "descr": "Osobe i tvrtke koje iznajmljuju.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra najmoprimca.",
+     "pk": true
+    },
+    {
+     "name": "ime",
+     "caption": "Ime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Osobno ime.",
+     "required": true
+    },
+    {
+     "name": "prezime",
+     "caption": "Prezime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Prezime.",
+     "required": true
+    },
+    {
+     "name": "oib",
+     "caption": "OIB",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Osobni identifikacijski broj, 11 znamenki (kod tvrtke ili osobe).",
+     "validation": "Len([value]) = 11 And IsNumeric([value])",
+     "validation_msg": "OIB mora imati točno 11 znamenki."
+    },
+    {
+     "name": "email",
+     "caption": "E-pošta",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa elektroničke pošte; provjerava se oblik a@b.c.",
+     "validation": "[value] Like \"*@*.*\"",
+     "validation_msg": "Unesi ispravnu adresu e-pošte (npr. ime@tvrtka.hr).",
+     "width": 200
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "iban",
+     "caption": "IBAN",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Međunarodni broj računa, npr. HR12 3456 7890 1234 5678 9.",
+     "validation": "Len([value]) >= 15",
+     "validation_msg": "IBAN je prekratak.",
+     "width": 220
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Luka",
+     "Vidović",
+     "44444444441",
+     "luka.vidovic@mail.hr",
+     "091 700 8000",
+     "HR1210010051863000160",
+     null
+    ],
+    [
+     2,
+     "Dino",
+     "Šarić",
+     "55555555558",
+     "dino.saric@dsdizajn.hr",
+     "098 400 5000",
+     "HR4423600001101234565",
+     "Plaća preko tvrtke DS dizajn"
+    ]
+   ]
+  },
+  {
+   "name": "ugovor_o_najmu",
+   "caption": "Ugovori o najmu",
+   "descr": "Tko iznajmljuje što, od kada do kada i uz koju najamninu i polog.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra ugovora.",
+     "pk": true
+    },
+    {
+     "name": "nekretnina_id",
+     "caption": "Nekretnina",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Iznajmljena nekretnina.",
+     "ref": "nekretnina.sifra",
+     "required": true
+    },
+    {
+     "name": "najmoprimac_id",
+     "caption": "Najmoprimac",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Tko iznajmljuje.",
+     "ref": "najmoprimac.sifra",
+     "required": true
+    },
+    {
+     "name": "pocetak",
+     "caption": "Početak",
+     "type": "date",
+     "role": "datum",
+     "descr": "Prvi dan najma."
+    },
+    {
+     "name": "kraj",
+     "caption": "Kraj",
+     "type": "date",
+     "role": "datum",
+     "descr": "Zadnji dan najma."
+    },
+    {
+     "name": "mjesecna_najamnina",
+     "caption": "Najamnina (mjesečno)",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Tražena mjesečna najamnina.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Najamnina ne može biti negativna."
+    },
+    {
+     "name": "polog",
+     "caption": "Polog",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Jamčevina koja se vraća na kraju najma.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Polog ne može biti negativan."
+    },
+    {
+     "name": "status_ugovora",
+     "caption": "Status",
+     "type": "text",
+     "role": "status",
+     "descr": "Je li ugovor na snazi.",
+     "choices": "Aktivan,Istekao,Raskinut",
+     "default": "\"Aktivan\""
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     1,
+     "2025-09-01",
+     "2026-08-31",
+     650,
+     1300,
+     "Aktivan",
+     null
+    ],
+    [
+     2,
+     2,
+     2,
+     "2025-01-01",
+     "2026-12-31",
+     900,
+     1800,
+     "Aktivan",
+     "Uključene režije"
+    ]
+   ],
+   "report": true,
+   "report_group": "status_ugovora",
+   "report_sort": "pocetak"
+  },
+  {
+   "name": "uplata_najma",
+   "caption": "Uplate najamnine",
+   "descr": "Mjesečne uplate po ugovoru.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra uplate.",
+     "pk": true
+    },
+    {
+     "name": "ugovor_id",
+     "caption": "Ugovor",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Ugovor na koji se uplata odnosi.",
+     "ref": "ugovor_o_najmu.sifra",
+     "required": true
+    },
+    {
+     "name": "godina",
+     "caption": "Godina",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Godina na koju se podatak odnosi.",
+     "required": true,
+     "validation": "[value] >= 2000 And [value] <= 2100",
+     "validation_msg": "Unesi godinu između 2000 i 2100."
+    },
+    {
+     "name": "mjesec",
+     "caption": "Mjesec",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Mjesec (1-12).",
+     "required": true,
+     "validation": "[value] >= 1 And [value] <= 12",
+     "validation_msg": "Mjesec je od 1 do 12."
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum uplate.",
+     "default": "Date()"
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Uplaćeni iznos.",
+     "decimals": 2
+    },
+    {
+     "name": "nacin_placanja",
+     "caption": "Način plaćanja",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Kako kupac plaća.",
+     "choices": "Virman,Gotovina,Kartica,Pouzeće",
+     "default": "\"Virman\""
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     2026,
+     1,
+     "2026-01-03",
+     650,
+     "Virman",
+     null
+    ],
+    [
+     2,
+     1,
+     2026,
+     2,
+     "2026-02-02",
+     650,
+     "Virman",
+     null
+    ],
+    [
+     3,
+     2,
+     2026,
+     2,
+     "2026-02-05",
+     900,
+     "Virman",
+     null
+    ]
+   ]
+  },
+  {
+   "name": "trosak_nekretnine",
+   "caption": "Troškovi nekretnina",
+   "descr": "Održavanje, pričuva, porezi i osiguranje po nekretnini.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra troška.",
+     "pk": true
+    },
+    {
+     "name": "nekretnina_id",
+     "caption": "Nekretnina",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Na koju se trošak odnosi.",
+     "ref": "nekretnina.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum troška.",
+     "default": "Date()"
+    },
+    {
+     "name": "vrsta_troska",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Vrsta troška.",
+     "choices": "Održavanje,Pričuva,Porez,Osiguranje,Režije,Ostalo",
+     "default": "\"Održavanje\""
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos troška.",
+     "decimals": 2
+    },
+    {
+     "name": "svrha",
+     "caption": "Svrha",
+     "type": "text",
+     "role": "opis",
+     "descr": "Kratki opis (npr. Konzum, kirija ožujak).",
+     "width": 220
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-01-15",
+     "Pričuva",
+     45,
+     "Pričuva siječanj",
+     null
+    ],
+    [
+     2,
+     2,
+     "2026-02-12",
+     "Održavanje",
+     180,
+     "Popravak klime",
+     null
+    ],
+    [
+     3,
+     1,
+     "2026-03-01",
+     "Osiguranje",
+     120,
+     "Godišnja polica",
+     null
+    ]
+   ]
+  }
+ ]
+}

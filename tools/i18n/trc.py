@@ -1,0 +1,15 @@
+T = {
+4:"tables cannot be created because of circular references: ",5:"form ",24:": invalid JSON: ",25:": the root must be an object",27:": missing \"id\"",28:": missing \"tables\"",30:": table ",31:" has no \"fields\"",
+34:"Unknown control kind: ",36:": the season cannot be read from the name",37:": no match was read",38:": the columns Country, League or Season are missing",39:": no league was recognized",40:": the columns Country, League, Season are missing",
+42:"There are no matches for ",43:"Not a number: \"",44:"The condition is not a logical value: \"",45:"Not a date: \"",46:"Not a logical value: \"",47:"The record or field cannot take a single value",48:"the field is required",
+49:"Disallowed subfolder: ",50:"There is no free file name in ",51:"There is no file: ",52:"The file store is not available (the database is not open)",53:"Cannot create the folder ",54:"Copying failed: ",
+55:"There is no layout file: ",56:"The layout cannot be read: ",57:"Layout ",58:": unknown header form (needs Div/HomeTeam/AwayTeam or Country/League/Home/Away)",59:"the list of tables was not read",60:"A table must have at least one field",
+61:"The link is not possible: %d rows have no matching record in the linked table.",74:"Unknown model \"",75:"\", expected poisson, newton or market",76:"Table \"",77:"\" is not in the query.",78:"Field \"",79:"\" does not exist in ",
+80:"Unknown field [",81:"Field [",82:"] exists in several tables; write [table.",83:"Criterion \"",84:"Expression \"",85:"No column is shown.",86:"Report source: ",87:"Unknown action: ",
+88:"The copyrows command needs the form: source [WHERE condition] -> target : field = expression, ...",89:"The copyrows command: the list of fields after \":\" is missing",90:"copyrows: invalid table name.",91:"copyrows: invalid assignment \"",
+92:"\" (form: field = expression).",93:"copyrows: there are no fields to copy.",94:"copyrows failed: ",95:"SQL failed: ",96:"There is no 4GL program: ",97:"4GL cannot be run from this environment.",98:"There is no procedure: ",99:"The command ",
+100:" needs the form: name = expression",102:"The fetch command needs the form: name = SELECT ...",103:"The query failed: ",104:"The exporttable command needs the form: source > file",105:"Export failed: ",106:"The copyfile command needs the form: source > destination",
+107:"The file does not exist: ",108:"The importtable command needs the form: table < file",109:"The file cannot be read: ",110:"Import failed: ",111:"Backup failed: ",112:"The macro is nested too deeply.",113:"Macro, ",
+114:"The macro runs too long (infinite loop?).",115:"Macro, line ",116:": \"then\" is missing.",117:"There is no macro: ",121:"The script does not compile:",122:"Error in the script (",123:"Unknown value: ",124:"Invalid value for the field ",
+134:"Item count:",136:"Total ",138:"Total",139:"Grand total",140:"Rows:",143:" from:",147:"to:",148:"Refresh",149:"Clear filters",150:"Form with a filter and a grid",151:"Standard form (card)",152:"Tabular report with totals",153:"4GL program template",
+}

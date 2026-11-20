@@ -1,0 +1,475 @@
+{
+ "id": "crm",
+ "title": "Kupci, kontakti i prodajne prilike",
+ "descr": "Prodajni lijevak: tvrtke, kontakti, prilike po fazama i evidencija poziva, sastanaka i ponuda.",
+ "tags": "posao,prodaja,kupci",
+ "tables": [
+  {
+   "name": "tvrtka",
+   "caption": "Tvrtke",
+   "descr": "Tvrtke koje su kupci ili potencijalni kupci.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra tvrtke.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv tvrtke.",
+     "required": true
+    },
+    {
+     "name": "oib",
+     "caption": "OIB",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Osobni identifikacijski broj, 11 znamenki (kod tvrtke ili osobe).",
+     "validation": "Len([value]) = 11 And IsNumeric([value])",
+     "validation_msg": "OIB mora imati točno 11 znamenki."
+    },
+    {
+     "name": "djelatnost",
+     "caption": "Djelatnost",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Čime se tvrtka bavi.",
+     "choices": "Proizvodnja,Trgovina,Usluge,Turizam,Javni sektor,IT,Ostalo",
+     "default": "\"Usluge\""
+    },
+    {
+     "name": "adresa",
+     "caption": "Adresa",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Ulica i kućni broj.",
+     "width": 200
+    },
+    {
+     "name": "postanski_broj",
+     "caption": "Poštanski broj",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Poštanski broj mjesta."
+    },
+    {
+     "name": "mjesto",
+     "caption": "Mjesto",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Grad ili naselje."
+    },
+    {
+     "name": "drzava",
+     "caption": "Država",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Država; zadano Hrvatska.",
+     "default": "\"Hrvatska\""
+    },
+    {
+     "name": "email",
+     "caption": "E-pošta",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa elektroničke pošte; provjerava se oblik a@b.c.",
+     "validation": "[value] Like \"*@*.*\"",
+     "validation_msg": "Unesi ispravnu adresu e-pošte (npr. ime@tvrtka.hr).",
+     "width": 200
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "web",
+     "caption": "Web",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa web stranice.",
+     "width": 180
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Kvaka d.o.o.",
+     "12345678903",
+     "Trgovina",
+     "Ilica 12",
+     "10000",
+     "Zagreb",
+     "Hrvatska",
+     "info@kvaka.hr",
+     "01 555 1234",
+     "www.kvaka.hr",
+     null
+    ],
+    [
+     2,
+     "Adria promet d.d.",
+     "45678912305",
+     "Usluge",
+     "Riva 7",
+     "21000",
+     "Split",
+     "Hrvatska",
+     "uprava@adria-promet.hr",
+     "021 330 440",
+     "www.adria-promet.hr",
+     null
+    ],
+    [
+     3,
+     "Tehno Plus d.o.o.",
+     "56789123406",
+     "IT",
+     "Zagrebačka 3",
+     "42000",
+     "Varaždin",
+     "Hrvatska",
+     "kontakt@tehnoplus.hr",
+     "042 200 300",
+     "www.tehnoplus.hr",
+     "Preporuka kolege"
+    ]
+   ]
+  },
+  {
+   "name": "kontakt",
+   "caption": "Kontakti",
+   "descr": "Osobe u tvrtkama s kojima se komunicira.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra kontakta.",
+     "pk": true
+    },
+    {
+     "name": "tvrtka_id",
+     "caption": "Tvrtka",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Gdje osoba radi.",
+     "ref": "tvrtka.sifra",
+     "required": true
+    },
+    {
+     "name": "ime",
+     "caption": "Ime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Osobno ime.",
+     "required": true
+    },
+    {
+     "name": "prezime",
+     "caption": "Prezime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Prezime.",
+     "required": true
+    },
+    {
+     "name": "funkcija",
+     "caption": "Funkcija",
+     "type": "text",
+     "role": "opis",
+     "descr": "Radno mjesto ili uloga u tvrtki."
+    },
+    {
+     "name": "email",
+     "caption": "E-pošta",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa elektroničke pošte; provjerava se oblik a@b.c.",
+     "validation": "[value] Like \"*@*.*\"",
+     "validation_msg": "Unesi ispravnu adresu e-pošte (npr. ime@tvrtka.hr).",
+     "width": 200
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "Davor",
+     "Perić",
+     "Direktor nabave",
+     "davor.peric@kvaka.hr",
+     "091 500 6000",
+     1
+    ],
+    [
+     2,
+     2,
+     "Sanja",
+     "Jurić",
+     "Voditeljica financija",
+     "sanja.juric@adria-promet.hr",
+     "091 600 7000",
+     1
+    ],
+    [
+     3,
+     3,
+     "Goran",
+     "Matić",
+     "Tehnički direktor",
+     "goran.matic@tehnoplus.hr",
+     "098 800 9000",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "prilika",
+   "caption": "Prodajne prilike",
+   "descr": "Mogući poslovi s procjenom vrijednosti i vjerojatnosti.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra prilike.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Kratak naziv posla.",
+     "required": true
+    },
+    {
+     "name": "tvrtka_id",
+     "caption": "Tvrtka",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Kupac.",
+     "ref": "tvrtka.sifra",
+     "required": true
+    },
+    {
+     "name": "kontakt_id",
+     "caption": "Kontakt",
+     "type": "integer",
+     "role": "veza",
+     "descr": "S kim se pregovara.",
+     "ref": "kontakt.sifra"
+    },
+    {
+     "name": "faza_prodaje",
+     "caption": "Faza",
+     "type": "text",
+     "role": "status",
+     "descr": "U kojoj je fazi prodajnog lijevka prilika.",
+     "choices": "Upit,Ponuda,Pregovori,Dobiveno,Izgubljeno",
+     "default": "\"Upit\""
+    },
+    {
+     "name": "vrijednost",
+     "caption": "Vrijednost",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Procijenjena vrijednost posla.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Vrijednost ne može biti negativna."
+    },
+    {
+     "name": "vjerojatnost",
+     "caption": "Vjerojatnost (%)",
+     "type": "integer",
+     "role": "postotak",
+     "descr": "Procijenjena vjerojatnost uspjeha, 0-100.",
+     "default": "50",
+     "validation": "[value] >= 0 And [value] <= 100",
+     "validation_msg": "Vjerojatnost je od 0 do 100."
+    },
+    {
+     "name": "ocekivano_zatvaranje",
+     "caption": "Očekivano zatvaranje",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada se očekuje odluka kupca."
+    },
+    {
+     "name": "datum_otvaranja",
+     "caption": "Otvoreno",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je prilika otvorena.",
+     "default": "Date()"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Novi web portal",
+     1,
+     1,
+     "Pregovori",
+     12000,
+     60,
+     "2026-04-30",
+     "2026-01-20"
+    ],
+    [
+     2,
+     "Godišnje održavanje",
+     2,
+     2,
+     "Ponuda",
+     4800,
+     40,
+     "2026-05-15",
+     "2026-02-10"
+    ],
+    [
+     3,
+     "Integracija sustava",
+     3,
+     3,
+     "Dobiveno",
+     9500,
+     100,
+     "2026-03-01",
+     "2025-12-05"
+    ]
+   ],
+   "report": true,
+   "report_group": "faza_prodaje",
+   "report_sort": "ocekivano_zatvaranje"
+  },
+  {
+   "name": "aktivnost",
+   "caption": "Aktivnosti",
+   "descr": "Pozivi, sastanci i ponude vezani uz prilike.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra aktivnosti.",
+     "pk": true
+    },
+    {
+     "name": "prilika_id",
+     "caption": "Prilika",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Uz koju priliku.",
+     "ref": "prilika.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "kontakt_id",
+     "caption": "Kontakt",
+     "type": "integer",
+     "role": "veza",
+     "descr": "S kim je aktivnost.",
+     "ref": "kontakt.sifra"
+    },
+    {
+     "name": "vrijeme_aktivnosti",
+     "caption": "Vrijeme",
+     "type": "datetime",
+     "role": "datum",
+     "descr": "Kada je aktivnost održana ili je zakazana.",
+     "default": "Now()"
+    },
+    {
+     "name": "vrsta_aktivnosti",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Što je napravljeno.",
+     "choices": "Poziv,Sastanak,E-pošta,Ponuda,Zadatak",
+     "default": "\"Poziv\""
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Što je dogovoreno."
+    },
+    {
+     "name": "obavljeno",
+     "caption": "Obavljeno",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Označi kad je aktivnost gotova.",
+     "default": "False"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     1,
+     "2026-02-12 10:00:00",
+     "Sastanak",
+     "Predstavljen prijedlog portala.",
+     1
+    ],
+    [
+     2,
+     1,
+     1,
+     "2026-03-02 14:30:00",
+     "Ponuda",
+     "Poslana revidirana ponuda.",
+     1
+    ],
+    [
+     3,
+     2,
+     2,
+     "2026-03-20 09:00:00",
+     "Poziv",
+     "Dogovoren sastanak za sljedeći tjedan.",
+     0
+    ]
+   ]
+  }
+ ]
+}

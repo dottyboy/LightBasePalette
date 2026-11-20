@@ -1,0 +1,290 @@
+{
+ "id": "kucni_inventar",
+ "title": "Kućni inventar",
+ "descr": "Popis imovine u kući: prostorije, predmeti s jamstvom i vrijednošću te popravci; korisno za osiguranje i selidbu.",
+ "tags": "osobno,kuca,imovina",
+ "tables": [
+  {
+   "name": "prostorija",
+   "caption": "Prostorije",
+   "descr": "Prostori u kući ili stanu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra prostorije.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv prostorije.",
+     "required": true
+    },
+    {
+     "name": "kat",
+     "caption": "Kat",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Kat na kojem je prostor."
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Opis prostorije."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Dnevni boravak",
+     0,
+     null
+    ],
+    [
+     2,
+     "Kuhinja",
+     0,
+     null
+    ],
+    [
+     3,
+     "Radna soba",
+     1,
+     "Pisaći stol i računalo"
+    ],
+    [
+     4,
+     "Garaža",
+     -1,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "predmet_inventara",
+   "caption": "Predmeti",
+   "descr": "Vrijedniji predmeti s jamstvom i vrijednošću.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra predmeta.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv predmeta.",
+     "required": true
+    },
+    {
+     "name": "prostorija_id",
+     "caption": "Prostorija",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Gdje se nalazi.",
+     "ref": "prostorija.sifra"
+    },
+    {
+     "name": "kategorija_predmeta",
+     "caption": "Kategorija",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Vrsta predmeta.",
+     "choices": "Namještaj,Elektronika,Aparati,Odjeća,Alati,Dokumenti,Ostalo",
+     "default": "\"Ostalo\""
+    },
+    {
+     "name": "marka",
+     "caption": "Marka",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Proizvođač."
+    },
+    {
+     "name": "model",
+     "caption": "Model",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv modela."
+    },
+    {
+     "name": "serijski_broj",
+     "caption": "Serijski broj",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj s naljepnice uređaja; potreban za jamstvo i servis."
+    },
+    {
+     "name": "datum_kupnje",
+     "caption": "Kupljeno",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je kupljena.",
+     "default": "Date()"
+    },
+    {
+     "name": "nabavna_cijena",
+     "caption": "Nabavna cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Zadnja nabavna cijena po jedinici.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "procijenjena_vrijednost",
+     "caption": "Procijenjena vrijednost",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Trenutna procjena vrijednosti.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Vrijednost ne može biti negativna."
+    },
+    {
+     "name": "jamstvo_do",
+     "caption": "Jamstvo do",
+     "type": "date",
+     "role": "datum",
+     "descr": "Do kada vrijedi jamstvo."
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Televizor 55\"",
+     1,
+     "Elektronika",
+     "Samsung",
+     "QE55Q60",
+     "SN-TV-9981",
+     "2023-11-24",
+     650,
+     400,
+     "2025-11-24",
+     null
+    ],
+    [
+     2,
+     "Perilica rublja",
+     4,
+     "Aparati",
+     "Bosch",
+     "WAN28",
+     "SN-PR-1177",
+     "2021-05-10",
+     520,
+     250,
+     "2023-05-10",
+     "Servis 2024."
+    ],
+    [
+     3,
+     "Prijenosno računalo",
+     3,
+     "Elektronika",
+     "Lenovo",
+     "ThinkPad T14",
+     "PF2X1234",
+     "2025-01-15",
+     1200,
+     1000,
+     "2027-01-15",
+     null
+    ]
+   ]
+  },
+  {
+   "name": "popravak_predmeta",
+   "caption": "Popravci",
+   "descr": "Popravci i servisi predmeta.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra popravka.",
+     "pk": true
+    },
+    {
+     "name": "predmet_id",
+     "caption": "Predmet",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Predmet.",
+     "ref": "predmet_inventara.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum popravka.",
+     "default": "Date()"
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Što je popravljeno."
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Trošak popravka.",
+     "decimals": 2
+    },
+    {
+     "name": "servisna_radionica",
+     "caption": "Radionica",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Gdje je servis obavljen."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     2,
+     "2024-03-18",
+     "Zamijenjena pumpa.",
+     95,
+     "Servis Bosch Zagreb"
+    ],
+    [
+     2,
+     1,
+     "2025-02-02",
+     "Ažuriranje softvera.",
+     0,
+     "Samsung servis"
+    ]
+   ]
+  }
+ ]
+}

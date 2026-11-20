@@ -1,0 +1,563 @@
+{
+ "id": "zaposlenici",
+ "title": "Zaposlenici i plaće",
+ "descr": "Kadrovska evidencija: odjeli, radna mjesta, zaposlenici s nadređenima, godišnji odmori i mjesečne isplate plaća.",
+ "tags": "posao,kadrovi,place",
+ "tables": [
+  {
+   "name": "odjel",
+   "caption": "Odjeli",
+   "descr": "Organizacijske jedinice tvrtke.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra odjela.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv odjela.",
+     "required": true
+    },
+    {
+     "name": "voditelj_id",
+     "caption": "Voditelj",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Zaposlenik koji vodi odjel.",
+     "ref": "zaposlenik.sifra"
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Čime se odjel bavi."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Uprava",
+     null,
+     "Vodstvo tvrtke"
+    ],
+    [
+     2,
+     "Prodaja",
+     null,
+     "Prodaja i podrška kupcima"
+    ],
+    [
+     3,
+     "Financije",
+     null,
+     "Računovodstvo i financije"
+    ]
+   ]
+  },
+  {
+   "name": "radno_mjesto",
+   "caption": "Radna mjesta",
+   "descr": "Opisi poslova s rasponom plaće.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra radnog mjesta.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv radnog mjesta.",
+     "required": true
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Opis poslova i zahtjevi."
+    },
+    {
+     "name": "raspon_od",
+     "caption": "Plaća od",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Donja granica bruto plaće.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    },
+    {
+     "name": "raspon_do",
+     "caption": "Plaća do",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Gornja granica bruto plaće.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Direktor",
+     "Vodi tvrtku",
+     3000,
+     5000
+    ],
+    [
+     2,
+     "Prodajni predstavnik",
+     "Rad s kupcima i ponudama",
+     1300,
+     2200
+    ],
+    [
+     3,
+     "Računovođa",
+     "Knjiženje i obračuni",
+     1400,
+     2400
+    ]
+   ]
+  },
+  {
+   "name": "zaposlenik",
+   "caption": "Zaposlenici",
+   "descr": "Osobni i radni podaci zaposlenika.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Matični broj zaposlenika.",
+     "pk": true
+    },
+    {
+     "name": "ime",
+     "caption": "Ime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Osobno ime.",
+     "required": true
+    },
+    {
+     "name": "prezime",
+     "caption": "Prezime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Prezime.",
+     "required": true
+    },
+    {
+     "name": "oib",
+     "caption": "OIB",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Osobni identifikacijski broj, 11 znamenki (kod tvrtke ili osobe).",
+     "validation": "Len([value]) = 11 And IsNumeric([value])",
+     "validation_msg": "OIB mora imati točno 11 znamenki."
+    },
+    {
+     "name": "email",
+     "caption": "E-pošta",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa elektroničke pošte; provjerava se oblik a@b.c.",
+     "validation": "[value] Like \"*@*.*\"",
+     "validation_msg": "Unesi ispravnu adresu e-pošte (npr. ime@tvrtka.hr).",
+     "width": 200
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "adresa",
+     "caption": "Adresa",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Ulica i kućni broj.",
+     "width": 200
+    },
+    {
+     "name": "postanski_broj",
+     "caption": "Poštanski broj",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Poštanski broj mjesta."
+    },
+    {
+     "name": "mjesto",
+     "caption": "Mjesto",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Grad ili naselje."
+    },
+    {
+     "name": "odjel_id",
+     "caption": "Odjel",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Odjel u kojem radi.",
+     "ref": "odjel.sifra"
+    },
+    {
+     "name": "radno_mjesto_id",
+     "caption": "Radno mjesto",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Posao koji obavlja.",
+     "ref": "radno_mjesto.sifra"
+    },
+    {
+     "name": "nadredeni_id",
+     "caption": "Nadređeni",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Izravni nadređeni.",
+     "ref": "zaposlenik.sifra"
+    },
+    {
+     "name": "datum_zaposlenja",
+     "caption": "Zaposlen od",
+     "type": "date",
+     "role": "datum",
+     "descr": "Prvi radni dan."
+    },
+    {
+     "name": "datum_rodjenja",
+     "caption": "Datum rođenja",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum rođenja osobe."
+    },
+    {
+     "name": "bruto_placa",
+     "caption": "Bruto plaća",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Ugovorena mjesečna bruto plaća.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Plaća ne može biti negativna."
+    },
+    {
+     "name": "iban",
+     "caption": "IBAN",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Međunarodni broj računa, npr. HR12 3456 7890 1234 5678 9.",
+     "validation": "Len([value]) >= 15",
+     "validation_msg": "IBAN je prekratak.",
+     "width": 220
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi kad zaposlenik napusti tvrtku, da povijest isplata ostane.",
+     "default": "True"
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Ivan",
+     "Horvat",
+     "11111111119",
+     "ivan.horvat@firma.hr",
+     "091 100 2000",
+     "Ilica 100",
+     "10000",
+     "Zagreb",
+     1,
+     1,
+     null,
+     "2018-03-01",
+     "1975-05-12",
+     4200,
+     "HR1210010051863000160",
+     1,
+     null
+    ],
+    [
+     2,
+     "Marta",
+     "Novak",
+     "22222222226",
+     "marta.novak@firma.hr",
+     "091 100 2001",
+     "Savska 55",
+     "10000",
+     "Zagreb",
+     2,
+     2,
+     1,
+     "2020-09-15",
+     "1990-11-03",
+     1700,
+     "HR4423600001101234565",
+     1,
+     null
+    ],
+    [
+     3,
+     "Petra",
+     "Kovač",
+     "33333333333",
+     "petra.kovac@firma.hr",
+     "091 100 2002",
+     "Vukovarska 21",
+     "10000",
+     "Zagreb",
+     3,
+     3,
+     1,
+     "2021-02-01",
+     "1988-07-25",
+     1850,
+     "HR7624020061100000001",
+     1,
+     "Pola radnog vremena ljeti"
+    ]
+   ]
+  },
+  {
+   "name": "godisnji_odmor",
+   "caption": "Godišnji odmori",
+   "descr": "Zahtjevi i korištenje godišnjeg odmora.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra zahtjeva.",
+     "pk": true
+    },
+    {
+     "name": "zaposlenik_id",
+     "caption": "Zaposlenik",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Tko traži odmor.",
+     "ref": "zaposlenik.sifra",
+     "required": true
+    },
+    {
+     "name": "pocetak",
+     "caption": "Početak",
+     "type": "date",
+     "role": "datum",
+     "descr": "Prvi dan odmora."
+    },
+    {
+     "name": "kraj",
+     "caption": "Kraj",
+     "type": "date",
+     "role": "datum",
+     "descr": "Zadnji dan odmora."
+    },
+    {
+     "name": "dana",
+     "caption": "Dana",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Broj radnih dana odmora.",
+     "validation": "[value] > 0",
+     "validation_msg": "Broj dana mora biti veći od nule."
+    },
+    {
+     "name": "status_odmora",
+     "caption": "Status",
+     "type": "text",
+     "role": "status",
+     "descr": "Odobravanje zahtjeva.",
+     "choices": "Zatraženo,Odobreno,Odbijeno,Iskorišteno",
+     "default": "\"Zatraženo\""
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     2,
+     "2026-07-06",
+     "2026-07-17",
+     10,
+     "Odobreno",
+     null
+    ],
+    [
+     2,
+     3,
+     "2026-08-03",
+     "2026-08-14",
+     10,
+     "Zatraženo",
+     null
+    ],
+    [
+     3,
+     1,
+     "2026-01-02",
+     "2026-01-06",
+     3,
+     "Iskorišteno",
+     null
+    ]
+   ]
+  },
+  {
+   "name": "isplata_place",
+   "caption": "Isplate plaća",
+   "descr": "Mjesečni obračun po zaposleniku: bruto, doprinosi, porez i neto.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra isplate.",
+     "pk": true
+    },
+    {
+     "name": "zaposlenik_id",
+     "caption": "Zaposlenik",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Kome je plaća isplaćena.",
+     "ref": "zaposlenik.sifra",
+     "required": true
+    },
+    {
+     "name": "godina",
+     "caption": "Godina",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Godina na koju se podatak odnosi.",
+     "required": true,
+     "validation": "[value] >= 2000 And [value] <= 2100",
+     "validation_msg": "Unesi godinu između 2000 i 2100."
+    },
+    {
+     "name": "mjesec",
+     "caption": "Mjesec",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Mjesec (1-12).",
+     "required": true,
+     "validation": "[value] >= 1 And [value] <= 12",
+     "validation_msg": "Mjesec je od 1 do 12."
+    },
+    {
+     "name": "bruto",
+     "caption": "Bruto",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Bruto plaća za mjesec.",
+     "decimals": 2
+    },
+    {
+     "name": "doprinosi",
+     "caption": "Doprinosi",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Doprinosi iz plaće.",
+     "decimals": 2
+    },
+    {
+     "name": "porez",
+     "caption": "Porez",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Porez i prirez na dohodak.",
+     "decimals": 2
+    },
+    {
+     "name": "neto",
+     "caption": "Neto",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos za isplatu na račun.",
+     "decimals": 2
+    },
+    {
+     "name": "datum_isplate",
+     "caption": "Datum isplate",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je novac isplaćen."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     2,
+     2026,
+     2,
+     1700,
+     340,
+     163.2,
+     1196.8,
+     "2026-03-05"
+    ],
+    [
+     2,
+     3,
+     2026,
+     2,
+     1850,
+     370,
+     177.6,
+     1302.4,
+     "2026-03-05"
+    ],
+    [
+     3,
+     1,
+     2026,
+     2,
+     4200,
+     840,
+     403.2,
+     2956.8,
+     "2026-03-05"
+    ]
+   ]
+  }
+ ]
+}

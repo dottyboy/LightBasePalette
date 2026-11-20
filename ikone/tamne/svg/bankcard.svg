@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+<path fill-rule="nonzero" fill="rgb(11.764706%, 22.745098%, 54.117647%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 19.300781 5.5 C 20.515625 5.5 21.5 6.484375 21.5 7.699219 L 21.5 16.300781 C 21.5 17.515625 20.515625 18.5 19.300781 18.5 L 4.699219 18.5 C 3.484375 18.5 2.5 17.515625 2.5 16.300781 L 2.5 7.699219 C 2.5 6.484375 3.484375 5.5 4.699219 5.5 Z M 19.300781 5.5 "/>
+<path fill="none" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 2.5 9.5 L 21.5 9.5 "/>
+<path fill-rule="nonzero" fill="rgb(98.431373%, 74.901961%, 14.117647%)" fill-opacity="1" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(98.823529%, 82.745098%, 30.196078%)" stroke-opacity="1" stroke-miterlimit="10" d="M 9.199219 13 C 9.640625 13 10 13.359375 10 13.800781 L 10 15.199219 C 10 15.640625 9.640625 16 9.199219 16 L 5.800781 16 C 5.359375 16 5 15.640625 5 15.199219 L 5 13.800781 C 5 13.359375 5.359375 13 5.800781 13 Z M 9.199219 13 "/>
+<path fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 13 15 L 19 15 "/>
+</svg>

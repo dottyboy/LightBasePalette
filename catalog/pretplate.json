@@ -1,0 +1,252 @@
+{
+ "id": "pretplate",
+ "title": "Pretplate i ponavljajuća plaćanja",
+ "descr": "Pregled mjesečnih i godišnjih pretplata: što se plaća, koliko, kada je sljedeća naplata i što je naplaćeno.",
+ "tags": "osobno,financije,pretplate",
+ "tables": [
+  {
+   "name": "usluga_pretplate",
+   "caption": "Usluge",
+   "descr": "Pružatelji usluga na pretplatu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra usluge.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv usluge.",
+     "required": true
+    },
+    {
+     "name": "pruzatelj",
+     "caption": "Pružatelj",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Tvrtka koja pruža uslugu."
+    },
+    {
+     "name": "kategorija_pretplate",
+     "caption": "Kategorija",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Vrsta usluge.",
+     "choices": "Streaming,Softver,Mobilne usluge,Osiguranje,Teretana,Ostalo",
+     "default": "\"Ostalo\""
+    },
+    {
+     "name": "web",
+     "caption": "Web",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa web stranice.",
+     "width": 180
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Glazba",
+     "Streaming d.o.o.",
+     "Streaming",
+     "www.streaming.example"
+    ],
+    [
+     2,
+     "Mobitel",
+     "Telekom",
+     "Mobilne usluge",
+     "www.telekom.example"
+    ],
+    [
+     3,
+     "Teretana",
+     "Fit klub",
+     "Teretana",
+     null
+    ]
+   ]
+  },
+  {
+   "name": "pretplata",
+   "caption": "Pretplate",
+   "descr": "Aktivne pretplate s iznosom i sljedećom naplatom.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra pretplate.",
+     "pk": true
+    },
+    {
+     "name": "usluga_id",
+     "caption": "Usluga",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Usluga.",
+     "ref": "usluga_pretplate.sifra",
+     "required": true
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos po razdoblju.",
+     "decimals": 2
+    },
+    {
+     "name": "razdoblje_naplate",
+     "caption": "Naplata",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Koliko se često naplaćuje.",
+     "choices": "Mjesečno,Tromjesečno,Godišnje",
+     "default": "\"Mjesečno\""
+    },
+    {
+     "name": "pocetak",
+     "caption": "Početak",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je pretplata počela."
+    },
+    {
+     "name": "sljedeca_naplata",
+     "caption": "Sljedeća naplata",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada se naplaćuje sljedeći put."
+    },
+    {
+     "name": "nacin_placanja",
+     "caption": "Način plaćanja",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Kako kupac plaća.",
+     "choices": "Virman,Gotovina,Kartica,Pouzeće",
+     "default": "\"Kartica\""
+    },
+    {
+     "name": "otkazano",
+     "caption": "Otkazano",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Označi kad je pretplata otkazana.",
+     "default": "False"
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     9.99,
+     "Mjesečno",
+     "2024-01-05",
+     "2026-04-05",
+     "Kartica",
+     0,
+     null
+    ],
+    [
+     2,
+     2,
+     25,
+     "Mjesečno",
+     "2023-06-01",
+     "2026-04-01",
+     "Virman",
+     0,
+     "Paket s mobitelom"
+    ],
+    [
+     3,
+     3,
+     320,
+     "Godišnje",
+     "2025-09-01",
+     "2026-09-01",
+     "Kartica",
+     0,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "naplata_pretplate",
+   "caption": "Naplate",
+   "descr": "Provedene naplate.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra naplate.",
+     "pk": true
+    },
+    {
+     "name": "pretplata_id",
+     "caption": "Pretplata",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Pretplata.",
+     "ref": "pretplata.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum naplate.",
+     "default": "Date()"
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Naplaćeni iznos.",
+     "decimals": 2
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-03-05",
+     9.99
+    ],
+    [
+     2,
+     2,
+     "2026-03-01",
+     25
+    ],
+    [
+     3,
+     3,
+     "2025-09-01",
+     320
+    ]
+   ]
+  }
+ ]
+}

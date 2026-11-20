@@ -1,0 +1,443 @@
+{
+ "id": "teretana",
+ "title": "Teretana i članstvo",
+ "descr": "Fitness klub: članovi, paketi članarine, članarine s rokom, dolasci i grupni treninzi.",
+ "tags": "sport,clanstvo,usluge",
+ "tables": [
+  {
+   "name": "polaznik",
+   "caption": "Članovi",
+   "descr": "Osobe koje treniraju u klubu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra člana.",
+     "pk": true
+    },
+    {
+     "name": "ime",
+     "caption": "Ime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Osobno ime.",
+     "required": true
+    },
+    {
+     "name": "prezime",
+     "caption": "Prezime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Prezime.",
+     "required": true
+    },
+    {
+     "name": "email",
+     "caption": "E-pošta",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa elektroničke pošte; provjerava se oblik a@b.c.",
+     "validation": "[value] Like \"*@*.*\"",
+     "validation_msg": "Unesi ispravnu adresu e-pošte (npr. ime@tvrtka.hr).",
+     "width": 200
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "datum_rodjenja",
+     "caption": "Datum rođenja",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum rođenja osobe."
+    },
+    {
+     "name": "datum_uclanjenja",
+     "caption": "Član od",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je osoba postala član.",
+     "default": "Date()"
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Ante",
+     "Radić",
+     "ante.radic@mail.hr",
+     "091 444 5555",
+     "1990-03-15",
+     "2025-01-10",
+     1,
+     null
+    ],
+    [
+     2,
+     "Maja",
+     "Lukić",
+     "maja.lukic@mail.hr",
+     "098 666 7777",
+     "1995-08-21",
+     "2025-09-01",
+     1,
+     "Trenira uz trenera"
+    ],
+    [
+     3,
+     "Karlo",
+     "Vuković",
+     "karlo.vukovic@mail.hr",
+     null,
+     "2001-11-05",
+     "2026-01-15",
+     1,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "paket_clanarine",
+   "caption": "Paketi članarine",
+   "descr": "Vrste članarina i njihove cijene.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra paketa.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv paketa (npr. Mjesečna).",
+     "required": true
+    },
+    {
+     "name": "trajanje_dana",
+     "caption": "Trajanje (dana)",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Koliko dana članarina vrijedi.",
+     "validation": "[value] > 0",
+     "validation_msg": "Trajanje mora biti veće od nule."
+    },
+    {
+     "name": "cijena",
+     "caption": "Cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Cijena paketa.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Što paket uključuje."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Mjesečna",
+     30,
+     35,
+     "Neograničen ulazak u teretanu.",
+     1
+    ],
+    [
+     2,
+     "Tromjesečna",
+     90,
+     90,
+     "Uključuje 2 grupna treninga tjedno.",
+     1
+    ],
+    [
+     3,
+     "Godišnja",
+     365,
+     320,
+     "Najpovoljnije, uključuje ručnik i ormarić.",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "clanarina",
+   "caption": "Članarine",
+   "descr": "Plaćene članarine s početkom i krajem.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra članarine.",
+     "pk": true
+    },
+    {
+     "name": "polaznik_id",
+     "caption": "Član",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Tko je platio.",
+     "ref": "polaznik.sifra",
+     "required": true
+    },
+    {
+     "name": "paket_id",
+     "caption": "Paket",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Koji paket.",
+     "ref": "paket_clanarine.sifra",
+     "required": true
+    },
+    {
+     "name": "pocetak",
+     "caption": "Početak",
+     "type": "date",
+     "role": "datum",
+     "descr": "Prvi dan članarine."
+    },
+    {
+     "name": "kraj",
+     "caption": "Kraj",
+     "type": "date",
+     "role": "datum",
+     "descr": "Zadnji dan članarine."
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Plaćeni iznos.",
+     "decimals": 2
+    },
+    {
+     "name": "nacin_placanja",
+     "caption": "Način plaćanja",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Kako kupac plaća.",
+     "choices": "Virman,Gotovina,Kartica,Pouzeće",
+     "default": "\"Kartica\""
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     3,
+     "2026-01-10",
+     "2027-01-09",
+     320,
+     "Kartica"
+    ],
+    [
+     2,
+     2,
+     2,
+     "2026-02-01",
+     "2026-05-01",
+     90,
+     "Gotovina"
+    ],
+    [
+     3,
+     3,
+     1,
+     "2026-03-01",
+     "2026-03-30",
+     35,
+     "Kartica"
+    ]
+   ]
+  },
+  {
+   "name": "dolazak",
+   "caption": "Dolasci",
+   "descr": "Evidencija ulazaka u klub.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra dolaska.",
+     "pk": true
+    },
+    {
+     "name": "polaznik_id",
+     "caption": "Član",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Tko je došao.",
+     "ref": "polaznik.sifra",
+     "required": true
+    },
+    {
+     "name": "vrijeme_dolaska",
+     "caption": "Dolazak",
+     "type": "datetime",
+     "role": "datum",
+     "descr": "Kada je član ušao.",
+     "default": "Now()"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-03-02 07:15:00"
+    ],
+    [
+     2,
+     2,
+     "2026-03-02 18:30:00"
+    ],
+    [
+     3,
+     1,
+     "2026-03-04 07:20:00"
+    ],
+    [
+     4,
+     3,
+     "2026-03-04 19:00:00"
+    ]
+   ]
+  },
+  {
+   "name": "grupni_trening",
+   "caption": "Grupni treninzi",
+   "descr": "Tjedni raspored grupnih treninga.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra treninga.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv treninga (npr. Pilates).",
+     "required": true
+    },
+    {
+     "name": "trener",
+     "caption": "Trener",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Tko vodi trening."
+    },
+    {
+     "name": "dan_u_tjednu",
+     "caption": "Dan",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Dan održavanja.",
+     "choices": "Ponedjeljak,Utorak,Srijeda,Četvrtak,Petak,Subota,Nedjelja",
+     "default": "\"Ponedjeljak\""
+    },
+    {
+     "name": "vrijeme_pocetka",
+     "caption": "Početak",
+     "type": "time",
+     "role": "vrijeme",
+     "descr": "Sat početka treninga."
+    },
+    {
+     "name": "kapacitet",
+     "caption": "Kapacitet",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Najveći broj sudionika.",
+     "validation": "[value] > 0",
+     "validation_msg": "Kapacitet mora biti veći od nule."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Pilates",
+     "Dora Matić",
+     "Ponedjeljak",
+     "18:00",
+     12,
+     1
+    ],
+    [
+     2,
+     "Spinning",
+     "Ivo Perić",
+     "Srijeda",
+     "19:00",
+     16,
+     1
+    ],
+    [
+     3,
+     "Funkcionalni trening",
+     "Ivo Perić",
+     "Petak",
+     "17:30",
+     14,
+     1
+    ]
+   ]
+  }
+ ]
+}

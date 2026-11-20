@@ -1,0 +1,518 @@
+{
+ "id": "budzet",
+ "title": "Kućni budžet",
+ "descr": "Praćenje osobnih ili obiteljskih financija: računi i novčanici, prihodi i rashodi po kategorijama, mjesečni proračun i ciljevi štednje.",
+ "tags": "osobno,financije,stednja",
+ "tables": [
+  {
+   "name": "novcanik",
+   "caption": "Računi i novčanici",
+   "descr": "Gdje se drži novac: tekući i štedni račun, gotovina, kartice.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra računa.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv računa (npr. Tekući PBZ, Gotovina).",
+     "required": true
+    },
+    {
+     "name": "vrsta_racuna",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Vrsta računa za razvrstavanje.",
+     "choices": "Tekući račun,Štedni račun,Gotovina,Kartica,Investicije",
+     "default": "\"Tekući račun\""
+    },
+    {
+     "name": "iban",
+     "caption": "IBAN",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Međunarodni broj računa, npr. HR12 3456 7890 1234 5678 9.",
+     "validation": "Len([value]) >= 15",
+     "validation_msg": "IBAN je prekratak.",
+     "width": 220
+    },
+    {
+     "name": "pocetno_stanje",
+     "caption": "Početno stanje",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Stanje na dan početka vođenja; trenutno stanje = početno + promet.",
+     "decimals": 2,
+     "default": "0"
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Tekući račun",
+     "Tekući račun",
+     "HR1210010051863000160",
+     1250.0,
+     1
+    ],
+    [
+     2,
+     "Gotovina",
+     "Gotovina",
+     null,
+     150.0,
+     1
+    ],
+    [
+     3,
+     "Štednja",
+     "Štedni račun",
+     "HR4423600001101234565",
+     5000.0,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "kategorija_troska",
+   "caption": "Kategorije",
+   "descr": "Vrste prihoda i rashoda; mogu se grupirati pod nadkategoriju.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra kategorije.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv kategorije (npr. Plaća, Hrana, Režije).",
+     "required": true
+    },
+    {
+     "name": "vrsta_toka",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Je li kategorija prihod ili rashod.",
+     "choices": "Prihod,Rashod",
+     "default": "\"Rashod\""
+    },
+    {
+     "name": "nadkategorija_id",
+     "caption": "Nadkategorija",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Kategorija višeg reda za izvješća po skupinama.",
+     "ref": "kategorija_troska.sifra"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Plaća",
+     "Prihod",
+     null
+    ],
+    [
+     2,
+     "Ostali prihodi",
+     "Prihod",
+     null
+    ],
+    [
+     3,
+     "Stanovanje",
+     "Rashod",
+     null
+    ],
+    [
+     4,
+     "Režije",
+     "Rashod",
+     3
+    ],
+    [
+     5,
+     "Hrana",
+     "Rashod",
+     null
+    ],
+    [
+     6,
+     "Prijevoz",
+     "Rashod",
+     null
+    ],
+    [
+     7,
+     "Zabava",
+     "Rashod",
+     null
+    ]
+   ]
+  },
+  {
+   "name": "transakcija",
+   "caption": "Transakcije",
+   "descr": "Svaki prihod i rashod: kada, na kojem računu, u kojoj kategoriji i koliko.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra transakcije.",
+     "pk": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum transakcije.",
+     "default": "Date()"
+    },
+    {
+     "name": "novcanik_id",
+     "caption": "Račun",
+     "type": "integer",
+     "role": "veza",
+     "descr": "S kojeg ili na koji račun je promet.",
+     "ref": "novcanik.sifra",
+     "required": true
+    },
+    {
+     "name": "kategorija_id",
+     "caption": "Kategorija",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Vrsta prihoda ili rashoda.",
+     "ref": "kategorija_troska.sifra",
+     "required": true
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Pozitivan iznos za prihod, negativan za rashod.",
+     "decimals": 2
+    },
+    {
+     "name": "svrha",
+     "caption": "Svrha",
+     "type": "text",
+     "role": "opis",
+     "descr": "Kratki opis (npr. Konzum, kirija ožujak).",
+     "width": 220
+    },
+    {
+     "name": "primatelj",
+     "caption": "Primatelj",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Kome je plaćeno ili od koga je novac stigao."
+    },
+    {
+     "name": "ponavljajuce",
+     "caption": "Ponavlja se",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Označi stalne mjesečne stavke (kirija, pretplate).",
+     "default": "False"
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "2026-03-01",
+     1,
+     1,
+     1450.0,
+     "Plaća ožujak",
+     "Poslodavac d.o.o.",
+     1,
+     null
+    ],
+    [
+     2,
+     "2026-03-02",
+     1,
+     3,
+     -520.0,
+     "Kirija ožujak",
+     "Vlasnik stana",
+     1,
+     null
+    ],
+    [
+     3,
+     "2026-03-04",
+     2,
+     5,
+     -43.7,
+     "Tjedna kupnja",
+     "Konzum",
+     0,
+     null
+    ],
+    [
+     4,
+     "2026-03-06",
+     1,
+     4,
+     -85.3,
+     "Struja i voda",
+     "HEP, Vodovod",
+     1,
+     null
+    ],
+    [
+     5,
+     "2026-03-08",
+     2,
+     6,
+     -30.0,
+     "Gorivo",
+     "INA",
+     0,
+     null
+    ],
+    [
+     6,
+     "2026-03-12",
+     1,
+     7,
+     -24.0,
+     "Kino",
+     "Cinestar",
+     0,
+     "S prijateljima"
+    ],
+    [
+     7,
+     "2026-03-15",
+     1,
+     2,
+     80.0,
+     "Honorar",
+     "Klijent",
+     0,
+     null
+    ]
+   ],
+   "report": true,
+   "report_group": "kategorija_id",
+   "report_sort": "datum"
+  },
+  {
+   "name": "proracun",
+   "caption": "Mjesečni proračun",
+   "descr": "Koliko se planira potrošiti po kategoriji u mjesecu; uspoređuje se s transakcijama.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra retka proračuna.",
+     "pk": true
+    },
+    {
+     "name": "kategorija_id",
+     "caption": "Kategorija",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Za koju kategoriju vrijedi limit.",
+     "ref": "kategorija_troska.sifra",
+     "required": true
+    },
+    {
+     "name": "godina",
+     "caption": "Godina",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Godina na koju se proračun odnosi.",
+     "required": true,
+     "validation": "[value] >= 2000 And [value] <= 2100",
+     "validation_msg": "Unesi godinu između 2000 i 2100."
+    },
+    {
+     "name": "mjesec",
+     "caption": "Mjesec",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Mjesec (1-12).",
+     "required": true,
+     "validation": "[value] >= 1 And [value] <= 12",
+     "validation_msg": "Mjesec je od 1 do 12."
+    },
+    {
+     "name": "planirano",
+     "caption": "Planirano",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Planirani iznos za mjesec.",
+     "decimals": 2,
+     "required": true,
+     "validation": "[value] >= 0",
+     "validation_msg": "Plan ne može biti negativan."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     5,
+     2026,
+     3,
+     300.0
+    ],
+    [
+     2,
+     6,
+     2026,
+     3,
+     80.0
+    ],
+    [
+     3,
+     7,
+     2026,
+     3,
+     50.0
+    ],
+    [
+     4,
+     4,
+     2026,
+     3,
+     120.0
+    ]
+   ]
+  },
+  {
+   "name": "cilj_stednje",
+   "caption": "Ciljevi štednje",
+   "descr": "Veći ciljevi za koje se skuplja novac, s rokom i napretkom.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra cilja.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Što se kupuje ili za što se štedi.",
+     "required": true
+    },
+    {
+     "name": "ciljani_iznos",
+     "caption": "Ciljani iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Koliko je ukupno potrebno.",
+     "decimals": 2,
+     "required": true,
+     "validation": "[value] > 0",
+     "validation_msg": "Cilj mora biti veći od nule."
+    },
+    {
+     "name": "ustedjeno",
+     "caption": "Ušteđeno",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Koliko je do sada skupljeno.",
+     "decimals": 2,
+     "default": "0"
+    },
+    {
+     "name": "rok",
+     "caption": "Rok",
+     "type": "date",
+     "role": "datum",
+     "descr": "Do kada se želi ostvariti cilj."
+    },
+    {
+     "name": "status_cilja",
+     "caption": "Status",
+     "type": "text",
+     "role": "status",
+     "descr": "Napredak cilja.",
+     "choices": "Aktivan,Ostvaren,Odgođen",
+     "default": "\"Aktivan\""
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Ljetovanje",
+     2000.0,
+     650.0,
+     "2026-06-30",
+     "Aktivan",
+     null
+    ],
+    [
+     2,
+     "Nova perilica",
+     600.0,
+     600.0,
+     "2026-02-28",
+     "Ostvaren",
+     null
+    ],
+    [
+     3,
+     "Zimnica za auto",
+     900.0,
+     0.0,
+     "2026-10-31",
+     "Odgođen",
+     "Čeka povećanje"
+    ]
+   ]
+  }
+ ]
+}

@@ -1,0 +1,457 @@
+{
+ "id": "ordinacija",
+ "title": "Ordinacija i pacijenti",
+ "descr": "Mala ordinacija: pacijenti, zakazani termini, pregledi s dijagnozom te propisani lijekovi.",
+ "tags": "zdravlje,ordinacija,evidencija",
+ "tables": [
+  {
+   "name": "pacijent",
+   "caption": "Pacijenti",
+   "descr": "Osobe koje se liječe u ordinaciji.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra pacijenta.",
+     "pk": true
+    },
+    {
+     "name": "ime",
+     "caption": "Ime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Osobno ime.",
+     "required": true
+    },
+    {
+     "name": "prezime",
+     "caption": "Prezime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Prezime.",
+     "required": true
+    },
+    {
+     "name": "oib",
+     "caption": "OIB",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Osobni identifikacijski broj, 11 znamenki (kod tvrtke ili osobe).",
+     "validation": "Len([value]) = 11 And IsNumeric([value])",
+     "validation_msg": "OIB mora imati točno 11 znamenki."
+    },
+    {
+     "name": "datum_rodjenja",
+     "caption": "Datum rođenja",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum rođenja osobe."
+    },
+    {
+     "name": "spol",
+     "caption": "Spol",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Spol.",
+     "choices": "M,Ž,Drugo"
+    },
+    {
+     "name": "mbo",
+     "caption": "MBO",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Matični broj osiguranika (9 znamenki).",
+     "validation": "Len([value]) = 9 And IsNumeric([value])",
+     "validation_msg": "MBO ima 9 znamenki."
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "email",
+     "caption": "E-pošta",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa elektroničke pošte; provjerava se oblik a@b.c.",
+     "validation": "[value] Like \"*@*.*\"",
+     "validation_msg": "Unesi ispravnu adresu e-pošte (npr. ime@tvrtka.hr).",
+     "width": 200
+    },
+    {
+     "name": "adresa",
+     "caption": "Adresa",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Ulica i kućni broj.",
+     "width": 200
+    },
+    {
+     "name": "alergije",
+     "caption": "Alergije",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Poznate alergije i nepodnošenje lijekova."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Ivana",
+     "Šimić",
+     "99999999990",
+     "1985-06-14",
+     "Ž",
+     "123456789",
+     "091 111 3333",
+     "ivana.simic@mail.hr",
+     "Gundulićeva 3, Zagreb",
+     "Penicilin",
+     1
+    ],
+    [
+     2,
+     "Josip",
+     "Barišić",
+     "10101010107",
+     "1962-12-02",
+     "M",
+     "234567890",
+     "098 222 4444",
+     null,
+     "Kralja Tomislava 10, Zagreb",
+     null,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "termin",
+   "caption": "Termini",
+   "descr": "Zakazani dolasci pacijenata.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra termina.",
+     "pk": true
+    },
+    {
+     "name": "pacijent_id",
+     "caption": "Pacijent",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Tko dolazi.",
+     "ref": "pacijent.sifra",
+     "required": true
+    },
+    {
+     "name": "vrijeme_termina",
+     "caption": "Termin",
+     "type": "datetime",
+     "role": "datum",
+     "descr": "Datum i sat termina.",
+     "required": true
+    },
+    {
+     "name": "trajanje_min",
+     "caption": "Trajanje (min)",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Planirano trajanje u minutama.",
+     "default": "20",
+     "validation": "[value] > 0",
+     "validation_msg": "Trajanje mora biti veće od nule."
+    },
+    {
+     "name": "status_termina",
+     "caption": "Status",
+     "type": "text",
+     "role": "status",
+     "descr": "Je li pacijent došao.",
+     "choices": "Zakazan,Došao,Nije došao,Otkazan",
+     "default": "\"Zakazan\""
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-03-16 09:00:00",
+     20,
+     "Zakazan",
+     null
+    ],
+    [
+     2,
+     2,
+     "2026-03-16 09:30:00",
+     30,
+     "Zakazan",
+     "Kontrola tlaka"
+    ],
+    [
+     3,
+     1,
+     "2026-02-10 10:00:00",
+     20,
+     "Došao",
+     null
+    ]
+   ]
+  },
+  {
+   "name": "pregled",
+   "caption": "Pregledi",
+   "descr": "Obavljeni pregledi s razlogom dolaska, dijagnozom i nalazom.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra pregleda.",
+     "pk": true
+    },
+    {
+     "name": "pacijent_id",
+     "caption": "Pacijent",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Tko je pregledan.",
+     "ref": "pacijent.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum pregleda.",
+     "default": "Date()"
+    },
+    {
+     "name": "razlog",
+     "caption": "Razlog",
+     "type": "text",
+     "role": "opis",
+     "descr": "Zašto dolazi."
+    },
+    {
+     "name": "dijagnoza",
+     "caption": "Dijagnoza",
+     "type": "text",
+     "role": "opis",
+     "descr": "Dijagnoza (tekst ili šifra MKB)."
+    },
+    {
+     "name": "nalaz",
+     "caption": "Nalaz",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Nalaz i opis pregleda."
+    },
+    {
+     "name": "terapija",
+     "caption": "Terapija",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Preporučena terapija."
+    },
+    {
+     "name": "datum_kontrole",
+     "caption": "Kontrola",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada se pacijent treba vratiti."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-02-10",
+     "Kašalj i temperatura",
+     "J20 Akutni bronhitis",
+     "Hripanje desno, temperatura 38,1.",
+     "Mirovanje, tekućina, antibiotik.",
+     "2026-02-17"
+    ],
+    [
+     2,
+     2,
+     "2026-01-22",
+     "Kontrola tlaka",
+     "I10 Hipertenzija",
+     "Tlak 150/95.",
+     "Prilagodba terapije.",
+     "2026-03-16"
+    ]
+   ]
+  },
+  {
+   "name": "lijek",
+   "caption": "Lijekovi",
+   "descr": "Popis lijekova koji se propisuju.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra lijeka.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Zaštićeni naziv lijeka.",
+     "required": true
+    },
+    {
+     "name": "djelatna_tvar",
+     "caption": "Djelatna tvar",
+     "type": "text",
+     "role": "opis",
+     "descr": "Aktivna tvar."
+    },
+    {
+     "name": "oblik",
+     "caption": "Oblik",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Farmaceutski oblik.",
+     "choices": "Tableta,Kapsula,Sirup,Mast,Kapi,Injekcija",
+     "default": "\"Tableta\""
+    },
+    {
+     "name": "jacina",
+     "caption": "Jačina",
+     "type": "text",
+     "role": "oznaka",
+     "descr": "Npr. 500 mg."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Amoksiklav",
+     "Amoksicilin/klavulanska kiselina",
+     "Tableta",
+     "625 mg"
+    ],
+    [
+     2,
+     "Lizinopril",
+     "Lizinopril",
+     "Tableta",
+     "10 mg"
+    ],
+    [
+     3,
+     "Paracetamol",
+     "Paracetamol",
+     "Tableta",
+     "500 mg"
+    ]
+   ]
+  },
+  {
+   "name": "propisani_lijek",
+   "caption": "Propisani lijekovi",
+   "descr": "Što je propisano na pregledu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra stavke.",
+     "pk": true
+    },
+    {
+     "name": "pregled_id",
+     "caption": "Pregled",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Pregled na kojem je propisano.",
+     "ref": "pregled.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "lijek_id",
+     "caption": "Lijek",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Propisani lijek.",
+     "ref": "lijek.sifra",
+     "required": true
+    },
+    {
+     "name": "doziranje",
+     "caption": "Doziranje",
+     "type": "text",
+     "role": "opis",
+     "descr": "Npr. 2 puta dnevno po 1 tableta."
+    },
+    {
+     "name": "trajanje_dana",
+     "caption": "Trajanje (dana)",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Koliko dana traje terapija.",
+     "validation": "[value] > 0",
+     "validation_msg": "Trajanje mora biti veće od nule."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     1,
+     "2 puta dnevno po 1 tableta",
+     7
+    ],
+    [
+     2,
+     1,
+     3,
+     "Po potrebi do 3 puta dnevno",
+     5
+    ],
+    [
+     3,
+     2,
+     2,
+     "1 puta dnevno ujutro",
+     30
+    ]
+   ]
+  }
+ ]
+}

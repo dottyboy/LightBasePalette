@@ -1,0 +1,4 @@
+lib/
+*.compiled
+packagefiles.xml
+typhaccess_dsgn.pas

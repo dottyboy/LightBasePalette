@@ -1,0 +1,281 @@
+{
+ "id": "kolekcije",
+ "title": "Zbirke i kolekcije",
+ "descr": "Osobne zbirke (marke, novčići, vinili, igračke): što se posjeduje, u kakvom stanju, koliko vrijedi i što je razmijenjeno.",
+ "tags": "osobno,hobi,zbirke",
+ "tables": [
+  {
+   "name": "zbirka",
+   "caption": "Zbirke",
+   "descr": "Skupine predmeta koje se skupljaju.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra zbirke.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv zbirke.",
+     "required": true
+    },
+    {
+     "name": "vrsta_zbirke",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Što se skuplja.",
+     "choices": "Marke,Novčići,Vinili,Igračke,Umjetnine,Ostalo",
+     "default": "\"Ostalo\""
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "O čemu je zbirka."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Hrvatske marke",
+     "Marke",
+     "Marke od 1991."
+    ],
+    [
+     2,
+     "Jugoslavenski novčići",
+     "Novčići",
+     null
+    ],
+    [
+     3,
+     "Vinili 70-ih",
+     "Vinili",
+     "Rock i pop albumi"
+    ]
+   ]
+  },
+  {
+   "name": "predmet_zbirke",
+   "caption": "Predmeti",
+   "descr": "Pojedini predmeti u zbirci s godinom, stanjem i vrijednošću.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra predmeta.",
+     "pk": true
+    },
+    {
+     "name": "zbirka_id",
+     "caption": "Zbirka",
+     "type": "integer",
+     "role": "veza",
+     "descr": "U kojoj je zbirci.",
+     "ref": "zbirka.sifra",
+     "required": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv predmeta.",
+     "required": true
+    },
+    {
+     "name": "godina_izdanja",
+     "caption": "Godina izdanja",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Godina izdanja ovog primjerka.",
+     "validation": "[value] >= 1400 And [value] <= 2100",
+     "validation_msg": "Unesi ispravnu godinu."
+    },
+    {
+     "name": "stanje",
+     "caption": "Stanje",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Očuvanost predmeta.",
+     "choices": "Odlično,Dobro,Zadovoljavajuće,Oštećeno",
+     "default": "\"Dobro\""
+    },
+    {
+     "name": "nabavna_cijena",
+     "caption": "Nabavna cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Zadnja nabavna cijena po jedinici.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "procijenjena_vrijednost",
+     "caption": "Procijenjena vrijednost",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Trenutna procjena vrijednosti.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Vrijednost ne može biti negativna."
+    },
+    {
+     "name": "datum_kupnje",
+     "caption": "Kupljeno",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je kupljena.",
+     "default": "Date()"
+    },
+    {
+     "name": "izvor_nabave",
+     "caption": "Izvor",
+     "type": "text",
+     "role": "opis",
+     "descr": "Odakle potječe (buvljak, aukcija, poklon)."
+    },
+    {
+     "name": "mjesto_pohrane",
+     "caption": "Mjesto pohrane",
+     "type": "text",
+     "role": "opis",
+     "descr": "Gdje se predmet drži (ormar, polica, kutija)."
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "Dan državnosti 1992.",
+     1992,
+     "Odlično",
+     0.5,
+     4,
+     "2024-05-01",
+     "Pošta",
+     "Album 1",
+     null
+    ],
+    [
+     2,
+     2,
+     "50 dinara 1981.",
+     1981,
+     "Dobro",
+     1,
+     3,
+     "2023-07-10",
+     "Buvljak",
+     "Kutija",
+     null
+    ],
+    [
+     3,
+     3,
+     "Pink Floyd - The Wall",
+     1979,
+     "Dobro",
+     30,
+     60,
+     "2025-02-14",
+     "Aukcija",
+     "Polica A",
+     "Dvostruki album"
+    ]
+   ]
+  },
+  {
+   "name": "razmjena",
+   "caption": "Razmjene",
+   "descr": "Kupnje, prodaje i zamjene predmeta.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra razmjene.",
+     "pk": true
+    },
+    {
+     "name": "predmet_id",
+     "caption": "Predmet",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Što je razmijenjeno.",
+     "ref": "predmet_zbirke.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum razmjene.",
+     "default": "Date()"
+    },
+    {
+     "name": "partner",
+     "caption": "Partner",
+     "type": "text",
+     "role": "naziv",
+     "descr": "S kim je razmjena obavljena."
+    },
+    {
+     "name": "vrsta_razmjene",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Što se dogodilo.",
+     "choices": "Kupnja,Prodaja,Zamjena,Poklon",
+     "default": "\"Kupnja\""
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos razmjene.",
+     "decimals": 2
+    }
+   ],
+   "sample": [
+    [
+     1,
+     3,
+     "2025-02-14",
+     "Aukcija Zagreb",
+     "Kupnja",
+     30
+    ],
+    [
+     2,
+     2,
+     "2025-06-01",
+     "Ivo (kolekcionar)",
+     "Zamjena",
+     0
+    ]
+   ]
+  }
+ ]
+}

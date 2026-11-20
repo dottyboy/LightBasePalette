@@ -1,0 +1,273 @@
+{
+ "id": "bankovni_izvodi",
+ "title": "Bankovni računi i izvodi",
+ "descr": "Računi u banci, izvodi i stavke izvoda s pozivom na broj; osnova za uparivanje uplata s računima. Primjer za učenje i polaznu točku; stope, konta i obrasce uskladi s važećim propisima i svojim računovođom.",
+ "tags": "hrvatska,racunovodstvo,banka",
+ "tables": [
+  {
+   "name": "bankovni_racun",
+   "caption": "Računi u banci",
+   "descr": "Poslovni i privatni računi.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra računa.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv računa (npr. Poslovni račun).",
+     "required": true
+    },
+    {
+     "name": "iban",
+     "caption": "IBAN",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Međunarodni broj računa, npr. HR12 3456 7890 1234 5678 9.",
+     "validation": "Len([value]) >= 15",
+     "validation_msg": "IBAN je prekratak.",
+     "width": 220
+    },
+    {
+     "name": "banka",
+     "caption": "Banka",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv banke."
+    },
+    {
+     "name": "valuta",
+     "caption": "Valuta",
+     "type": "text",
+     "role": "oznaka",
+     "descr": "Oznaka valute (npr. EUR).",
+     "default": "\"EUR\""
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Poslovni račun",
+     "HR1210010051863000160",
+     "Privredna banka Zagreb",
+     "EUR",
+     1
+    ],
+    [
+     2,
+     "Devizni račun",
+     "HR4423600001101234565",
+     "Zagrebačka banka",
+     "EUR",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "izvod",
+   "caption": "Izvodi",
+   "descr": "Dnevni ili mjesečni izvodi s početnim i završnim stanjem.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra izvoda.",
+     "pk": true
+    },
+    {
+     "name": "racun_id",
+     "caption": "Račun",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Račun na koji se izvod odnosi.",
+     "ref": "bankovni_racun.sifra",
+     "required": true
+    },
+    {
+     "name": "broj_izvoda",
+     "caption": "Broj izvoda",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj izvoda iz banke.",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum izvoda.",
+     "default": "Date()"
+    },
+    {
+     "name": "pocetno_stanje",
+     "caption": "Početno stanje",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Stanje na dan početka vođenja; trenutno stanje = početno + promet.",
+     "decimals": 2,
+     "default": "0"
+    },
+    {
+     "name": "zavrsno_stanje",
+     "caption": "Završno stanje",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Stanje na kraju izvoda.",
+     "decimals": 2
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "12/2026",
+     "2026-03-02",
+     5000,
+     6250
+    ],
+    [
+     2,
+     1,
+     "13/2026",
+     "2026-03-03",
+     6250,
+     6064.7
+    ]
+   ]
+  },
+  {
+   "name": "stavka_izvoda",
+   "caption": "Stavke izvoda",
+   "descr": "Pojedinačne uplate i isplate na izvodu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra stavke.",
+     "pk": true
+    },
+    {
+     "name": "izvod_id",
+     "caption": "Izvod",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Izvod.",
+     "ref": "izvod.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum knjiženja u banci.",
+     "default": "Date()"
+    },
+    {
+     "name": "partner",
+     "caption": "Partner",
+     "type": "text",
+     "role": "naziv",
+     "descr": "S kim je razmjena obavljena."
+    },
+    {
+     "name": "iban",
+     "caption": "IBAN",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Međunarodni broj računa, npr. HR12 3456 7890 1234 5678 9.",
+     "validation": "Len([value]) >= 15",
+     "validation_msg": "IBAN je prekratak.",
+     "width": 220
+    },
+    {
+     "name": "poziv_na_broj",
+     "caption": "Poziv na broj",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Poziv na broj iz uplatnice; služi za automatsko spajanje uplate s računom."
+    },
+    {
+     "name": "svrha",
+     "caption": "Svrha",
+     "type": "text",
+     "role": "opis",
+     "descr": "Kratki opis (npr. Konzum, kirija ožujak).",
+     "width": 220
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Pozitivan iznos za priljev, negativan za odljev.",
+     "decimals": 2
+    },
+    {
+     "name": "knjizeno",
+     "caption": "Proknjiženo",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Označi kad je stavka proknjižena u glavnoj knjizi.",
+     "default": "False"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-03-02",
+     "Kvaka d.o.o.",
+     "HR9423400091110123456",
+     "2026-0001",
+     "Plaćanje računa 2026-0001",
+     1250,
+     1
+    ],
+    [
+     2,
+     2,
+     "2026-03-03",
+     "Tehno-trgovina d.o.o.",
+     "HR7123600001101234567",
+     "R-2026-118",
+     "Plaćanje računa R-2026-118",
+     -250,
+     1
+    ],
+    [
+     3,
+     2,
+     "2026-03-03",
+     "Porezna uprava",
+     "HR1210010051863000160",
+     "HR68 1234-56",
+     "PDV za veljaču",
+     -10,
+     0
+    ]
+   ]
+  }
+ ]
+}

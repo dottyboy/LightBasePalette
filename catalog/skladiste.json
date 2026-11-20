@@ -1,0 +1,711 @@
+{
+ "id": "skladiste",
+ "title": "Skladište i zalihe",
+ "descr": "Evidencija proizvoda na zalihi: dobavljači, lokacije u skladištu, ulazi i izlazi robe te narudžbe dobavljačima.",
+ "tags": "posao,skladiste,nabava",
+ "tables": [
+  {
+   "name": "dobavljac",
+   "caption": "Dobavljači",
+   "descr": "Tvrtke od kojih se nabavlja roba.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra dobavljača.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv tvrtke dobavljača.",
+     "required": true
+    },
+    {
+     "name": "oib",
+     "caption": "OIB",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Osobni identifikacijski broj, 11 znamenki (kod tvrtke ili osobe).",
+     "validation": "Len([value]) = 11 And IsNumeric([value])",
+     "validation_msg": "OIB mora imati točno 11 znamenki."
+    },
+    {
+     "name": "adresa",
+     "caption": "Adresa",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Ulica i kućni broj.",
+     "width": 200
+    },
+    {
+     "name": "postanski_broj",
+     "caption": "Poštanski broj",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Poštanski broj mjesta."
+    },
+    {
+     "name": "mjesto",
+     "caption": "Mjesto",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Grad ili naselje."
+    },
+    {
+     "name": "drzava",
+     "caption": "Država",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Država; zadano Hrvatska.",
+     "default": "\"Hrvatska\""
+    },
+    {
+     "name": "email",
+     "caption": "E-pošta",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa elektroničke pošte; provjerava se oblik a@b.c.",
+     "validation": "[value] Like \"*@*.*\"",
+     "validation_msg": "Unesi ispravnu adresu e-pošte (npr. ime@tvrtka.hr).",
+     "width": 200
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "rok_isporuke",
+     "caption": "Rok isporuke (dana)",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Uobičajeno vrijeme od narudžbe do isporuke u danima.",
+     "default": "7",
+     "validation": "[value] >= 0",
+     "validation_msg": "Rok ne može biti negativan."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Tehno-trgovina d.o.o.",
+     "23456789012",
+     "Industrijska 4",
+     "10020",
+     "Zagreb",
+     "Hrvatska",
+     "nabava@tehno-trgovina.hr",
+     "01 600 1100",
+     5,
+     1
+    ],
+    [
+     2,
+     "Papir i ured d.o.o.",
+     "34567890123",
+     "Slavonska 18",
+     "31000",
+     "Osijek",
+     "Hrvatska",
+     "prodaja@papir-ured.hr",
+     "031 250 300",
+     3,
+     1
+    ],
+    [
+     3,
+     "Elektro Veleprodaja",
+     "45678901234",
+     "Obala 9",
+     "51000",
+     "Rijeka",
+     "Hrvatska",
+     "info@elektro-vp.hr",
+     "051 410 520",
+     10,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "lokacija",
+   "caption": "Lokacije u skladištu",
+   "descr": "Police i prostori na kojima se roba drži.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra lokacije.",
+     "pk": true
+    },
+    {
+     "name": "oznaka_lokacije",
+     "caption": "Oznaka",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Kratka oznaka police (npr. A-01-3).",
+     "required": true,
+     "width": 110
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv ili opis prostora.",
+     "required": true
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "A-01",
+     "Hodnik A, polica 1",
+     1
+    ],
+    [
+     2,
+     "A-02",
+     "Hodnik A, polica 2",
+     1
+    ],
+    [
+     3,
+     "B-01",
+     "Hodnik B, police za sitnu robu",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "proizvod",
+   "caption": "Proizvodi",
+   "descr": "Roba na zalihi s nabavnom i prodajnom cijenom te minimalnom zalihom.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Interna šifra proizvoda.",
+     "pk": true
+    },
+    {
+     "name": "kod",
+     "caption": "Kod",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Vlastita ili tvornička oznaka artikla (npr. barkod).",
+     "width": 120
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv proizvoda.",
+     "required": true
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Opis proizvoda."
+    },
+    {
+     "name": "jedinica_mjere",
+     "caption": "Jedinica",
+     "type": "text",
+     "role": "mjera",
+     "descr": "Jedinica u kojoj se roba vodi na zalihi.",
+     "choices": "kom,kg,l,m,pak,pal",
+     "default": "\"kom\""
+    },
+    {
+     "name": "dobavljac_id",
+     "caption": "Dobavljač",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Glavni dobavljač proizvoda.",
+     "ref": "dobavljac.sifra"
+    },
+    {
+     "name": "lokacija_id",
+     "caption": "Lokacija",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Gdje se proizvod drži u skladištu.",
+     "ref": "lokacija.sifra"
+    },
+    {
+     "name": "nabavna_cijena",
+     "caption": "Nabavna cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Zadnja nabavna cijena po jedinici.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "prodajna_cijena",
+     "caption": "Prodajna cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Cijena po kojoj se prodaje.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "trenutna_zaliha",
+     "caption": "Zaliha",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Količina na skladištu; zbroj svih ulaza i izlaza.",
+     "decimals": 2,
+     "default": "0"
+    },
+    {
+     "name": "min_zaliha",
+     "caption": "Minimalna zaliha",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Ispod ove količine treba naručiti.",
+     "decimals": 2,
+     "default": "0",
+     "validation": "[value] >= 0",
+     "validation_msg": "Zaliha ne može biti negativna."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "VIJ-M6",
+     "Vijak M6x30",
+     "Pocinčani vijak",
+     "kom",
+     1,
+     1,
+     0.08,
+     0.15,
+     480,
+     200,
+     1
+    ],
+    [
+     2,
+     "PAP-A4",
+     "Papir A4 80g",
+     "Ris od 500 listova",
+     "pak",
+     2,
+     3,
+     3.2,
+     4.9,
+     35,
+     20,
+     1
+    ],
+    [
+     3,
+     "KAB-25",
+     "Kabel 3x2,5 mm²",
+     "Kabel za instalacije, po metru",
+     "m",
+     3,
+     2,
+     1.1,
+     1.9,
+     600,
+     150,
+     1
+    ],
+    [
+     4,
+     "ZAR-LED",
+     "LED žarulja E27",
+     "Žarulja 10 W, topla bijela",
+     "kom",
+     3,
+     2,
+     1.8,
+     3.5,
+     12,
+     30,
+     1
+    ]
+   ],
+   "report": true,
+   "report_group": "lokacija_id",
+   "report_sort": "naziv"
+  },
+  {
+   "name": "kretanje_zalihe",
+   "caption": "Kretanje zaliha",
+   "descr": "Svaki ulaz i izlaz robe; trenutna zaliha je njihov zbroj.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra kretanja.",
+     "pk": true
+    },
+    {
+     "name": "proizvod_id",
+     "caption": "Proizvod",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Koji proizvod se kretao.",
+     "ref": "proizvod.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum kretanja.",
+     "default": "Date()"
+    },
+    {
+     "name": "vrsta_kretanja",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Primka povećava, izdatnica smanjuje zalihu; inventura i otpis ispravljaju stanje.",
+     "choices": "Primka,Izdatnica,Inventura,Otpis",
+     "default": "\"Primka\""
+    },
+    {
+     "name": "kolicina",
+     "caption": "Količina",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Količina; pozitivna za ulaz, negativna za izlaz.",
+     "decimals": 2,
+     "required": true,
+     "validation": "[value] <> 0",
+     "validation_msg": "Količina ne smije biti nula."
+    },
+    {
+     "name": "cijena",
+     "caption": "Cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Jedinična cijena u trenutku kretanja.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "broj_dokumenta",
+     "caption": "Dokument",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj primke, izdatnice ili računa na koji se kretanje odnosi."
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-01-05",
+     "Primka",
+     1000,
+     0.08,
+     "PR-001",
+     null
+    ],
+    [
+     2,
+     1,
+     "2026-02-10",
+     "Izdatnica",
+     -520,
+     0.08,
+     "IZ-014",
+     null
+    ],
+    [
+     3,
+     2,
+     "2026-01-12",
+     "Primka",
+     60,
+     3.2,
+     "PR-002",
+     null
+    ],
+    [
+     4,
+     2,
+     "2026-02-02",
+     "Izdatnica",
+     -25,
+     3.2,
+     "IZ-009",
+     "Ured"
+    ],
+    [
+     5,
+     3,
+     "2026-01-20",
+     "Primka",
+     800,
+     1.1,
+     "PR-003",
+     null
+    ],
+    [
+     6,
+     3,
+     "2026-03-01",
+     "Izdatnica",
+     -200,
+     1.1,
+     "IZ-021",
+     null
+    ],
+    [
+     7,
+     4,
+     "2026-01-25",
+     "Primka",
+     50,
+     1.8,
+     "PR-004",
+     null
+    ],
+    [
+     8,
+     4,
+     "2026-03-05",
+     "Izdatnica",
+     -38,
+     1.8,
+     "IZ-025",
+     "Akcija"
+    ]
+   ]
+  },
+  {
+   "name": "narudzba_dobavljacu",
+   "caption": "Narudžbe dobavljačima",
+   "descr": "Što je naručeno od kojeg dobavljača i u kojem je stanju isporuka.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra narudžbe.",
+     "pk": true
+    },
+    {
+     "name": "dobavljac_id",
+     "caption": "Dobavljač",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Kome je narudžba poslana.",
+     "ref": "dobavljac.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum narudžbe.",
+     "default": "Date()"
+    },
+    {
+     "name": "ocekivana_isporuka",
+     "caption": "Očekivana isporuka",
+     "type": "date",
+     "role": "datum",
+     "descr": "Do kada se očekuje roba."
+    },
+    {
+     "name": "status_narudzbe",
+     "caption": "Status",
+     "type": "text",
+     "role": "status",
+     "descr": "Napredak narudžbe.",
+     "choices": "Nacrt,Poslano,Primljeno djelomično,Primljeno,Otkazano",
+     "default": "\"Nacrt\""
+    },
+    {
+     "name": "ukupno",
+     "caption": "Ukupno",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos za platiti (osnovica + PDV).",
+     "decimals": 2
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     2,
+     "2026-03-02",
+     "2026-03-05",
+     "Primljeno",
+     160.0,
+     null
+    ],
+    [
+     2,
+     3,
+     "2026-03-08",
+     "2026-03-18",
+     "Poslano",
+     510.0,
+     "Hitno"
+    ]
+   ]
+  },
+  {
+   "name": "stavka_nabave",
+   "caption": "Stavke narudžbe",
+   "descr": "Proizvodi i količine na pojedinoj narudžbi dobavljaču.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra stavke.",
+     "pk": true
+    },
+    {
+     "name": "narudzba_id",
+     "caption": "Narudžba",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Narudžba kojoj stavka pripada.",
+     "ref": "narudzba_dobavljacu.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "proizvod_id",
+     "caption": "Proizvod",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Naručeni proizvod.",
+     "ref": "proizvod.sifra",
+     "required": true
+    },
+    {
+     "name": "kolicina",
+     "caption": "Količina",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Naručena količina.",
+     "decimals": 2,
+     "default": "1",
+     "validation": "[value] > 0",
+     "validation_msg": "Količina mora biti veća od nule."
+    },
+    {
+     "name": "cijena",
+     "caption": "Cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Dogovorena jedinična cijena.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "primljeno",
+     "caption": "Primljeno",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Dosad primljena količina.",
+     "decimals": 2,
+     "default": "0",
+     "validation": "[value] >= 0",
+     "validation_msg": "Količina ne može biti negativna."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     2,
+     50,
+     3.2,
+     50
+    ],
+    [
+     2,
+     2,
+     3,
+     300,
+     1.1,
+     0
+    ],
+    [
+     3,
+     2,
+     4,
+     100,
+     1.8,
+     0
+    ]
+   ]
+  }
+ ]
+}

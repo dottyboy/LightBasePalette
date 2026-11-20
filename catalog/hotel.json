@@ -1,0 +1,519 @@
+{
+ "id": "hotel",
+ "title": "Hotel i smještaj",
+ "descr": "Mali hotel ili apartmani: sobe, gosti, rezervacije s datumima i cijenom te dodatne usluge.",
+ "tags": "turizam,smjestaj,rezervacije",
+ "tables": [
+  {
+   "name": "soba",
+   "caption": "Sobe",
+   "descr": "Smještajne jedinice s kapacitetom i cijenom noćenja.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra sobe.",
+     "pk": true
+    },
+    {
+     "name": "broj_sobe",
+     "caption": "Broj sobe",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj ili oznaka na vratima.",
+     "required": true,
+     "width": 90
+    },
+    {
+     "name": "vrsta_sobe",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Tip smještaja.",
+     "choices": "Jednokrevetna,Dvokrevetna,Apartman,Obiteljska",
+     "default": "\"Dvokrevetna\""
+    },
+    {
+     "name": "kat",
+     "caption": "Kat",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Kat na kojem je soba."
+    },
+    {
+     "name": "kapacitet",
+     "caption": "Kapacitet",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Najveći broj gostiju.",
+     "default": "2",
+     "validation": "[value] > 0",
+     "validation_msg": "Kapacitet mora biti veći od nule."
+    },
+    {
+     "name": "cijena_noci",
+     "caption": "Cijena noćenja",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Cijena po noći za cijelu sobu.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Oprema, pogled, napomene."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "101",
+     "Jednokrevetna",
+     1,
+     1,
+     55,
+     "Pogled na vrt.",
+     1
+    ],
+    [
+     2,
+     "102",
+     "Dvokrevetna",
+     1,
+     2,
+     80,
+     "Francuski ležaj.",
+     1
+    ],
+    [
+     3,
+     "201",
+     "Apartman",
+     2,
+     4,
+     140,
+     "Dnevni boravak i terasa.",
+     1
+    ],
+    [
+     4,
+     "202",
+     "Obiteljska",
+     2,
+     4,
+     120,
+     "Dva odvojena ležaja i sofa.",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "gost",
+   "caption": "Gosti",
+   "descr": "Osobe koje borave u hotelu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra gosta.",
+     "pk": true
+    },
+    {
+     "name": "ime",
+     "caption": "Ime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Osobno ime.",
+     "required": true
+    },
+    {
+     "name": "prezime",
+     "caption": "Prezime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Prezime.",
+     "required": true
+    },
+    {
+     "name": "email",
+     "caption": "E-pošta",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa elektroničke pošte; provjerava se oblik a@b.c.",
+     "validation": "[value] Like \"*@*.*\"",
+     "validation_msg": "Unesi ispravnu adresu e-pošte (npr. ime@tvrtka.hr).",
+     "width": 200
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "drzava",
+     "caption": "Država",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Država; zadano Hrvatska.",
+     "default": "\"Hrvatska\""
+    },
+    {
+     "name": "broj_isprave",
+     "caption": "Broj isprave",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Putovnica ili osobna iskaznica."
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Hans",
+     "Müller",
+     "hans.mueller@mail.de",
+     "+49 170 1234567",
+     "Njemačka",
+     "C01X00T47",
+     null
+    ],
+    [
+     2,
+     "Ana",
+     "Perić",
+     "ana.peric@mail.hr",
+     "091 222 3333",
+     "Hrvatska",
+     "123456789",
+     "Stalna gošća"
+    ],
+    [
+     3,
+     "Anna",
+     "Rossi",
+     "anna.rossi@mail.it",
+     "+39 333 4445556",
+     "Italija",
+     "YA1234567",
+     null
+    ]
+   ]
+  },
+  {
+   "name": "rezervacija",
+   "caption": "Rezervacije",
+   "descr": "Tko je rezervirao koju sobu, od kada do kada i po kojoj ukupnoj cijeni.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra rezervacije.",
+     "pk": true
+    },
+    {
+     "name": "gost_id",
+     "caption": "Gost",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Nositelj rezervacije.",
+     "ref": "gost.sifra",
+     "required": true
+    },
+    {
+     "name": "soba_id",
+     "caption": "Soba",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Rezervirana soba.",
+     "ref": "soba.sifra",
+     "required": true
+    },
+    {
+     "name": "dolazak",
+     "caption": "Dolazak",
+     "type": "date",
+     "role": "datum",
+     "descr": "Prvi dan boravka."
+    },
+    {
+     "name": "odlazak",
+     "caption": "Odlazak",
+     "type": "date",
+     "role": "datum",
+     "descr": "Dan odlaska."
+    },
+    {
+     "name": "broj_gostiju",
+     "caption": "Gostiju",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Broj osoba.",
+     "default": "2",
+     "validation": "[value] > 0",
+     "validation_msg": "Broj gostiju mora biti veći od nule."
+    },
+    {
+     "name": "status_rezervacije",
+     "caption": "Status",
+     "type": "text",
+     "role": "status",
+     "descr": "Stanje rezervacije.",
+     "choices": "Upit,Potvrđeno,Prijavljen,Odjavljen,Otkazano",
+     "default": "\"Potvrđeno\""
+    },
+    {
+     "name": "nacin_placanja",
+     "caption": "Način plaćanja",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Kako kupac plaća.",
+     "choices": "Virman,Gotovina,Kartica,Pouzeće",
+     "default": "\"Virman\""
+    },
+    {
+     "name": "ukupno",
+     "caption": "Ukupno",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos za platiti (osnovica + PDV).",
+     "decimals": 2
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     2,
+     "2026-03-10",
+     "2026-03-14",
+     2,
+     "Odjavljen",
+     "Kartica",
+     320,
+     null
+    ],
+    [
+     2,
+     2,
+     3,
+     "2026-04-02",
+     "2026-04-05",
+     3,
+     "Potvrđeno",
+     "Gotovina",
+     420,
+     "Rođendan"
+    ],
+    [
+     3,
+     3,
+     1,
+     "2026-05-20",
+     "2026-05-22",
+     1,
+     "Upit",
+     "Kartica",
+     110,
+     null
+    ]
+   ],
+   "report": true,
+   "report_group": "status_rezervacije",
+   "report_sort": "dolazak"
+  },
+  {
+   "name": "usluga_hotela",
+   "caption": "Usluge",
+   "descr": "Dodatne usluge koje se naplaćuju (doručak, parking, wellness).",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra usluge.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv usluge.",
+     "required": true
+    },
+    {
+     "name": "cijena",
+     "caption": "Cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Cijena usluge po jedinici.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Doručak",
+     12,
+     1
+    ],
+    [
+     2,
+     "Parking",
+     8,
+     1
+    ],
+    [
+     3,
+     "Wellness",
+     20,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "naplata_usluge",
+   "caption": "Naplaćene usluge",
+   "descr": "Usluge dodane na rezervaciju.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra stavke.",
+     "pk": true
+    },
+    {
+     "name": "rezervacija_id",
+     "caption": "Rezervacija",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Uz koju rezervaciju.",
+     "ref": "rezervacija.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "usluga_id",
+     "caption": "Usluga",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Koja usluga.",
+     "ref": "usluga_hotela.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum usluge.",
+     "default": "Date()"
+    },
+    {
+     "name": "kolicina",
+     "caption": "Količina",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Količina.",
+     "decimals": 2,
+     "default": "1",
+     "validation": "[value] > 0",
+     "validation_msg": "Količina mora biti veća od nule."
+    },
+    {
+     "name": "cijena",
+     "caption": "Cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Cijena po jedinici.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos stavke.",
+     "decimals": 2
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     1,
+     "2026-03-11",
+     2,
+     12,
+     24
+    ],
+    [
+     2,
+     1,
+     3,
+     "2026-03-12",
+     2,
+     20,
+     40
+    ],
+    [
+     3,
+     2,
+     2,
+     "2026-04-02",
+     1,
+     8,
+     8
+    ]
+   ]
+  }
+ ]
+}

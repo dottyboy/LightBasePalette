@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="12"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasScaledStatement Value="False"/>
+      </Flags>
+      <SessionStorage Value="InProjectDir"/>
+      <Title Value="ThemeGallery"/>
+      <UseAppBundle Value="False"/>
+      <ResourceType Value="res"/>
+    </General>
+    <BuildModes Count="1">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <RequiredPackages Count="6">
+      <Item1><PackageName Value="adLCL"/></Item1>
+      <Item2><PackageName Value="pl_ZeosDBO"/></Item2>
+      <Item3><PackageName Value="pl_PascalScript"/></Item3>
+      <Item4><PackageName Value="pl_FpSpreadsheet"/></Item4>
+      <Item5><PackageName Value="pl_RichMemo"/></Item5>
+      <Item6><PackageName Value="pl_Image32"/></Item6>
+    </RequiredPackages>
+    <Units Count="1">
+      <Unit0>
+        <Filename Value="parity.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit0>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <Target>
+      <Filename Value="parity"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir);../../src/core"/>
+      <OtherUnitFiles Value="../../src/core;../../src/gui;../../src/editors"/>
+      <UnitOutputDirectory Value="lib"/>
+    </SearchPaths>
+  </CompilerOptions>
+</CONFIG>

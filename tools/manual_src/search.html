@@ -1,0 +1,57 @@
+<div id="ta-search">
+  <input id="ta-q" type="search" placeholder="Traži u priručniku ( / )" autocomplete="off" aria-label="Traži u priručniku">
+  <ul id="ta-res" hidden></ul>
+</div>
+<style>
+#ta-search{position:fixed;top:8px;right:12px;width:22em;max-width:calc(100vw - 24px);z-index:50;font:14px/1.35 sans-serif}
+#ta-q{width:100%;box-sizing:border-box;padding:6px 10px;border:1px solid #999;border-radius:6px;background:#fff;color:#222}
+#ta-res{list-style:none;margin:4px 0 0;padding:0;background:#fff;color:#222;border:1px solid #bbb;border-radius:6px;max-height:70vh;overflow:auto;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+#ta-res li{padding:6px 10px;cursor:pointer;border-bottom:1px solid #eee}
+#ta-res li:hover,#ta-res li.on{background:#e8f0fe}
+#ta-res small{display:block;color:#666}
+@media print{#ta-search{display:none}}
+</style>
+<script>
+(function(){
+  function norm(s){return s.toLowerCase().replace(/đ/g,'d').normalize('NFD').replace(/[̀-ͯ]/g,'');}
+  var heads=[].slice.call(document.querySelectorAll('h1,h2,h3')).filter(function(h){return h.id;}).map(function(h){
+    var t=h.textContent, body=t, n=h.nextElementSibling;
+    while(n&&!/^(SECTION|H[1-6])$/.test(n.tagName)){body+=' '+n.textContent;n=n.nextElementSibling;}
+    return {el:h,title:t,nt:norm(t),nb:norm(body),raw:body};
+  });
+  var q=document.getElementById('ta-q'),res=document.getElementById('ta-res'),sel=-1,cur=[];
+  function show(){
+    var words=norm(q.value).split(/\s+/).filter(Boolean);
+    res.innerHTML='';sel=-1;cur=[];
+    if(!words.length){res.hidden=true;return;}
+    var hits=[];
+    heads.forEach(function(h){
+      if(!words.every(function(w){return h.nb.indexOf(w)>=0;}))return;
+      var c=0;words.forEach(function(w){c+=h.nb.split(w).length-1;});
+      hits.push({h:h,score:words.every(function(w){return h.nt.indexOf(w)>=0;})?-1e6:-c/Math.max(1,h.nb.length/200)});
+    });
+    hits.sort(function(a,b){return a.score-b.score;});
+    cur=hits.slice(0,15);
+    if(!cur.length){var li=document.createElement('li');li.textContent='Nema rezultata';res.appendChild(li);}
+    cur.forEach(function(x,i){
+      var li=document.createElement('li'),w=norm(x.h.raw),p=w.indexOf(words[0]);
+      var snip=p<0?'':x.h.raw.substr(Math.max(0,p-30),90).replace(/\s+/g,' ');
+      li.innerHTML='<b></b><small></small>';li.firstChild.textContent=x.h.title;li.lastChild.textContent=snip;
+      li.onclick=function(){go(i);};res.appendChild(li);
+    });
+    res.hidden=false;
+  }
+  function go(i){var h=cur[i];if(!h)return;res.hidden=true;h.h.el.scrollIntoView({behavior:'smooth',block:'start'});location.hash=h.h.el.id;}
+  function mark(){[].forEach.call(res.children,function(li,i){li.className=i===sel?'on':'';});}
+  q.addEventListener('input',show);
+  q.addEventListener('keydown',function(e){
+    if(e.key==='ArrowDown'){sel=Math.min(sel+1,cur.length-1);mark();e.preventDefault();}
+    else if(e.key==='ArrowUp'){sel=Math.max(sel-1,0);mark();e.preventDefault();}
+    else if(e.key==='Enter'){go(sel<0?0:sel);}
+    else if(e.key==='Escape'){res.hidden=true;q.blur();}
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='/'&&document.activeElement!==q&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){q.focus();e.preventDefault();}
+  });
+})();
+</script>

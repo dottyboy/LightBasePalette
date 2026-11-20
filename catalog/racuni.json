@@ -1,0 +1,715 @@
+{
+ "id": "racuni",
+ "title": "Računi i fakturiranje",
+ "descr": "Mali obrt ili tvrtka: kupci, artikli i usluge, izdani računi sa stavkama i evidencija plaćanja.",
+ "tags": "posao,financije,prodaja",
+ "tables": [
+  {
+   "name": "kupac",
+   "caption": "Kupci",
+   "descr": "Tvrtke i osobe kojima se ispostavljaju računi.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Interna šifra kupca.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv tvrtke ili ime i prezime kupca kako se ispisuje na računu.",
+     "required": true
+    },
+    {
+     "name": "oib",
+     "caption": "OIB",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Osobni identifikacijski broj, 11 znamenki (kod tvrtke ili osobe).",
+     "validation": "Len([value]) = 11 And IsNumeric([value])",
+     "validation_msg": "OIB mora imati točno 11 znamenki."
+    },
+    {
+     "name": "adresa",
+     "caption": "Adresa",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Ulica i kućni broj.",
+     "width": 200
+    },
+    {
+     "name": "postanski_broj",
+     "caption": "Poštanski broj",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Poštanski broj mjesta."
+    },
+    {
+     "name": "mjesto",
+     "caption": "Mjesto",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Grad ili naselje."
+    },
+    {
+     "name": "drzava",
+     "caption": "Država",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Država; zadano Hrvatska.",
+     "default": "\"Hrvatska\""
+    },
+    {
+     "name": "email",
+     "caption": "E-pošta",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa elektroničke pošte; provjerava se oblik a@b.c.",
+     "validation": "[value] Like \"*@*.*\"",
+     "validation_msg": "Unesi ispravnu adresu e-pošte (npr. ime@tvrtka.hr).",
+     "width": 200
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "rok_placanja",
+     "caption": "Rok plaćanja (dana)",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Koliko dana nakon računa kupac plaća; koristi se za datum dospijeća.",
+     "default": "15",
+     "validation": "[value] >= 0",
+     "validation_msg": "Rok ne može biti negativan."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Kvaka d.o.o.",
+     "12345678903",
+     "Ilica 12",
+     "10000",
+     "Zagreb",
+     "Hrvatska",
+     "racuni@kvaka.hr",
+     "01 555 1234",
+     30,
+     1,
+     null
+    ],
+    [
+     2,
+     "Marija Horvat",
+     "98765432109",
+     "Trg bana Jelačića 3",
+     "10000",
+     "Zagreb",
+     "Hrvatska",
+     "marija.horvat@mail.hr",
+     "091 222 3344",
+     8,
+     1,
+     null
+    ],
+    [
+     3,
+     "Adria promet d.d.",
+     "45678912305",
+     "Riva 7",
+     "21000",
+     "Split",
+     "Hrvatska",
+     "uprava@adria-promet.hr",
+     "021 330 440",
+     15,
+     1,
+     "Plaća uvijek na zadnji dan"
+    ],
+    [
+     4,
+     "Alpenhof GmbH",
+     "11223344556",
+     "Hauptstrasse 5",
+     "8010",
+     "Graz",
+     "Austrija",
+     "office@alpenhof.at",
+     "+43 316 123456",
+     30,
+     1,
+     "Račun bez PDV-a (EU isporuka)"
+    ]
+   ]
+  },
+  {
+   "name": "artikl",
+   "caption": "Artikli i usluge",
+   "descr": "Što se prodaje: roba i usluge s cijenom, jedinicom mjere i stopom PDV-a.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Interna šifra artikla.",
+     "pk": true
+    },
+    {
+     "name": "kod",
+     "caption": "Kod",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Vlastita ili tvornička oznaka artikla (npr. barkod).",
+     "width": 120
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv artikla ili usluge kako se ispisuje na računu.",
+     "required": true
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Opis artikla, uvjeti, napomene o isporuci."
+    },
+    {
+     "name": "jedinica",
+     "caption": "Jedinica",
+     "type": "text",
+     "role": "mjera",
+     "descr": "Jedinica mjere za količinu na stavci.",
+     "choices": "kom,kg,l,m,sat,usluga",
+     "default": "\"kom\""
+    },
+    {
+     "name": "cijena",
+     "caption": "Cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Jedinična cijena bez PDV-a.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "pdv_stopa",
+     "caption": "PDV (%)",
+     "type": "decimal",
+     "role": "postotak",
+     "descr": "Stopa PDV-a u postocima (0, 5, 13 ili 25).",
+     "decimals": 0,
+     "default": "25",
+     "validation": "[value] In (0, 5, 13, 25)",
+     "validation_msg": "Dopuštene stope PDV-a: 0, 5, 13, 25."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "KON-60",
+     "Konzultacije",
+     "Savjetovanje po satu",
+     "sat",
+     60.0,
+     25,
+     1
+    ],
+    [
+     2,
+     "WEB-01",
+     "Izrada web stranice",
+     "Paket do 5 podstranica",
+     "usluga",
+     850.0,
+     25,
+     1
+    ],
+    [
+     3,
+     "HST-12",
+     "Hosting 12 mjeseci",
+     "Godišnji najam poslužitelja",
+     "usluga",
+     120.0,
+     25,
+     1
+    ],
+    [
+     4,
+     "KNJ-01",
+     "Stručna knjiga",
+     "Tiskano izdanje",
+     "kom",
+     24.5,
+     5,
+     1
+    ],
+    [
+     5,
+     "DOS-10",
+     "Dostava",
+     "Dostava paketa na adresu",
+     "kom",
+     5.0,
+     25,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "racun",
+   "caption": "Računi",
+   "descr": "Izdani računi. Iznosi se zbrajaju iz stavki; status prati naplatu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Interna šifra računa.",
+     "pk": true
+    },
+    {
+     "name": "broj",
+     "caption": "Broj računa",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Službeni broj računa u obliku godina-redni broj (npr. 2026-0001).",
+     "required": true,
+     "width": 110
+    },
+    {
+     "name": "kupac_id",
+     "caption": "Kupac",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Kome je račun ispostavljen.",
+     "ref": "kupac.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum izdavanja računa.",
+     "default": "Date()"
+    },
+    {
+     "name": "datum_dospijeca",
+     "caption": "Dospijeće",
+     "type": "date",
+     "role": "datum",
+     "descr": "Do kada kupac treba platiti."
+    },
+    {
+     "name": "status_racuna",
+     "caption": "Status",
+     "type": "text",
+     "role": "status",
+     "descr": "Naplata računa: otvoren, djelomično plaćen, plaćen ili storniran.",
+     "choices": "Otvoren,Djelomično plaćen,Plaćen,Storniran",
+     "default": "\"Otvoren\""
+    },
+    {
+     "name": "nacin_placanja",
+     "caption": "Način plaćanja",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Kako kupac plaća.",
+     "choices": "Virman,Gotovina,Kartica,Pouzeće",
+     "default": "\"Virman\""
+    },
+    {
+     "name": "osnovica",
+     "caption": "Osnovica",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Zbroj stavki bez PDV-a.",
+     "decimals": 2
+    },
+    {
+     "name": "pdv_iznos",
+     "caption": "PDV",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Obračunani PDV.",
+     "decimals": 2
+    },
+    {
+     "name": "ukupno",
+     "caption": "Ukupno",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos za platiti (osnovica + PDV).",
+     "decimals": 2
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Tekst koji se ispisuje na računu (npr. poziv na broj, uputa za plaćanje)."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "2026-0001",
+     1,
+     "2026-01-15",
+     "2026-02-14",
+     "Plaćen",
+     "Virman",
+     1000.0,
+     250.0,
+     1250.0,
+     null
+    ],
+    [
+     2,
+     "2026-0002",
+     2,
+     "2026-02-03",
+     "2026-02-11",
+     "Plaćen",
+     "Gotovina",
+     120.0,
+     30.0,
+     150.0,
+     null
+    ],
+    [
+     3,
+     "2026-0003",
+     3,
+     "2026-03-10",
+     "2026-03-25",
+     "Otvoren",
+     "Virman",
+     850.0,
+     212.5,
+     1062.5,
+     "Poziv na broj 2026-0003"
+    ],
+    [
+     4,
+     "2026-0004",
+     1,
+     "2026-03-20",
+     "2026-04-19",
+     "Djelomično plaćen",
+     "Virman",
+     175.0,
+     43.75,
+     218.75,
+     null
+    ]
+   ],
+   "report": true,
+   "report_group": "status_racuna",
+   "report_sort": "datum"
+  },
+  {
+   "name": "stavka_racuna",
+   "caption": "Stavke računa",
+   "descr": "Redci računa: što je prodano, u kojoj količini i po kojoj cijeni.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Interna šifra stavke.",
+     "pk": true
+    },
+    {
+     "name": "racun_id",
+     "caption": "Račun",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Račun kojem stavka pripada; brisanjem računa brišu se i stavke.",
+     "ref": "racun.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "artikl_id",
+     "caption": "Artikl",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Prodani artikl ili usluga.",
+     "ref": "artikl.sifra"
+    },
+    {
+     "name": "naziv_stavke",
+     "caption": "Naziv stavke",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Tekst na računu; zadano naziv artikla, može se prepraviti.",
+     "width": 220
+    },
+    {
+     "name": "kolicina",
+     "caption": "Količina",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Prodana količina.",
+     "decimals": 2,
+     "default": "1",
+     "validation": "[value] > 0",
+     "validation_msg": "Količina mora biti veća od nule."
+    },
+    {
+     "name": "cijena",
+     "caption": "Cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Jedinična cijena bez PDV-a.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "rabat",
+     "caption": "Rabat (%)",
+     "type": "decimal",
+     "role": "postotak",
+     "descr": "Popust na stavku u postocima.",
+     "decimals": 1,
+     "default": "0",
+     "validation": "[value] >= 0 And [value] <= 100",
+     "validation_msg": "Rabat mora biti između 0 i 100."
+    },
+    {
+     "name": "pdv_stopa",
+     "caption": "PDV (%)",
+     "type": "decimal",
+     "role": "postotak",
+     "descr": "Stopa PDV-a u postocima (0, 5, 13 ili 25).",
+     "decimals": 0,
+     "default": "25",
+     "validation": "[value] In (0, 5, 13, 25)",
+     "validation_msg": "Dopuštene stope PDV-a: 0, 5, 13, 25."
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos stavke bez PDV-a: količina × cijena − rabat.",
+     "decimals": 2
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     1,
+     "Konzultacije",
+     10,
+     60.0,
+     0,
+     25,
+     600.0
+    ],
+    [
+     2,
+     1,
+     2,
+     "Izrada web stranice",
+     1,
+     850.0,
+     52.9,
+     25,
+     400.0
+    ],
+    [
+     3,
+     2,
+     3,
+     "Hosting 12 mjeseci",
+     1,
+     120.0,
+     0,
+     25,
+     120.0
+    ],
+    [
+     4,
+     3,
+     2,
+     "Izrada web stranice",
+     1,
+     850.0,
+     0,
+     25,
+     850.0
+    ],
+    [
+     5,
+     4,
+     4,
+     "Stručna knjiga",
+     5,
+     24.5,
+     0,
+     5,
+     122.5
+    ],
+    [
+     6,
+     4,
+     5,
+     "Dostava",
+     1,
+     5.0,
+     0,
+     25,
+     5.0
+    ],
+    [
+     7,
+     4,
+     1,
+     "Konzultacije",
+     1,
+     60.0,
+     0,
+     25,
+     47.5
+    ]
+   ]
+  },
+  {
+   "name": "placanje",
+   "caption": "Plaćanja",
+   "descr": "Uplate po računima; zbroj uplata uspoređuje se s iznosom računa.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Interna šifra uplate.",
+     "pk": true
+    },
+    {
+     "name": "racun_id",
+     "caption": "Račun",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Račun na koji se uplata odnosi.",
+     "ref": "racun.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum uplate.",
+     "default": "Date()"
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Uplaćeni iznos u eurima.",
+     "decimals": 2
+    },
+    {
+     "name": "nacin_placanja",
+     "caption": "Način plaćanja",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Kako kupac plaća.",
+     "choices": "Virman,Gotovina,Kartica,Pouzeće",
+     "default": "\"Virman\""
+    },
+    {
+     "name": "poziv_na_broj",
+     "caption": "Poziv na broj",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Poziv na broj iz uplatnice; služi za automatsko spajanje uplate s računom."
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-02-10",
+     1250.0,
+     "Virman",
+     "2026-0001",
+     null
+    ],
+    [
+     2,
+     2,
+     "2026-02-03",
+     150.0,
+     "Gotovina",
+     null,
+     "Plaćeno pri preuzimanju"
+    ],
+    [
+     3,
+     4,
+     "2026-04-02",
+     100.0,
+     "Virman",
+     "2026-0004",
+     "Prva rata"
+    ]
+   ]
+  }
+ ]
+}

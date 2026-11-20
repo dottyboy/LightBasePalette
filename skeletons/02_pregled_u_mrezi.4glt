@@ -1,0 +1,26 @@
+@format 1
+@kostur  Pregled u mreži
+@opis    Svi zapisi tablice u mreži (DISPLAY ARRAY).
+@kontekst  gumb
+@kategorija  Popisi
+@utor tablica     : tablica                              "Koja tablica?"
+@utor redoslijed  : stupac(tablica) zadano=kljuc          "Poredak po stupcu"
+@utor naslov      : tekst zadano="{tablica}"              "Naslov mreže"
+@preduvjet tablica ima barem 2 stupca
+---
+MAIN
+  DEFINE r RECORD LIKE {tablica}.*
+  DEFINE lista ARRAY[] OF RECORD LIKE {tablica}.*
+  DEFINE n INTEGER
+  LET n = 0
+  DECLARE c CURSOR FOR SELECT * FROM {tablica} ORDER BY {redoslijed}
+  FOREACH c INTO r.*
+    LET n = n + 1
+    LET lista[n].* = r.*
+  END FOREACH
+  IF n = 0 THEN
+    MESSAGE "Tablica {tablica} je prazna."
+    EXIT PROGRAM
+  END IF
+  DISPLAY ARRAY lista TITLE "{naslov}"
+END MAIN

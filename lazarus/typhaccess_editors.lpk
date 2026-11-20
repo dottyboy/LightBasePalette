@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <Name Value="typhaccess_editors"/>
+    <Type Value="RunAndDesignTime"/>
+    <Author Value="TyphAccess"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="../src/editors"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/$(LCLWidgetType)"/>
+      </SearchPaths>
+      <Parsing>
+        <SyntaxOptions>
+          <SyntaxMode Value="ObjFPC"/>
+          <UseAnsiStrings Value="False"/>
+        </SyntaxOptions>
+      </Parsing>
+    </CompilerOptions>
+    <Description Value="TyphAccess dijalozi i carobnjaci (sloj B), isti u IDE-u i u dizajneru"/>
+    <License Value="Vlastita biblioteka"/>
+    <Version Major="0" Minor="1"/>
+    <Files Count="27">
+      <Item1>
+        <Filename Value="../src/editors/ta_anchoreditor.pas"/>
+        <UnitName Value="ta_anchoreditor"/>
+      </Item1>
+      <Item2>
+        <Filename Value="../src/editors/ta_appdlg.pas"/>
+        <UnitName Value="ta_appdlg"/>
+      </Item2>
+      <Item3>
+        <Filename Value="../src/editors/ta_auditdlg.pas"/>
+        <UnitName Value="ta_auditdlg"/>
+      </Item3>
+      <Item4>
+        <Filename Value="../src/editors/ta_bizdlg.pas"/>
+        <UnitName Value="ta_bizdlg"/>
+      </Item4>
+      <Item5>
+        <Filename Value="../src/editors/ta_blockedit.pas"/>
+        <UnitName Value="ta_blockedit"/>
+      </Item5>
+      <Item6>
+        <Filename Value="../src/editors/ta_calcdlg.pas"/>
+        <UnitName Value="ta_calcdlg"/>
+      </Item6>
+      <Item7>
+        <Filename Value="../src/editors/ta_catalogdlg.pas"/>
+        <UnitName Value="ta_catalogdlg"/>
+      </Item7>
+      <Item8>
+        <Filename Value="../src/editors/ta_companydlg.pas"/>
+        <UnitName Value="ta_companydlg"/>
+      </Item8>
+      <Item9>
+        <Filename Value="../src/editors/ta_crosstabdlg.pas"/>
+        <UnitName Value="ta_crosstabdlg"/>
+      </Item9>
+      <Item10>
+        <Filename Value="../src/editors/ta_datatoolsdlg.pas"/>
+        <UnitName Value="ta_datatoolsdlg"/>
+      </Item10>
+      <Item11>
+        <Filename Value="../src/editors/ta_exprbuilder.pas"/>
+        <UnitName Value="ta_exprbuilder"/>
+      </Item11>
+      <Item12>
+        <Filename Value="../src/editors/ta_fielddlg.pas"/>
+        <UnitName Value="ta_fielddlg"/>
+      </Item12>
+      <Item13>
+        <Filename Value="../src/editors/ta_filestoredlg.pas"/>
+        <UnitName Value="ta_filestoredlg"/>
+      </Item13>
+      <Item14>
+        <Filename Value="../src/editors/ta_filterdlg.pas"/>
+        <UnitName Value="ta_filterdlg"/>
+      </Item14>
+      <Item16>
+        <Filename Value="../src/editors/ta_importdlg.pas"/>
+        <UnitName Value="ta_importdlg"/>
+      </Item16>
+      <Item17>
+        <Filename Value="../src/editors/ta_paramdlg.pas"/>
+        <UnitName Value="ta_paramdlg"/>
+      </Item17>
+      <Item18>
+        <Filename Value="../src/editors/ta_propdlgs.pas"/>
+        <UnitName Value="ta_propdlgs"/>
+      </Item18>
+      <Item19>
+        <Filename Value="../src/editors/ta_querywiz.pas"/>
+        <UnitName Value="ta_querywiz"/>
+      </Item19>
+      <Item20>
+        <Filename Value="../src/editors/ta_wizardfgl_dlg.pas"/>
+        <UnitName Value="ta_wizardfgl_dlg"/>
+      </Item20>
+      <Item21>
+        <Filename Value="../src/editors/ta_wizardformgrid_dlg.pas"/>
+        <UnitName Value="ta_wizardformgrid_dlg"/>
+      </Item21>
+      <Item22>
+        <Filename Value="../src/editors/ta_wizards.pas"/>
+        <UnitName Value="ta_wizards"/>
+      </Item22>
+      <Item23>
+        <Filename Value="../src/editors/ta_skelwizard.pas"/>
+        <UnitName Value="ta_skelwizard"/>
+      </Item23>
+      <Item24>
+        <Filename Value="../src/editors/ta_blockdlg.pas"/>
+        <UnitName Value="ta_blockdlg"/>
+      </Item24>
+      <Item25>
+        <Filename Value="../src/editors/ta_fglblockdlg.pas"/>
+        <UnitName Value="ta_fglblockdlg"/>
+      </Item25>
+      <Item26>
+        <Filename Value="../src/editors/ta_editdlg.pas"/>
+        <UnitName Value="ta_editdlg"/>
+      </Item26>
+      <Item27>
+        <Filename Value="../src/editors/ta_lovdlg.pas"/>
+        <UnitName Value="ta_lovdlg"/>
+      </Item27>
+      <Item28>
+        <Filename Value="../src/editors/ta_gendlg.pas"/>
+        <UnitName Value="ta_gendlg"/>
+      </Item28>
+    </Files>
+    <RequiredPkgs Count="7">
+      <Item1>
+        <PackageName Value="adLCL"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="pl_ZeosDBO"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="pl_PascalScript"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="pl_FpSpreadsheet"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="pl_RichMemo"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="pl_Image32"/>
+      </Item6>
+      <Item7>
+        <PackageName Value="typhaccess_core"/>
+      </Item7>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

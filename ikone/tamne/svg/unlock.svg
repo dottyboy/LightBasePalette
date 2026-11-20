@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+<path fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 11.5 9 C 11.5 3.667969 19.5 3.667969 19.5 9 "/>
+<path fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 11.5 9 L 11.5 6.800781 "/>
+<path fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 19.5 9 L 19.5 10.5 "/>
+<path fill-rule="nonzero" fill="rgb(11.764706%, 22.745098%, 54.117647%)" fill-opacity="1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(37.647059%, 64.705882%, 98.039216%)" stroke-opacity="1" stroke-miterlimit="10" d="M 17 10.5 C 18.105469 10.5 19 11.394531 19 12.5 L 19 18.5 C 19 19.605469 18.105469 20.5 17 20.5 L 7 20.5 C 5.894531 20.5 5 19.605469 5 18.5 L 5 12.5 C 5 11.394531 5.894531 10.5 7 10.5 Z M 17 10.5 "/>
+<path fill-rule="nonzero" fill="rgb(37.647059%, 64.705882%, 98.039216%)" fill-opacity="1" d="M 13.398438 15.300781 C 13.398438 17.167969 10.601562 17.167969 10.601562 15.300781 C 10.601562 13.433594 13.398438 13.433594 13.398438 15.300781 "/>
+</svg>

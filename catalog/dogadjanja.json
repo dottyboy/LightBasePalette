@@ -1,0 +1,397 @@
+{
+ "id": "dogadjanja",
+ "title": "Događanja i ulaznice",
+ "descr": "Organizacija događanja: događaj s kapacitetom i cijenom, sudionici, prodane ulaznice i program po terminima.",
+ "tags": "dogadjaji,ulaznice,organizacija",
+ "tables": [
+  {
+   "name": "dogadjaj",
+   "caption": "Događaji",
+   "descr": "Konferencije, koncerti, radionice.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra događaja.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv događaja.",
+     "required": true
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Opis i program."
+    },
+    {
+     "name": "pocetak_dogadjaja",
+     "caption": "Početak",
+     "type": "datetime",
+     "role": "datum",
+     "descr": "Datum i sat početka."
+    },
+    {
+     "name": "lokacija_dogadjaja",
+     "caption": "Lokacija",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Gdje se događaj održava.",
+     "width": 200
+    },
+    {
+     "name": "kapacitet",
+     "caption": "Kapacitet",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Najveći broj sudionika.",
+     "validation": "[value] > 0",
+     "validation_msg": "Kapacitet mora biti veći od nule."
+    },
+    {
+     "name": "cijena_ulaznice",
+     "caption": "Cijena ulaznice",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Osnovna cijena ulaznice.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "status_dogadjaja",
+     "caption": "Status",
+     "type": "text",
+     "role": "status",
+     "descr": "Stanje događaja.",
+     "choices": "Planiran,Otvorena prodaja,Rasprodano,Održan,Otkazan",
+     "default": "\"Planiran\""
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Konferencija o digitalizaciji",
+     "Jednodnevna konferencija s radionicama.",
+     "2026-05-14 09:00:00",
+     "Kongresni centar, Zagreb",
+     300,
+     80,
+     "Otvorena prodaja"
+    ],
+    [
+     2,
+     "Ljetni koncert",
+     "Koncert na otvorenom.",
+     "2026-07-18 21:00:00",
+     "Park Maksimir, Zagreb",
+     1500,
+     25,
+     "Planiran"
+    ]
+   ],
+   "report": true,
+   "report_group": "status_dogadjaja",
+   "report_sort": "pocetak_dogadjaja"
+  },
+  {
+   "name": "sudionik",
+   "caption": "Sudionici",
+   "descr": "Posjetitelji i kupci ulaznica.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra sudionika.",
+     "pk": true
+    },
+    {
+     "name": "ime",
+     "caption": "Ime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Osobno ime.",
+     "required": true
+    },
+    {
+     "name": "prezime",
+     "caption": "Prezime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Prezime.",
+     "required": true
+    },
+    {
+     "name": "email",
+     "caption": "E-pošta",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa elektroničke pošte; provjerava se oblik a@b.c.",
+     "validation": "[value] Like \"*@*.*\"",
+     "validation_msg": "Unesi ispravnu adresu e-pošte (npr. ime@tvrtka.hr).",
+     "width": 200
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "organizacija",
+     "caption": "Organizacija",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Tvrtka ili udruga."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Nikola",
+     "Kralj",
+     "nikola.kralj@mail.hr",
+     "091 123 4567",
+     "Tehno Plus d.o.o."
+    ],
+    [
+     2,
+     "Lana",
+     "Horvat",
+     "lana.horvat@mail.hr",
+     "098 987 6543",
+     null
+    ],
+    [
+     3,
+     "Tin",
+     "Babić",
+     "tin.babic@mail.hr",
+     null,
+     "Kvaka d.o.o."
+    ]
+   ]
+  },
+  {
+   "name": "ulaznica",
+   "caption": "Ulaznice",
+   "descr": "Prodane ulaznice s cijenom, plaćanjem i prijavom na ulazu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra ulaznice.",
+     "pk": true
+    },
+    {
+     "name": "dogadjaj_id",
+     "caption": "Događaj",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Za koji događaj.",
+     "ref": "dogadjaj.sifra",
+     "required": true
+    },
+    {
+     "name": "sudionik_id",
+     "caption": "Sudionik",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Tko je kupio.",
+     "ref": "sudionik.sifra",
+     "required": true
+    },
+    {
+     "name": "broj_ulaznice",
+     "caption": "Broj ulaznice",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Jedinstveni broj za provjeru na ulazu.",
+     "required": true
+    },
+    {
+     "name": "vrsta_ulaznice",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Vrsta ulaznice.",
+     "choices": "Standard,VIP,Student,Besplatna",
+     "default": "\"Standard\""
+    },
+    {
+     "name": "cijena",
+     "caption": "Cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Plaćena cijena.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "datum_kupnje",
+     "caption": "Kupljeno",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je kupljena.",
+     "default": "Date()"
+    },
+    {
+     "name": "placeno",
+     "caption": "Plaćeno",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Označi kad je uplata evidentirana.",
+     "default": "False"
+    },
+    {
+     "name": "prijavljen",
+     "caption": "Prijavljen",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Označi kad se osoba prijavila na ulazu.",
+     "default": "False"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     1,
+     "K26-0001",
+     "Standard",
+     80,
+     "2026-03-01",
+     1,
+     0
+    ],
+    [
+     2,
+     1,
+     2,
+     "K26-0002",
+     "Student",
+     40,
+     "2026-03-02",
+     1,
+     0
+    ],
+    [
+     3,
+     1,
+     3,
+     "K26-0003",
+     "VIP",
+     150,
+     "2026-03-05",
+     0,
+     0
+    ],
+    [
+     4,
+     2,
+     2,
+     "L26-0001",
+     "Standard",
+     25,
+     "2026-03-10",
+     1,
+     0
+    ]
+   ]
+  },
+  {
+   "name": "program_dogadjaja",
+   "caption": "Program",
+   "descr": "Termini i izvođači na događaju.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra stavke programa.",
+     "pk": true
+    },
+    {
+     "name": "dogadjaj_id",
+     "caption": "Događaj",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Događaj.",
+     "ref": "dogadjaj.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "pocetak_nastupa",
+     "caption": "Početak",
+     "type": "datetime",
+     "role": "datum",
+     "descr": "Datum i sat početka."
+    },
+    {
+     "name": "naslov",
+     "caption": "Naslov",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naslov.",
+     "required": true
+    },
+    {
+     "name": "izvodjac",
+     "caption": "Izvođač",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Govornik ili izvođač."
+    },
+    {
+     "name": "dvorana",
+     "caption": "Dvorana",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Gdje se održava."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-05-14 09:30:00",
+     "Otvorenje",
+     "Marta Novak",
+     "Velika dvorana"
+    ],
+    [
+     2,
+     1,
+     "2026-05-14 11:00:00",
+     "Radionica: Digitalni procesi",
+     "Goran Matić",
+     "Dvorana 2"
+    ],
+    [
+     3,
+     2,
+     "2026-07-18 21:00:00",
+     "Glavni nastup",
+     "Bend Sjever",
+     "Pozornica"
+    ]
+   ]
+  }
+ ]
+}

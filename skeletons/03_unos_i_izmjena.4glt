@@ -1,0 +1,36 @@
+@format 1
+@kostur  Unos i izmjena zapisa
+@opis    Unos novog ili izmjena postojećeg zapisa po ključu (INPUT BY NAME).
+@kontekst  gumb,unos
+@kategorija  Unos
+@utor tablica : tablica                                  "Koja tablica?"
+@utor kljuc   : stupac(tablica) zadano=kljuc              "Primarni ključ"
+@utor stupci  : stupci(tablica) zadano=sviOsimId          "Koji se stupci unose?"
+@preduvjet tablica ima barem 2 stupca
+@predlazi  tablica ima stupac tipa tekst => preporuci
+---
+MAIN
+  DEFINE r RECORD LIKE {tablica}.*
+  DEFINE sifra {kljuc:tip}
+  DEFINE postoji INTEGER
+  LET postoji = 0
+  PROMPT "{kljuc} (prazno = novi zapis): " FOR sifra
+  LET INT_FLAG = FALSE
+  IF sifra IS NOT NULL THEN
+    SELECT COUNT(*) INTO postoji FROM {tablica} WHERE {kljuc} = $sifra
+    IF postoji > 0 THEN
+      SELECT * INTO r.* FROM {tablica} WHERE {kljuc} = $sifra
+    END IF
+  END IF
+  INPUT BY NAME {stupci:zapis} TITLE "{tablica}"
+  IF INT_FLAG THEN
+    EXIT PROGRAM
+  END IF
+  IF postoji > 0 THEN
+    UPDATE {tablica} SET {stupci:postavi} WHERE {kljuc} = $sifra
+    DISPLAY "Izmijenjeno: ", SQLCA.SQLERRD[3]
+  ELSE
+    INSERT INTO {tablica} ({stupci:lista}) VALUES ({stupci:vrijednosti})
+    DISPLAY "Dodano: ", SQLCA.SQLERRD[3]
+  END IF
+END MAIN

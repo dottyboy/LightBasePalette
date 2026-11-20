@@ -1,0 +1,10 @@
+{
+  "name": "Obrt zeleno (primjer vlastite teme)",
+  "accent": "#15803D",
+  "shape": "rounded",
+  "dark": false,
+  "tokens": {
+    "radiusButton": 8,
+    "fontSize": 11
+  }
+}

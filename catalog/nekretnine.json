@@ -1,0 +1,268 @@
+{
+ "id": "nekretnine",
+ "title": "Agencija za nekretnine",
+ "descr": "Ponuda nekretnina, zainteresirani kupci i zakazana razgledavanja.",
+ "tags": "posao,nekretnine,prodaja",
+ "tables": [
+  {
+   "name": "ponuda_nekretnina",
+   "caption": "Nekretnine u ponudi",
+   "descr": "Stanovi, kuće i poslovni prostori u ponudi.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra nekretnine.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Kratki naslov oglasa.",
+     "required": true
+    },
+    {
+     "name": "vrsta_nekretnine",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Vrsta nekretnine.",
+     "choices": "Stan,Kuća,Zemljište,Poslovni prostor",
+     "default": "\"Stan\""
+    },
+    {
+     "name": "adresa",
+     "caption": "Adresa",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Ulica i kućni broj.",
+     "width": 200
+    },
+    {
+     "name": "mjesto",
+     "caption": "Mjesto",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Grad ili naselje."
+    },
+    {
+     "name": "povrsina",
+     "caption": "Površina (m²)",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Površina nekretnine.",
+     "decimals": 2,
+     "validation": "[value] > 0",
+     "validation_msg": "Površina mora biti veća od nule."
+    },
+    {
+     "name": "broj_soba",
+     "caption": "Broj soba",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Broj soba (bez kuhinje i kupaonice).",
+     "validation": "[value] >= 0",
+     "validation_msg": "Broj soba ne može biti negativan."
+    },
+    {
+     "name": "trazena_cijena",
+     "caption": "Tražena cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Cijena iz oglasa.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "status_ponude",
+     "caption": "Status",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Stanje ponude.",
+     "choices": "Na prodaju,Rezervirano,Prodano,Iznajmljeno",
+     "default": "\"Na prodaju\""
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Trosoban stan, Trešnjevka",
+     "Stan",
+     "Tratinska 20",
+     "Zagreb",
+     68,
+     3,
+     165000,
+     "Na prodaju"
+    ],
+    [
+     2,
+     "Kuća s vrtom",
+     "Kuća",
+     "Lipa 4",
+     "Samobor",
+     140,
+     5,
+     289000,
+     "Rezervirano"
+    ],
+    [
+     3,
+     "Ured u centru",
+     "Poslovni prostor",
+     "Gundulićeva 8",
+     "Zagreb",
+     45,
+     2,
+     98000,
+     "Prodano"
+    ]
+   ]
+  },
+  {
+   "name": "zainteresirani",
+   "caption": "Zainteresirani kupci",
+   "descr": "Osobe koje traže nekretninu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra zainteresiranog.",
+     "pk": true
+    },
+    {
+     "name": "ime",
+     "caption": "Ime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Osobno ime.",
+     "required": true
+    },
+    {
+     "name": "prezime",
+     "caption": "Prezime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Prezime.",
+     "required": true
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "email",
+     "caption": "E-pošta",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa elektroničke pošte; provjerava se oblik a@b.c.",
+     "validation": "[value] Like \"*@*.*\"",
+     "validation_msg": "Unesi ispravnu adresu e-pošte (npr. ime@tvrtka.hr).",
+     "width": 200
+    },
+    {
+     "name": "budzet",
+     "caption": "Budžet",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Koliko kupac može potrošiti.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Budžet ne može biti negativan."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Davor",
+     "Lukić",
+     "091 321 6540",
+     "davor.lukic@mail.hr",
+     180000
+    ],
+    [
+     2,
+     "Sanja",
+     "Bašić",
+     "098 654 0321",
+     null,
+     300000
+    ]
+   ]
+  },
+  {
+   "name": "razgledavanje",
+   "caption": "Razgledavanja",
+   "descr": "Dogovorena razgledavanja nekretnina.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra razgledavanja.",
+     "pk": true
+    },
+    {
+     "name": "nekretnina_id",
+     "caption": "Nekretnina",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Nekretnina koja se razgledava.",
+     "ref": "ponuda_nekretnina.sifra",
+     "required": true
+    },
+    {
+     "name": "zainteresirani_id",
+     "caption": "Kupac",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Tko razgleda.",
+     "ref": "zainteresirani.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum razgledavanja.",
+     "default": "Date()"
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Dojam kupca, dogovorene daljnje korake."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     1,
+     "2026-03-05",
+     "Sviđa mu se, traži sniženje."
+    ],
+    [
+     2,
+     2,
+     2,
+     "2026-03-06",
+     "Dolazi ponovno s obitelji."
+    ]
+   ]
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+@format 1
+@kostur  Zbroj po razdoblju
+@opis    Zbroj iznosa po godinama ili mjesecima prema stupcu s datumom.
+@kontekst  gumb,izvjesce
+@kategorija  Izračuni
+@utor tablica    : tablica                                 "Koja tablica?"
+@utor datum      : stupac:datum(tablica)                   "Stupac s datumom"
+@utor iznos      : stupac:broj(tablica)                    "Koji iznos zbrajati?"
+@utor razdoblje  : izbor(yyyy=po godinama;yyyy-mm=po mjesecima) zadano=yyyy-mm "Razdoblje"
+@preduvjet tablica ima stupac tipa datum
+@predlazi  tablica ima stupac tipa datum => preporuci
+---
+MAIN
+  DEFINE d DATE
+  DEFINE iznos, zbroj, ukupno DECIMAL(14,2)
+  DEFINE kljuc, prosli TEXT
+  LET zbroj = 0
+  LET ukupno = 0
+  LET prosli = ""
+  DECLARE c CURSOR FOR SELECT {datum}, {iznos} FROM {tablica} WHERE {datum} IS NOT NULL ORDER BY {datum}
+  FOREACH c INTO d, iznos
+    LET kljuc = Format(d, "{razdoblje}")
+    IF prosli <> "" AND kljuc <> prosli THEN
+      DISPLAY prosli, " ", zbroj
+      LET zbroj = 0
+    END IF
+    LET prosli = kljuc
+    LET zbroj = zbroj + NVL(iznos, 0)
+    LET ukupno = ukupno + NVL(iznos, 0)
+  END FOREACH
+  IF prosli <> "" THEN
+    DISPLAY prosli, " ", zbroj
+  END IF
+  DISPLAY "Ukupno ", ukupno
+END MAIN

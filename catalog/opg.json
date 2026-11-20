@@ -1,0 +1,238 @@
+{
+ "id": "opg",
+ "title": "OPG: parcele, radovi i prinos",
+ "descr": "Poljoprivredno gospodarstvo: parcele s kulturama, evidencija radova i troškova te prinos po godinama.",
+ "tags": "poljoprivreda,opg,hrvatska",
+ "tables": [
+  {
+   "name": "parcela",
+   "caption": "Parcele",
+   "descr": "Katastarske čestice koje se obrađuju.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra parcele.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv parcele (npr. Livada iza kuće).",
+     "required": true
+    },
+    {
+     "name": "katastarska_cestica",
+     "caption": "Katastarska čestica",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj katastarske čestice i općina.",
+     "width": 150
+    },
+    {
+     "name": "povrsina_ha",
+     "caption": "Površina (ha)",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Površina u hektarima.",
+     "decimals": 2,
+     "validation": "[value] > 0",
+     "validation_msg": "Površina mora biti veća od nule."
+    },
+    {
+     "name": "kultura",
+     "caption": "Kultura",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Što se trenutno uzgaja (pšenica, kukuruz, vinova loza...)."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Njiva uz put",
+     "1234/5, k.o. Sesvete",
+     2.5,
+     "Pšenica"
+    ],
+    [
+     2,
+     "Vinograd",
+     "987/1, k.o. Plešivica",
+     0.8,
+     "Vinova loza"
+    ],
+    [
+     3,
+     "Livada",
+     "55/2, k.o. Sesvete",
+     1.2,
+     "Sijeno"
+    ]
+   ]
+  },
+  {
+   "name": "rad_na_parceli",
+   "caption": "Radovi",
+   "descr": "Obavljeni radovi s materijalom i troškom.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra rada.",
+     "pk": true
+    },
+    {
+     "name": "parcela_id",
+     "caption": "Parcela",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Parcela na kojoj je rad obavljen.",
+     "ref": "parcela.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum rada.",
+     "default": "Date()"
+    },
+    {
+     "name": "vrsta_rada",
+     "caption": "Vrsta rada",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Koji je rad obavljen.",
+     "choices": "Oranje,Sjetva,Gnojidba,Zaštita,Košnja,Berba,Rezidba,Drugo",
+     "default": "\"Oranje\""
+    },
+    {
+     "name": "materijal",
+     "caption": "Materijal",
+     "type": "text",
+     "role": "opis",
+     "descr": "Sjeme, gnojivo ili sredstvo koje je korišteno."
+    },
+    {
+     "name": "trosak_rada",
+     "caption": "Trošak",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Trošak rada i materijala.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Trošak ne može biti negativan."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2025-10-12",
+     "Sjetva",
+     "Pšenica sorta Srpanjka, 250 kg",
+     180
+    ],
+    [
+     2,
+     2,
+     "2026-03-05",
+     "Rezidba",
+     null,
+     0
+    ],
+    [
+     3,
+     2,
+     "2026-05-20",
+     "Zaštita",
+     "Bakar, 2 kg",
+     35
+    ]
+   ],
+   "report": true,
+   "report_group": "vrsta_rada",
+   "report_sort": "datum"
+  },
+  {
+   "name": "prinos",
+   "caption": "Prinos",
+   "descr": "Koliko je ubrano i po kojoj cijeni prodano.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra prinosa.",
+     "pk": true
+    },
+    {
+     "name": "parcela_id",
+     "caption": "Parcela",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Parcela.",
+     "ref": "parcela.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "godina",
+     "caption": "Godina",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Godina na koju se podatak odnosi.",
+     "required": true,
+     "validation": "[value] >= 2000 And [value] <= 2100",
+     "validation_msg": "Unesi godinu između 2000 i 2100."
+    },
+    {
+     "name": "kolicina_kg",
+     "caption": "Količina (kg)",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Ukupno ubrano u kilogramima.",
+     "decimals": 0,
+     "validation": "[value] >= 0",
+     "validation_msg": "Količina ne može biti negativna."
+    },
+    {
+     "name": "cijena_po_kg",
+     "caption": "Cijena po kg",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Prodajna cijena po kilogramu.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     2025,
+     11500,
+     0.22
+    ],
+    [
+     2,
+     2,
+     2025,
+     3200,
+     1.1
+    ]
+   ]
+  }
+ ]
+}

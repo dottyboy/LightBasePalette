@@ -1,0 +1,41 @@
+== 09_datasheet
+-- otvoreno | caption=F09
+  query: rec=1/5 state=browse
+  grid cols: Id Naziv Grad Aktivan Iznos
+  footer=[Zapisa: 5   |   Zbroj iznos: 609.50] filterErr=[]
+  row | 1 | Alfa | Zagreb | 1 | 150
+  row | 2 | Beta | Split | 0 | 50
+  row | 3 | Gama | Rijeka | 1 | 300
+  row | 4 | Delta | Zagreb | 0 | 10
+  row | 5 | Epsilon | Pula | 1 | 99.5
+-- sortirano po iznosu silazno | caption=F09
+  query: rec=1/5 state=browse
+  grid cols: Id Naziv Grad Aktivan Iznos ▼
+  footer=[Zapisa: 5   |   Zbroj iznos: 609.50] filterErr=[]
+  row | 3 | Gama | Rijeka | 1 | 300
+  row | 1 | Alfa | Zagreb | 1 | 150
+  row | 5 | Epsilon | Pula | 1 | 99.5
+  row | 2 | Beta | Split | 0 | 50
+  row | 4 | Delta | Zagreb | 0 | 10
+-- filtar grad=Zagreb | caption=F09
+  query: rec=1/2 state=browse
+  grid cols: Id Naziv Grad Aktivan Iznos ▼
+  footer=[Zapisa: 2   |   Zbroj iznos: 160.00   |   Filtri: grad Zagreb] filterErr=[]
+  row | 1 | Alfa | Zagreb | 1 | 150
+  row | 4 | Delta | Zagreb | 0 | 10
+-- filtar iznos>100 | caption=F09
+  query: rec=1/2 state=browse
+  grid cols: Id Naziv Grad Aktivan Iznos ▼
+  footer=[Zapisa: 2   |   Zbroj iznos: 450.00   |   Filtri: iznos >100] filterErr=[]
+  row | 3 | Gama | Rijeka | 1 | 300
+  row | 1 | Alfa | Zagreb | 1 | 150
+-- filtri ocisceni | caption=F09
+  query: rec=1/5 state=browse
+  grid cols: Id Naziv Grad Aktivan Iznos ▼
+  footer=[Zapisa: 5   |   Zbroj iznos: 609.50] filterErr=[]
+  row | 3 | Gama | Rijeka | 1 | 300
+  row | 1 | Alfa | Zagreb | 1 | 150
+  row | 5 | Epsilon | Pula | 1 | 99.5
+  row | 2 | Beta | Split | 0 | 50
+  row | 4 | Delta | Zagreb | 0 | 10
+-- snimka 09_datasheet.png

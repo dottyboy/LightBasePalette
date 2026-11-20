@@ -1,0 +1,323 @@
+{
+ "id": "osnovna_sredstva",
+ "title": "Dugotrajna imovina i amortizacija",
+ "descr": "Evidencija osnovnih sredstava: skupine sa stopama amortizacije, imovina s nabavnom vrijednošću i godišnji obračun amortizacije. Primjer za učenje i polaznu točku; stope, konta i obrasce uskladi s važećim propisima i svojim računovođom.",
+ "tags": "hrvatska,racunovodstvo,imovina",
+ "tables": [
+  {
+   "name": "skupina_imovine",
+   "caption": "Skupine imovine",
+   "descr": "Vrste imovine s godišnjom stopom amortizacije.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra skupine.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv skupine imovine.",
+     "required": true
+    },
+    {
+     "name": "stopa_amortizacije",
+     "caption": "Stopa amortizacije (%)",
+     "type": "decimal",
+     "role": "postotak",
+     "descr": "Godišnja stopa linearne amortizacije.",
+     "decimals": 2,
+     "required": true,
+     "validation": "[value] > 0 And [value] <= 100",
+     "validation_msg": "Stopa je između 0 i 100."
+    },
+    {
+     "name": "vijek_godina",
+     "caption": "Vijek trajanja (god.)",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Procijenjeni vijek trajanja.",
+     "validation": "[value] > 0",
+     "validation_msg": "Vijek mora biti veći od nule."
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Što spada u skupinu."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Građevinski objekti",
+     5,
+     20,
+     "Zgrade i poslovni prostori"
+    ],
+    [
+     2,
+     "Osobni automobili",
+     20,
+     5,
+     null
+    ],
+    [
+     3,
+     "Računala i oprema",
+     50,
+     2,
+     "Računala, serveri, mobiteli"
+    ],
+    [
+     4,
+     "Uredski namještaj",
+     20,
+     5,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "imovina",
+   "caption": "Imovina",
+   "descr": "Pojedinačna sredstva s nabavnom vrijednošću i stanjem.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra sredstva.",
+     "pk": true
+    },
+    {
+     "name": "inventarni_broj",
+     "caption": "Inventarni broj",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Jedinstveni broj sredstva u knjizi imovine.",
+     "required": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv sredstva.",
+     "required": true
+    },
+    {
+     "name": "skupina_id",
+     "caption": "Skupina",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Skupina za amortizaciju.",
+     "ref": "skupina_imovine.sifra",
+     "required": true
+    },
+    {
+     "name": "datum_nabave",
+     "caption": "Nabavljeno",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum nabave prema računu."
+    },
+    {
+     "name": "datum_upotrebe",
+     "caption": "U upotrebi od",
+     "type": "date",
+     "role": "datum",
+     "descr": "Od kada se amortizira."
+    },
+    {
+     "name": "nabavna_vrijednost",
+     "caption": "Nabavna vrijednost",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Nabavna vrijednost bez pretporeza.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Vrijednost ne može biti negativna."
+    },
+    {
+     "name": "mjesto_pohrane",
+     "caption": "Mjesto pohrane",
+     "type": "text",
+     "role": "opis",
+     "descr": "Gdje se predmet drži (ormar, polica, kutija)."
+    },
+    {
+     "name": "status_imovine",
+     "caption": "Status",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Stanje sredstva.",
+     "choices": "U upotrebi,Otpisana,Prodana,Rashodovana",
+     "default": "\"U upotrebi\""
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "OS-0001",
+     "Prijenosno računalo ThinkPad",
+     3,
+     "2025-01-15",
+     "2025-01-20",
+     1200,
+     "Ured",
+     "U upotrebi",
+     1,
+     null
+    ],
+    [
+     2,
+     "OS-0002",
+     "Škoda Octavia",
+     2,
+     "2021-06-01",
+     "2021-06-05",
+     22000,
+     "Garaža",
+     "U upotrebi",
+     1,
+     null
+    ],
+    [
+     3,
+     "OS-0003",
+     "Uredski stol i stolica",
+     4,
+     "2023-03-10",
+     "2023-03-12",
+     640,
+     "Ured",
+     "U upotrebi",
+     1,
+     null
+    ]
+   ],
+   "report": true,
+   "report_group": "skupina_id",
+   "report_sort": "inventarni_broj"
+  },
+  {
+   "name": "amortizacija",
+   "caption": "Amortizacija",
+   "descr": "Godišnji obračun amortizacije po sredstvu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra obračuna.",
+     "pk": true
+    },
+    {
+     "name": "imovina_id",
+     "caption": "Sredstvo",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Sredstvo koje se amortizira.",
+     "ref": "imovina.sifra",
+     "required": true
+    },
+    {
+     "name": "godina",
+     "caption": "Godina",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Godina na koju se podatak odnosi.",
+     "required": true,
+     "validation": "[value] >= 2000 And [value] <= 2100",
+     "validation_msg": "Unesi godinu između 2000 i 2100."
+    },
+    {
+     "name": "amortizacija_godina",
+     "caption": "Amortizacija godine",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Trošak amortizacije za godinu.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    },
+    {
+     "name": "ispravak_vrijednosti",
+     "caption": "Ispravak vrijednosti",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Zbroj dosadašnje amortizacije.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    },
+    {
+     "name": "sadasnja_vrijednost",
+     "caption": "Sadašnja vrijednost",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Nabavna vrijednost minus ispravak vrijednosti.",
+     "decimals": 2
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     2025,
+     550,
+     550,
+     650
+    ],
+    [
+     2,
+     1,
+     2026,
+     600,
+     1150,
+     50
+    ],
+    [
+     3,
+     2,
+     2025,
+     4400,
+     17600,
+     4400
+    ],
+    [
+     4,
+     3,
+     2025,
+     128,
+     304,
+     336
+    ]
+   ]
+  }
+ ]
+}

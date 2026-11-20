@@ -1,0 +1,29 @@
+== 13_neprekidna
+-- otvoreno
+  zapisa=5 sort= desc=0 tekuci=0 prljav=0
+  prvi=[Alfa]
+  podnozje 5 / 609.50
+-- sortirano silazno
+  zapisa=5 sort=naziv desc=1 tekuci=0 prljav=0
+  prvi=[Gama]
+-- filtar Zagreb
+  zapisa=2 sort=naziv desc=1 tekuci=0 prljav=0
+  prvi=[Delta]
+  podnozje 2 / 160.00
+  spremanje novog: 1
+-- dodan zapis
+  zapisa=6 sort=naziv desc=1 tekuci=0 prljav=0
+  prvi=[Zeta]
+  podnozje 6 / 1,609.50
+  prazan obavezni naziv: spremanje=0 greska=1
+-- nakon Cancel
+  zapisa=6 sort=naziv desc=1 tekuci=0 prljav=0
+  prvi=[Zeta]
+-- snimka 13_neprekidna.png
+-- tablica partneri
+   | 1 | Alfa | Zagreb | 1 | 150
+   | 2 | Beta | Split | 0 | 50
+   | 3 | Gama | Rijeka | 1 | 300
+   | 4 | Delta | Zagreb | 0 | 10
+   | 5 | Epsilon | Pula | 1 | 99.5
+   | 6 | Zeta |  | 0 | 1000

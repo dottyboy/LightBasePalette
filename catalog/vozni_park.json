@@ -1,0 +1,555 @@
+{
+ "id": "vozni_park",
+ "title": "Vozni park",
+ "descr": "Službena ili obiteljska vozila: vozila, vozači, tankanja, servisi, registracije i putni nalozi.",
+ "tags": "posao,vozila,troskovi",
+ "tables": [
+  {
+   "name": "vozilo",
+   "caption": "Vozila",
+   "descr": "Vozila s osnovnim podacima i rokom registracije.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra vozila.",
+     "pk": true
+    },
+    {
+     "name": "registracija",
+     "caption": "Registracija",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Registarska oznaka.",
+     "required": true,
+     "width": 110
+    },
+    {
+     "name": "marka",
+     "caption": "Marka",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Proizvođač vozila."
+    },
+    {
+     "name": "model",
+     "caption": "Model",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv modela."
+    },
+    {
+     "name": "godina_proizvodnje",
+     "caption": "Godina proizvodnje",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Godina proizvodnje vozila.",
+     "validation": "[value] >= 1950 And [value] <= 2100",
+     "validation_msg": "Unesi ispravnu godinu."
+    },
+    {
+     "name": "vrsta_goriva",
+     "caption": "Gorivo",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Pogonsko gorivo.",
+     "choices": "Benzin,Dizel,Hibrid,Električno,Plin",
+     "default": "\"Dizel\""
+    },
+    {
+     "name": "vin",
+     "caption": "VIN",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj šasije od 17 znakova.",
+     "validation": "Len([value]) = 17",
+     "validation_msg": "VIN ima 17 znakova.",
+     "width": 180
+    },
+    {
+     "name": "kilometraza",
+     "caption": "Kilometraža",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Trenutno stanje kilometara.",
+     "validation": "[value] >= 0",
+     "validation_msg": "Kilometraža ne može biti negativna."
+    },
+    {
+     "name": "registracija_do",
+     "caption": "Registracija do",
+     "type": "date",
+     "role": "datum",
+     "descr": "Do kada vrijedi registracija."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "ZG1234AB",
+     "Škoda",
+     "Octavia",
+     2021,
+     "Dizel",
+     "TMBJJ7NE0M0123456",
+     84500,
+     "2026-11-30",
+     1,
+     null
+    ],
+    [
+     2,
+     "ZG5678CD",
+     "Renault",
+     "Zoe",
+     2022,
+     "Električno",
+     "VF1AG000X66543210",
+     31200,
+     "2026-06-15",
+     1,
+     "Gradska vožnja"
+    ],
+    [
+     3,
+     "ST9012EF",
+     "Fiat",
+     "Doblo",
+     2019,
+     "Dizel",
+     "ZFA26300006789012",
+     142300,
+     "2026-04-10",
+     1,
+     "Dostava"
+    ]
+   ]
+  },
+  {
+   "name": "vozac",
+   "caption": "Vozači",
+   "descr": "Osobe koje voze vozila.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra vozača.",
+     "pk": true
+    },
+    {
+     "name": "ime",
+     "caption": "Ime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Osobno ime.",
+     "required": true
+    },
+    {
+     "name": "prezime",
+     "caption": "Prezime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Prezime.",
+     "required": true
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "broj_vozacke",
+     "caption": "Broj vozačke",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj vozačke dozvole."
+    },
+    {
+     "name": "vozacka_vrijedi_do",
+     "caption": "Vozačka vrijedi do",
+     "type": "date",
+     "role": "datum",
+     "descr": "Do kada vrijedi vozačka."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Marko",
+     "Tomić",
+     "091 300 4000",
+     "12345678",
+     "2031-05-20",
+     1
+    ],
+    [
+     2,
+     "Ines",
+     "Bašić",
+     "098 500 6000",
+     "23456789",
+     "2028-09-01",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "tankanje",
+   "caption": "Tankanja",
+   "descr": "Količina i cijena goriva po tankanju; osnova za potrošnju.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra tankanja.",
+     "pk": true
+    },
+    {
+     "name": "vozilo_id",
+     "caption": "Vozilo",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Što je natankano.",
+     "ref": "vozilo.sifra",
+     "required": true
+    },
+    {
+     "name": "vozac_id",
+     "caption": "Vozač",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Tko je tankao.",
+     "ref": "vozac.sifra"
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum tankanja.",
+     "default": "Date()"
+    },
+    {
+     "name": "litara",
+     "caption": "Litara",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Natočena količina.",
+     "decimals": 2,
+     "validation": "[value] > 0",
+     "validation_msg": "Količina mora biti veća od nule."
+    },
+    {
+     "name": "cijena_litre",
+     "caption": "Cijena litre",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Cijena po litri.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Ukupni iznos računa.",
+     "decimals": 2
+    },
+    {
+     "name": "kilometraza",
+     "caption": "Kilometraža",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Trenutno stanje kilometara.",
+     "validation": "[value] >= 0",
+     "validation_msg": "Kilometraža ne može biti negativna."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     1,
+     "2026-02-05",
+     42.5,
+     1.52,
+     64.6,
+     84100
+    ],
+    [
+     2,
+     1,
+     1,
+     "2026-03-01",
+     40.1,
+     1.55,
+     62.16,
+     84500
+    ],
+    [
+     3,
+     3,
+     2,
+     "2026-02-20",
+     55.0,
+     1.52,
+     83.6,
+     142000
+    ]
+   ]
+  },
+  {
+   "name": "servis_vozila",
+   "caption": "Servisi",
+   "descr": "Redoviti i izvanredni servisi s troškom i sljedećim rokom.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra servisa.",
+     "pk": true
+    },
+    {
+     "name": "vozilo_id",
+     "caption": "Vozilo",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Servisirano vozilo.",
+     "ref": "vozilo.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum servisa.",
+     "default": "Date()"
+    },
+    {
+     "name": "vrsta_servisa",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Što je rađeno.",
+     "choices": "Redovni,Gume,Kvar,Tehnički pregled,Limarija",
+     "default": "\"Redovni\""
+    },
+    {
+     "name": "kilometraza",
+     "caption": "Kilometraža",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Trenutno stanje kilometara.",
+     "validation": "[value] >= 0",
+     "validation_msg": "Kilometraža ne može biti negativna."
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Ukupni trošak servisa.",
+     "decimals": 2
+    },
+    {
+     "name": "servisna_radionica",
+     "caption": "Radionica",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Gdje je servis obavljen."
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Opis radova."
+    },
+    {
+     "name": "sljedeci_servis",
+     "caption": "Sljedeći servis",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada treba ponovno na servis."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2025-11-10",
+     "Redovni",
+     80000,
+     285,
+     "Auto centar Zagreb",
+     "Ulje, filteri, kočnice.",
+     "2026-11-10"
+    ],
+    [
+     2,
+     2,
+     "2026-01-25",
+     "Gume",
+     30000,
+     120,
+     "Gumarija Marić",
+     "Zamjena na zimske gume.",
+     null
+    ],
+    [
+     3,
+     3,
+     "2026-02-15",
+     "Tehnički pregled",
+     141000,
+     65,
+     "Stanica Split",
+     null,
+     "2027-02-15"
+    ]
+   ]
+  },
+  {
+   "name": "putni_nalog",
+   "caption": "Putni nalozi",
+   "descr": "Službena putovanja vozilom s prijeđenim kilometrima.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra naloga.",
+     "pk": true
+    },
+    {
+     "name": "vozilo_id",
+     "caption": "Vozilo",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Korišteno vozilo.",
+     "ref": "vozilo.sifra",
+     "required": true
+    },
+    {
+     "name": "vozac_id",
+     "caption": "Vozač",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Tko je vozio.",
+     "ref": "vozac.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Dan putovanja.",
+     "default": "Date()"
+    },
+    {
+     "name": "relacija",
+     "caption": "Relacija",
+     "type": "text",
+     "role": "opis",
+     "descr": "Polazište i odredište.",
+     "width": 200
+    },
+    {
+     "name": "km_pocetak",
+     "caption": "Km na početku",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Stanje brojila na polasku.",
+     "validation": "[value] >= 0",
+     "validation_msg": "Kilometraža ne može biti negativna."
+    },
+    {
+     "name": "km_kraj",
+     "caption": "Km na kraju",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Stanje brojila na dolasku.",
+     "validation": "[value] >= 0",
+     "validation_msg": "Kilometraža ne može biti negativna."
+    },
+    {
+     "name": "svrha",
+     "caption": "Svrha",
+     "type": "text",
+     "role": "opis",
+     "descr": "Kratki opis (npr. Konzum, kirija ožujak).",
+     "width": 220
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     1,
+     "2026-03-02",
+     "Zagreb - Varaždin",
+     84240,
+     84330,
+     "Sastanak s klijentom",
+     null
+    ],
+    [
+     2,
+     3,
+     2,
+     "2026-03-04",
+     "Split - Zadar",
+     142100,
+     142260,
+     "Dostava robe",
+     null
+    ]
+   ]
+  }
+ ]
+}

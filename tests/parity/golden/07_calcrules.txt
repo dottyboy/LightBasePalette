@@ -1,0 +1,29 @@
+== 07_calcrules
+-- otvoreno | caption=F07
+  txtKol TextBox v=1 e=1 text=[2] ro=0 bg=000000 fg=000000 b=0
+  txtCij TextBox v=1 e=1 text=[5] ro=0 bg=000000 fg=000000 b=0
+  txtIzn TextBox v=1 e=1 text=[10] ro=0 bg=000000 fg=000000 b=0
+  txtPdv TextBox v=1 e=1 text=[2.5] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/2 state=browse
+-- kolicina 7 | caption=F07
+  txtKol TextBox v=1 e=1 text=[7] ro=0 bg=000000 fg=000000 b=0
+  txtCij TextBox v=1 e=1 text=[5] ro=0 bg=000000 fg=000000 b=0
+  txtIzn TextBox v=1 e=1 text=[35] ro=0 bg=000000 fg=000000 b=0
+  txtPdv TextBox v=1 e=1 text=[2.5] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/2 state=browse
+-- cijena 1,5 | caption=F07
+  txtKol TextBox v=1 e=1 text=[7] ro=0 bg=000000 fg=000000 b=0
+  txtCij TextBox v=1 e=1 text=[1.5] ro=0 bg=000000 fg=000000 b=0
+  txtIzn TextBox v=1 e=1 text=[10.5] ro=0 bg=000000 fg=000000 b=0
+  txtPdv TextBox v=1 e=1 text=[2.5] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/2 state=browse
+-- sljedeci | caption=F07
+  txtKol TextBox v=1 e=1 text=[3] ro=0 bg=000000 fg=000000 b=0
+  txtCij TextBox v=1 e=1 text=[4] ro=0 bg=000000 fg=000000 b=0
+  txtIzn TextBox v=1 e=1 text=[12] ro=0 bg=000000 fg=000000 b=0
+  txtPdv TextBox v=1 e=1 text=[3] ro=0 bg=000000 fg=000000 b=0
+  query: rec=2/2 state=browse
+-- snimka 07_calcrules.png
+-- tablica st
+   | 1 | 7 | 1.5 | 10.5 | 2.5
+   | 2 | 3 | 4 | 12 | 3

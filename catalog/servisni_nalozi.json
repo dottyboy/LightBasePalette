@@ -1,0 +1,394 @@
+{
+ "id": "servisni_nalozi",
+ "title": "Servisni nalozi",
+ "descr": "Servis uređaja: klijenti, uređaji s jamstvom, nalozi s kvarom i dijagnozom te ugrađeni dijelovi.",
+ "tags": "posao,servis,popravci",
+ "tables": [
+  {
+   "name": "klijent_servisa",
+   "caption": "Klijenti",
+   "descr": "Osobe i tvrtke koje donose uređaje na servis.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra klijenta.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Ime i prezime ili naziv tvrtke.",
+     "required": true
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "email",
+     "caption": "E-pošta",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa elektroničke pošte; provjerava se oblik a@b.c.",
+     "validation": "[value] Like \"*@*.*\"",
+     "validation_msg": "Unesi ispravnu adresu e-pošte (npr. ime@tvrtka.hr).",
+     "width": 200
+    },
+    {
+     "name": "adresa",
+     "caption": "Adresa",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Ulica i kućni broj.",
+     "width": 200
+    },
+    {
+     "name": "mjesto",
+     "caption": "Mjesto",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Grad ili naselje."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Marija Horvat",
+     "091 222 3344",
+     "marija.horvat@mail.hr",
+     "Trg bana Jelačića 3",
+     "Zagreb"
+    ],
+    [
+     2,
+     "Adria promet d.d.",
+     "021 330 440",
+     "servis@adria-promet.hr",
+     "Riva 7",
+     "Split"
+    ]
+   ]
+  },
+  {
+   "name": "uredjaj",
+   "caption": "Uređaji",
+   "descr": "Uređaji klijenata s podacima za jamstvo.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra uređaja.",
+     "pk": true
+    },
+    {
+     "name": "klijent_id",
+     "caption": "Klijent",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Vlasnik.",
+     "ref": "klijent_servisa.sifra",
+     "required": true
+    },
+    {
+     "name": "vrsta_uredjaja",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Vrsta uređaja.",
+     "choices": "Računalo,Printer,Mobitel,Perilica,Klima,Ostalo",
+     "default": "\"Računalo\""
+    },
+    {
+     "name": "marka",
+     "caption": "Marka",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Proizvođač."
+    },
+    {
+     "name": "model",
+     "caption": "Model",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv modela."
+    },
+    {
+     "name": "serijski_broj",
+     "caption": "Serijski broj",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj s naljepnice uređaja; potreban za jamstvo i servis."
+    },
+    {
+     "name": "jamstvo_do",
+     "caption": "Jamstvo do",
+     "type": "date",
+     "role": "datum",
+     "descr": "Do kada vrijedi jamstvo."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "Računalo",
+     "Lenovo",
+     "ThinkPad T14",
+     "PF2X1234",
+     "2026-12-31"
+    ],
+    [
+     2,
+     2,
+     "Printer",
+     "HP",
+     "LaserJet M404",
+     "VNB8K12345",
+     "2025-06-30"
+    ],
+    [
+     3,
+     1,
+     "Mobitel",
+     "Samsung",
+     "Galaxy A54",
+     "RZ8T123ABC",
+     "2026-05-15"
+    ]
+   ]
+  },
+  {
+   "name": "servisni_nalog",
+   "caption": "Servisni nalozi",
+   "descr": "Zaprimanje, popravak i preuzimanje uređaja.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra naloga.",
+     "pk": true
+    },
+    {
+     "name": "broj",
+     "caption": "Broj",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Službeni broj dokumenta u obliku godina-redni broj (npr. 2026-0001).",
+     "required": true,
+     "width": 110
+    },
+    {
+     "name": "uredjaj_id",
+     "caption": "Uređaj",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Uređaj na servisu.",
+     "ref": "uredjaj.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum zaprimanja.",
+     "default": "Date()"
+    },
+    {
+     "name": "opis_kvara",
+     "caption": "Opis kvara",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Što klijent prijavljuje."
+    },
+    {
+     "name": "dijagnoza",
+     "caption": "Dijagnoza",
+     "type": "text",
+     "role": "opis",
+     "descr": "Utvrđeni uzrok."
+    },
+    {
+     "name": "status_naloga",
+     "caption": "Status",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Napredak popravka.",
+     "choices": "Zaprimljeno,U radu,Čeka dijelove,Gotovo,Preuzeto,Odbijeno",
+     "default": "\"Zaprimljeno\""
+    },
+    {
+     "name": "tehnicar",
+     "caption": "Tehničar",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Tko popravlja."
+    },
+    {
+     "name": "datum_zavrsetka",
+     "caption": "Završeno",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je popravak gotov."
+    },
+    {
+     "name": "cijena_rada",
+     "caption": "Cijena rada",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Naplaćeni rad.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "cijena_dijelova",
+     "caption": "Cijena dijelova",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Naplaćeni dijelovi.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "ukupno",
+     "caption": "Ukupno",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos za platiti (osnovica + PDV).",
+     "decimals": 2
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "2026-0001",
+     1,
+     "2026-02-03",
+     "Ne uključuje se, nema slike.",
+     "Pokvaren ekran",
+     "Preuzeto",
+     "Tomo",
+     "2026-02-10",
+     45,
+     120,
+     165
+    ],
+    [
+     2,
+     "2026-0002",
+     2,
+     "2026-02-18",
+     "Zaglavljuje papir.",
+     "Istrošeni valjci",
+     "Čeka dijelove",
+     "Tomo",
+     null,
+     0,
+     0,
+     0
+    ],
+    [
+     3,
+     "2026-0003",
+     3,
+     "2026-03-05",
+     "Baterija se brzo prazni.",
+     null,
+     "U radu",
+     "Luka",
+     null,
+     0,
+     0,
+     0
+    ]
+   ],
+   "report": true,
+   "report_group": "status_naloga",
+   "report_sort": "datum"
+  },
+  {
+   "name": "ugradjeni_dio",
+   "caption": "Ugrađeni dijelovi",
+   "descr": "Dijelovi ugrađeni po nalogu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra dijela.",
+     "pk": true
+    },
+    {
+     "name": "nalog_id",
+     "caption": "Nalog",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Nalog.",
+     "ref": "servisni_nalog.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv dijela.",
+     "required": true
+    },
+    {
+     "name": "kolicina",
+     "caption": "Količina",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Količina.",
+     "decimals": 2,
+     "default": "1",
+     "validation": "[value] > 0",
+     "validation_msg": "Količina mora biti veća od nule."
+    },
+    {
+     "name": "cijena",
+     "caption": "Cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Cijena po jedinici.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "LCD ekran 14\"",
+     1,
+     120
+    ],
+    [
+     2,
+     2,
+     "Set valjaka",
+     1,
+     38
+    ]
+   ]
+  }
+ ]
+}

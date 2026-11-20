@@ -1,0 +1,490 @@
+{
+ "id": "pdv_knjige",
+ "title": "PDV: knjiga ulaznih i izlaznih računa",
+ "descr": "Evidencija računa za PDV: knjiga ulaznih računa (URA), knjiga izlaznih računa (IRA) s fiskalizacijom (ZKI/JIR) i PDV prijava po razdoblju. Primjer za učenje i polaznu točku; stope, konta i obrasce uskladi s važećim propisima i svojim računovođom.",
+ "tags": "hrvatska,racunovodstvo,pdv",
+ "tables": [
+  {
+   "name": "ura_racun",
+   "caption": "Knjiga ulaznih računa (URA)",
+   "descr": "Računi dobavljača s osnovicom, PDV-om i pravom na pretporez.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra zapisa.",
+     "pk": true
+    },
+    {
+     "name": "redni_broj",
+     "caption": "Redni broj",
+     "type": "integer",
+     "role": "redoslijed",
+     "descr": "Redni broj u knjizi unutar godine.",
+     "required": true,
+     "validation": "[value] > 0",
+     "validation_msg": "Redni broj mora biti veći od nule."
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum računa.",
+     "default": "Date()"
+    },
+    {
+     "name": "datum_primitka",
+     "caption": "Datum primitka",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je račun primljen."
+    },
+    {
+     "name": "dobavljac_naziv",
+     "caption": "Dobavljač",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv dobavljača s računa.",
+     "required": true
+    },
+    {
+     "name": "oib",
+     "caption": "OIB",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Osobni identifikacijski broj, 11 znamenki (kod tvrtke ili osobe).",
+     "validation": "Len([value]) = 11 And IsNumeric([value])",
+     "validation_msg": "OIB mora imati točno 11 znamenki."
+    },
+    {
+     "name": "broj_racuna",
+     "caption": "Broj računa",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj računa za knjigovodstvo."
+    },
+    {
+     "name": "osnovica",
+     "caption": "Osnovica",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Zbroj stavki bez PDV-a.",
+     "decimals": 2
+    },
+    {
+     "name": "pdv_stopa",
+     "caption": "PDV (%)",
+     "type": "decimal",
+     "role": "postotak",
+     "descr": "Stopa PDV-a u postocima (0, 5, 13 ili 25).",
+     "decimals": 0,
+     "default": "25",
+     "validation": "[value] In (0, 5, 13, 25)",
+     "validation_msg": "Dopuštene stope PDV-a: 0, 5, 13, 25."
+    },
+    {
+     "name": "pdv_iznos",
+     "caption": "PDV",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Obračunani PDV.",
+     "decimals": 2
+    },
+    {
+     "name": "ukupno",
+     "caption": "Ukupno",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos za platiti (osnovica + PDV).",
+     "decimals": 2
+    },
+    {
+     "name": "pravo_na_odbitak",
+     "caption": "Pravo na odbitak",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Je li pretporez s računa moguće odbiti.",
+     "default": "True"
+    },
+    {
+     "name": "datum_dospijeca",
+     "caption": "Dospijeće",
+     "type": "date",
+     "role": "datum",
+     "descr": "Do kada kupac treba platiti."
+    },
+    {
+     "name": "placeno",
+     "caption": "Plaćeno",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Označi kad je uplata evidentirana.",
+     "default": "False"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-01-12",
+     "2026-01-14",
+     "Tehno-trgovina d.o.o.",
+     "23456789012",
+     "R-2026-118",
+     200,
+     25,
+     50,
+     250,
+     1,
+     "2026-02-11",
+     1
+    ],
+    [
+     2,
+     2,
+     "2026-02-03",
+     "2026-02-05",
+     "Papir i ured d.o.o.",
+     "34567890123",
+     "R-77/26",
+     80,
+     25,
+     20,
+     100,
+     1,
+     "2026-03-05",
+     1
+    ],
+    [
+     3,
+     3,
+     "2026-03-02",
+     "2026-03-04",
+     "Elektro Veleprodaja",
+     "45678901234",
+     "0319/1/1",
+     100,
+     25,
+     25,
+     125,
+     1,
+     "2026-04-01",
+     0
+    ]
+   ],
+   "report": true,
+   "report_group": "placeno",
+   "report_sort": "datum"
+  },
+  {
+   "name": "ira_racun",
+   "caption": "Knjiga izlaznih računa (IRA)",
+   "descr": "Izdani računi s PDV-om i podacima o fiskalizaciji.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra zapisa.",
+     "pk": true
+    },
+    {
+     "name": "redni_broj",
+     "caption": "Redni broj",
+     "type": "integer",
+     "role": "redoslijed",
+     "descr": "Redni broj u knjizi unutar godine.",
+     "required": true,
+     "validation": "[value] > 0",
+     "validation_msg": "Redni broj mora biti veći od nule."
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum računa.",
+     "default": "Date()"
+    },
+    {
+     "name": "kupac_naziv",
+     "caption": "Kupac",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv kupca s računa.",
+     "required": true
+    },
+    {
+     "name": "oib",
+     "caption": "OIB",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Osobni identifikacijski broj, 11 znamenki (kod tvrtke ili osobe).",
+     "validation": "Len([value]) = 11 And IsNumeric([value])",
+     "validation_msg": "OIB mora imati točno 11 znamenki."
+    },
+    {
+     "name": "broj_racuna",
+     "caption": "Broj računa",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj računa za knjigovodstvo."
+    },
+    {
+     "name": "osnovica",
+     "caption": "Osnovica",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Zbroj stavki bez PDV-a.",
+     "decimals": 2
+    },
+    {
+     "name": "pdv_stopa",
+     "caption": "PDV (%)",
+     "type": "decimal",
+     "role": "postotak",
+     "descr": "Stopa PDV-a u postocima (0, 5, 13 ili 25).",
+     "decimals": 0,
+     "default": "25",
+     "validation": "[value] In (0, 5, 13, 25)",
+     "validation_msg": "Dopuštene stope PDV-a: 0, 5, 13, 25."
+    },
+    {
+     "name": "pdv_iznos",
+     "caption": "PDV",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Obračunani PDV.",
+     "decimals": 2
+    },
+    {
+     "name": "ukupno",
+     "caption": "Ukupno",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos za platiti (osnovica + PDV).",
+     "decimals": 2
+    },
+    {
+     "name": "fiskaliziran",
+     "caption": "Fiskaliziran",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Je li račun fiskaliziran (gotovinski i kartični računi).",
+     "default": "False"
+    },
+    {
+     "name": "zki",
+     "caption": "ZKI",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Zaštitni kod izdavatelja, 32 znaka heksadecimalno.",
+     "validation": "Len([value]) = 32",
+     "validation_msg": "ZKI ima 32 znaka.",
+     "width": 250
+    },
+    {
+     "name": "jir",
+     "caption": "JIR",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Jedinstveni identifikator računa dobiven od Porezne uprave (UUID).",
+     "validation": "Len([value]) = 36",
+     "validation_msg": "JIR ima 36 znakova.",
+     "width": 290
+    },
+    {
+     "name": "placeno",
+     "caption": "Plaćeno",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Označi kad je uplata evidentirana.",
+     "default": "False"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-01-15",
+     "Kvaka d.o.o.",
+     "12345678903",
+     "2026-0001",
+     1000,
+     25,
+     250,
+     1250,
+     0,
+     null,
+     null,
+     1
+    ],
+    [
+     2,
+     2,
+     "2026-02-03",
+     "Marija Horvat",
+     "98765432109",
+     "2026-0002",
+     120,
+     25,
+     30,
+     150,
+     1,
+     "0123456789abcdef0123456789abcdef",
+     "11111111-2222-3333-4444-555555555555",
+     1
+    ],
+    [
+     3,
+     3,
+     "2026-03-10",
+     "Adria promet d.d.",
+     "45678912305",
+     "2026-0003",
+     850,
+     25,
+     212.5,
+     1062.5,
+     0,
+     null,
+     null,
+     0
+    ]
+   ],
+   "report": true,
+   "report_group": "placeno",
+   "report_sort": "datum"
+  },
+  {
+   "name": "pdv_prijava",
+   "caption": "PDV prijave",
+   "descr": "Obračun PDV-a po razdoblju: obveza iz izlaznih računa minus pretporez iz ulaznih.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra prijave.",
+     "pk": true
+    },
+    {
+     "name": "godina",
+     "caption": "Godina",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Godina na koju se podatak odnosi.",
+     "required": true,
+     "validation": "[value] >= 2000 And [value] <= 2100",
+     "validation_msg": "Unesi godinu između 2000 i 2100."
+    },
+    {
+     "name": "mjesec",
+     "caption": "Mjesec",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Mjesec (1-12).",
+     "required": true,
+     "validation": "[value] >= 1 And [value] <= 12",
+     "validation_msg": "Mjesec je od 1 do 12."
+    },
+    {
+     "name": "pdv_razdoblje",
+     "caption": "Razdoblje",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Koliko često se podnosi prijava.",
+     "choices": "Mjesečno,Tromjesečno",
+     "default": "\"Mjesečno\""
+    },
+    {
+     "name": "pdv_obveza",
+     "caption": "PDV obveza",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "PDV obračunan na izlaznim računima.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    },
+    {
+     "name": "pretporez",
+     "caption": "Pretporez",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "PDV s ulaznih računa koji se odbija.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    },
+    {
+     "name": "pdv_za_uplatu",
+     "caption": "Za uplatu",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Obveza minus pretporez; negativno znači povrat.",
+     "decimals": 2
+    },
+    {
+     "name": "datum_predaje",
+     "caption": "Predano",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je prijava predana Poreznoj upravi."
+    },
+    {
+     "name": "status_prijave",
+     "caption": "Status",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Stanje prijave.",
+     "choices": "Priprema,Predano,Plaćeno",
+     "default": "\"Priprema\""
+    }
+   ],
+   "sample": [
+    [
+     1,
+     2026,
+     1,
+     "Mjesečno",
+     250,
+     50,
+     200,
+     "2026-02-20",
+     "Plaćeno"
+    ],
+    [
+     2,
+     2026,
+     2,
+     "Mjesečno",
+     30,
+     20,
+     10,
+     "2026-03-20",
+     "Predano"
+    ],
+    [
+     3,
+     2026,
+     3,
+     "Mjesečno",
+     212.5,
+     25,
+     187.5,
+     null,
+     "Priprema"
+    ]
+   ],
+   "report": true,
+   "report_group": "status_prijave",
+   "report_sort": "mjesec"
+  }
+ ]
+}

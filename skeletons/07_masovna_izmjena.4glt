@@ -1,0 +1,15 @@
+@format 1
+@kostur  Masovna izmjena s brojačem
+@opis    Izmjena stupca izrazom za sve retke koji zadovoljavaju uvjet; ispis broja zahvaćenih redaka.
+@kontekst  gumb
+@kategorija  Održavanje
+@utor tablica : tablica                                   "Koja tablica?"
+@utor stupac  : stupac:broj(tablica)                      "Koji stupac mijenjati?"
+@utor izraz   : tekst zadano="{stupac} * 1.10"            "Novi izraz (SQL)"
+@utor uvjet   : tekst zadano="1 = 1"                      "Uvjet (WHERE)"
+@preduvjet tablica ima stupac tipa broj
+---
+MAIN
+  UPDATE {tablica} SET {stupac} = {izraz} WHERE {uvjet}
+  DISPLAY "Promijenjeno redaka: ", SQLCA.SQLERRD[3]
+END MAIN

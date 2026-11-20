@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="12"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasScaledStatement Value="False"/>
+      </Flags>
+      <SessionStorage Value="InProjectDir"/>
+      <Title Value="Project1"/>
+      <UseAppBundle Value="False"/>
+      <ResourceType Value="res"/>
+    </General>
+    <BuildModes Count="1">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <RequiredPackages Count="3">
+      <Item1><PackageName Value="adLCL"/></Item1>
+      <Item2><PackageName Value="typhaccess_dsgn"/></Item2>
+      <Item3><PackageName Value="pl_ZeosDBO"/></Item3>
+    </RequiredPackages>
+    <Units Count="2">
+      <Unit0>
+        <Filename Value="Project1.ppr"/>
+        <IsPartOfProject Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="unit1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit1>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <Target><Filename Value="Project1"/></Target>
+    <SearchPaths><UnitOutputDirectory Value="lib"/></SearchPaths>
+  </CompilerOptions>
+</CONFIG>

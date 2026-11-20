@@ -1,0 +1,22 @@
+@format 1
+@kostur  Brisanje s provjerom veza
+@opis    Briše zapis samo ako nema povezanih redaka u tablici detalja.
+@kontekst  gumb
+@kategorija  Održavanje
+@utor detalj        : tablica zadano=imaFk                       "Tablica detalja (ima strani ključ)"
+@utor glavna        : tablica zadano="ciljFk(detalj)"            "Glavna tablica (na koju pokazuje ključ)"
+@utor veza    : veza(detalj,glavna)                       "Veza (strani ključ detalja)"
+@preduvjet tablica ima strani kljuc
+---
+MAIN
+  DEFINE sifra {veza:ciljtip}
+  DEFINE n INTEGER
+  PROMPT "{veza:cilj} zapisa iz {glavna} za brisanje: " FOR sifra
+  SELECT COUNT(*) INTO n FROM {detalj} WHERE {veza} = $sifra
+  IF n > 0 THEN
+    ERROR "Zapis ima ", n, " povezanih redaka u {detalj} i ne može se obrisati."
+  ELSE
+    DELETE FROM {glavna} WHERE {veza:cilj} = $sifra
+    DISPLAY "Obrisano: ", SQLCA.SQLERRD[3]
+  END IF
+END MAIN

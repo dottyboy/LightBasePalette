@@ -1,0 +1,338 @@
+{
+ "id": "racunovodstvo",
+ "title": "Računovodstvo: kontni plan i glavna knjiga",
+ "descr": "Dvojno knjigovodstvo za mali subjekt: kontni plan, nalozi za knjiženje i stavke duguje/potražuje. Primjer za učenje i polaznu točku; stope, konta i obrasce uskladi s važećim propisima i svojim računovođom.",
+ "tags": "hrvatska,racunovodstvo,knjigovodstvo",
+ "tables": [
+  {
+   "name": "konto",
+   "caption": "Kontni plan",
+   "descr": "Konta po kojima se knjiži. Broj konta je razrada razreda 0-9 po uobičajenom hrvatskom kontnom planu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra konta.",
+     "pk": true
+    },
+    {
+     "name": "broj_konta",
+     "caption": "Broj konta",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Brojčana oznaka konta (npr. 1200).",
+     "required": true,
+     "width": 100
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv konta.",
+     "required": true
+    },
+    {
+     "name": "razred",
+     "caption": "Razred",
+     "type": "integer",
+     "role": "oznaka",
+     "descr": "Prva znamenka broja konta, razred 0-9.",
+     "validation": "[value] >= 0 And [value] <= 9",
+     "validation_msg": "Razred je od 0 do 9."
+    },
+    {
+     "name": "vrsta_konta",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Gdje konto ulazi u bilancu ili račun dobiti i gubitka.",
+     "choices": "Imovina,Obveze,Kapital,Prihod,Rashod",
+     "default": "\"Imovina\""
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "1000",
+     "Žiro račun",
+     1,
+     "Imovina",
+     1
+    ],
+    [
+     2,
+     "1200",
+     "Kupci u zemlji",
+     1,
+     "Imovina",
+     1
+    ],
+    [
+     3,
+     "1400",
+     "Pretporez",
+     1,
+     "Imovina",
+     1
+    ],
+    [
+     4,
+     "2200",
+     "Dobavljači u zemlji",
+     2,
+     "Obveze",
+     1
+    ],
+    [
+     5,
+     "2400",
+     "Obveza za PDV",
+     2,
+     "Obveze",
+     1
+    ],
+    [
+     6,
+     "4000",
+     "Troškovi materijala",
+     4,
+     "Rashod",
+     1
+    ],
+    [
+     7,
+     "7600",
+     "Prihodi od prodaje",
+     7,
+     "Prihod",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "nalog_knjizenja",
+   "caption": "Nalozi za knjiženje",
+   "descr": "Zaglavlje temeljnice: datum, vrsta i opis; zbroj duguje mora biti jednak zbroju potražuje.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra naloga.",
+     "pk": true
+    },
+    {
+     "name": "broj",
+     "caption": "Broj",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Službeni broj dokumenta u obliku godina-redni broj (npr. 2026-0001).",
+     "required": true,
+     "width": 110
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum knjiženja.",
+     "default": "Date()"
+    },
+    {
+     "name": "vrsta_naloga",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Iz kojeg dokumenta nalog nastaje.",
+     "choices": "Temeljnica,Izvod,Blagajna,Ulazni račun,Izlazni račun,Obračun plaće",
+     "default": "\"Temeljnica\""
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Opis knjiženja."
+    },
+    {
+     "name": "knjizen",
+     "caption": "Proknjižen",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Označi kad je nalog proknjižen i više se ne mijenja.",
+     "default": "False"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "2026-N001",
+     "2026-03-02",
+     "Ulazni račun",
+     "Račun dobavljača za materijal",
+     1
+    ],
+    [
+     2,
+     "2026-N002",
+     "2026-03-03",
+     "Izlazni račun",
+     "Račun 2026-0003 Adria promet",
+     1
+    ],
+    [
+     3,
+     "2026-N003",
+     "2026-03-10",
+     "Izvod",
+     "Uplata kupca po izvodu",
+     0
+    ]
+   ],
+   "report": true,
+   "report_group": "vrsta_naloga",
+   "report_sort": "datum"
+  },
+  {
+   "name": "stavka_knjizenja",
+   "caption": "Stavke knjiženja",
+   "descr": "Pojedinačna knjiženja na konta, na stranu duguje ili potražuje.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra stavke.",
+     "pk": true
+    },
+    {
+     "name": "nalog_id",
+     "caption": "Nalog",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Nalog kojem stavka pripada.",
+     "ref": "nalog_knjizenja.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "konto_id",
+     "caption": "Konto",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Konto na koji se knjiži.",
+     "ref": "konto.sifra",
+     "required": true
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Opis stavke."
+    },
+    {
+     "name": "duguje",
+     "caption": "Duguje",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos na dugovnoj strani konta.",
+     "decimals": 2,
+     "default": "0",
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    },
+    {
+     "name": "potrazuje",
+     "caption": "Potražuje",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos na potražnoj strani konta.",
+     "decimals": 2,
+     "default": "0",
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     6,
+     "Materijal",
+     100,
+     0
+    ],
+    [
+     2,
+     1,
+     3,
+     "Pretporez 25 %",
+     25,
+     0
+    ],
+    [
+     3,
+     1,
+     4,
+     "Obveza prema dobavljaču",
+     0,
+     125
+    ],
+    [
+     4,
+     2,
+     2,
+     "Potraživanje od kupca",
+     1062.5,
+     0
+    ],
+    [
+     5,
+     2,
+     7,
+     "Prihod od prodaje",
+     0,
+     850
+    ],
+    [
+     6,
+     2,
+     5,
+     "Obveza za PDV 25 %",
+     0,
+     212.5
+    ],
+    [
+     7,
+     3,
+     1,
+     "Uplata na žiro račun",
+     1250,
+     0
+    ],
+    [
+     8,
+     3,
+     2,
+     "Zatvaranje potraživanja",
+     0,
+     1250
+    ]
+   ]
+  }
+ ]
+}

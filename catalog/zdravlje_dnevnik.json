@@ -1,0 +1,239 @@
+{
+ "id": "zdravlje_dnevnik",
+ "title": "Dnevnik zdravlja",
+ "descr": "Osobni dnevnik: težina, tlak i puls te popis lijekova i evidencija uzimanja. Ne zamjenjuje liječnika.",
+ "tags": "zdravlje,dnevnik,osobno",
+ "tables": [
+  {
+   "name": "mjerenje",
+   "caption": "Mjerenja",
+   "descr": "Težina, krvni tlak i puls kroz vrijeme.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra mjerenja.",
+     "pk": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum mjerenja.",
+     "default": "Date()"
+    },
+    {
+     "name": "vrijeme_mjerenja",
+     "caption": "Vrijeme",
+     "type": "time",
+     "role": "vrijeme",
+     "descr": "Sat mjerenja."
+    },
+    {
+     "name": "tezina_kg",
+     "caption": "Težina (kg)",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Tjelesna težina.",
+     "decimals": 1,
+     "validation": "[value] > 0",
+     "validation_msg": "Težina mora biti veća od nule."
+    },
+    {
+     "name": "tlak_gornji",
+     "caption": "Gornji tlak",
+     "type": "integer",
+     "role": "rezultat",
+     "descr": "Sistolički tlak (mmHg).",
+     "validation": "[value] > 0",
+     "validation_msg": "Tlak mora biti veći od nule."
+    },
+    {
+     "name": "tlak_donji",
+     "caption": "Donji tlak",
+     "type": "integer",
+     "role": "rezultat",
+     "descr": "Dijastolički tlak (mmHg).",
+     "validation": "[value] > 0",
+     "validation_msg": "Tlak mora biti veći od nule."
+    },
+    {
+     "name": "puls",
+     "caption": "Puls",
+     "type": "integer",
+     "role": "rezultat",
+     "descr": "Otkucaji u minuti.",
+     "validation": "[value] > 0",
+     "validation_msg": "Puls mora biti veći od nule."
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Kako ste se osjećali, što je prethodilo mjerenju."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "2026-03-01",
+     "08:00",
+     82.4,
+     128,
+     82,
+     68,
+     null
+    ],
+    [
+     2,
+     "2026-03-08",
+     "08:10",
+     81.9,
+     125,
+     80,
+     66,
+     "Nakon šetnje"
+    ],
+    [
+     3,
+     "2026-03-15",
+     "07:50",
+     81.5,
+     131,
+     85,
+     72,
+     null
+    ]
+   ],
+   "report": true,
+   "report_group": "datum",
+   "report_sort": "datum"
+  },
+  {
+   "name": "lijek_dnevnik",
+   "caption": "Lijekovi",
+   "descr": "Lijekovi i dodaci koje uzimate.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra lijeka.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv lijeka ili dodatka.",
+     "required": true
+    },
+    {
+     "name": "doza",
+     "caption": "Doza",
+     "type": "text",
+     "role": "mjera",
+     "descr": "Količina po uzimanju (npr. 1 tableta, 10 ml)."
+    },
+    {
+     "name": "ucestalost",
+     "caption": "Učestalost",
+     "type": "text",
+     "role": "opis",
+     "descr": "Koliko često (npr. ujutro i navečer)."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Vitamin D",
+     "1 kapsula",
+     "Ujutro",
+     1
+    ],
+    [
+     2,
+     "Lijek za tlak",
+     "1 tableta",
+     "Ujutro",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "uzimanje_lijeka",
+   "caption": "Uzimanje lijekova",
+   "descr": "Evidencija je li lijek uzet.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra zapisa.",
+     "pk": true
+    },
+    {
+     "name": "lijek_id",
+     "caption": "Lijek",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Lijek.",
+     "ref": "lijek_dnevnik.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum uzimanja.",
+     "default": "Date()"
+    },
+    {
+     "name": "uzeto",
+     "caption": "Uzeto",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Označi kad je lijek uzet.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-03-01",
+     1
+    ],
+    [
+     2,
+     2,
+     "2026-03-01",
+     1
+    ],
+    [
+     3,
+     2,
+     "2026-03-02",
+     0
+    ]
+   ]
+  }
+ ]
+}

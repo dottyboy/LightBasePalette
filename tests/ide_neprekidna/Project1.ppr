@@ -1,0 +1,13 @@
+program Project1;
+
+{$mode objfpc}{$H+}
+
+uses
+  {$IFDEF UNIX}cthreads,{$ENDIF}
+  Interfaces, Forms, unit1;
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

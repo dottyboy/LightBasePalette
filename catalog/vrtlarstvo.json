@@ -1,0 +1,339 @@
+{
+ "id": "vrtlarstvo",
+ "title": "Vrt i biljke",
+ "descr": "Kućni vrt: katalog biljaka, gredice, sadnje s datumima berbe i dnevnik radova (zalijevanje, prihrana, rezidba).",
+ "tags": "osobno,vrt,biljke",
+ "tables": [
+  {
+   "name": "biljka",
+   "caption": "Biljke",
+   "descr": "Katalog biljaka koje se uzgajaju.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra biljke.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Uobičajeni naziv.",
+     "required": true
+    },
+    {
+     "name": "latinski_naziv",
+     "caption": "Latinski naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Znanstveni naziv."
+    },
+    {
+     "name": "vrsta_biljke",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Skupina biljke.",
+     "choices": "Povrće,Voće,Cvijeće,Začinsko bilje,Drvo,Grm",
+     "default": "\"Povrće\""
+    },
+    {
+     "name": "potreba_za_suncem",
+     "caption": "Svjetlo",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Koliko svjetla traži.",
+     "choices": "Sunce,Polusjena,Sjena",
+     "default": "\"Sunce\""
+    },
+    {
+     "name": "zalijevanje_dana",
+     "caption": "Zalijevanje svakih (dana)",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Razmak između zalijevanja.",
+     "validation": "[value] > 0",
+     "validation_msg": "Razmak mora biti veći od nule."
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Savjeti za uzgoj."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Rajčica",
+     "Solanum lycopersicum",
+     "Povrće",
+     "Sunce",
+     2,
+     "Veže se uz štap, prihranjivati svaka 2 tjedna."
+    ],
+    [
+     2,
+     "Bosiljak",
+     "Ocimum basilicum",
+     "Začinsko bilje",
+     "Sunce",
+     2,
+     null
+    ],
+    [
+     3,
+     "Jagoda",
+     "Fragaria x ananassa",
+     "Voće",
+     "Polusjena",
+     3,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "gredica",
+   "caption": "Gredice",
+   "descr": "Mjesta za sadnju u vrtu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra gredice.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv ili oznaka gredice.",
+     "required": true
+    },
+    {
+     "name": "povrsina_m2",
+     "caption": "Površina (m²)",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Korisna površina.",
+     "decimals": 1,
+     "validation": "[value] > 0",
+     "validation_msg": "Površina mora biti veća od nule."
+    },
+    {
+     "name": "polozaj",
+     "caption": "Položaj",
+     "type": "text",
+     "role": "opis",
+     "descr": "Gdje se nalazi u vrtu."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Gredica A",
+     4,
+     "Uz ogradu, jug"
+    ],
+    [
+     2,
+     "Gredica B",
+     6,
+     "Uz kuću, sjeverozapad"
+    ],
+    [
+     3,
+     "Plastenik",
+     12,
+     "Iza garaže"
+    ]
+   ]
+  },
+  {
+   "name": "sadnja",
+   "caption": "Sadnje",
+   "descr": "Što je posađeno kada i kada se očekuje berba.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra sadnje.",
+     "pk": true
+    },
+    {
+     "name": "biljka_id",
+     "caption": "Biljka",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Što je posađeno.",
+     "ref": "biljka.sifra",
+     "required": true
+    },
+    {
+     "name": "gredica_id",
+     "caption": "Gredica",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Gdje.",
+     "ref": "gredica.sifra",
+     "required": true
+    },
+    {
+     "name": "datum_sadnje",
+     "caption": "Posađeno",
+     "type": "date",
+     "role": "datum",
+     "descr": "Dan sadnje.",
+     "default": "Date()"
+    },
+    {
+     "name": "kolicina",
+     "caption": "Količina",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Broj sadnica.",
+     "decimals": 0,
+     "default": "1",
+     "validation": "[value] > 0",
+     "validation_msg": "Količina mora biti veća od nule."
+    },
+    {
+     "name": "ocekivana_berba",
+     "caption": "Očekivana berba",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada se očekuje berba."
+    },
+    {
+     "name": "status_sadnje",
+     "caption": "Status",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Stanje sadnje.",
+     "choices": "Posađeno,Raste,Ubrano,Propalo",
+     "default": "\"Posađeno\""
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     3,
+     "2026-04-20",
+     8,
+     "2026-07-15",
+     "Posađeno",
+     null
+    ],
+    [
+     2,
+     2,
+     3,
+     "2026-04-25",
+     12,
+     "2026-06-20",
+     "Posađeno",
+     null
+    ],
+    [
+     3,
+     3,
+     1,
+     "2025-09-15",
+     20,
+     "2026-06-01",
+     "Raste",
+     "Nova sadnica sorte Albion"
+    ]
+   ]
+  },
+  {
+   "name": "radnja_u_vrtu",
+   "caption": "Dnevnik radova",
+   "descr": "Što je obavljeno u vrtu.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra zapisa.",
+     "pk": true
+    },
+    {
+     "name": "gredica_id",
+     "caption": "Gredica",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Gdje je rađeno.",
+     "ref": "gredica.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Dan rada.",
+     "default": "Date()"
+    },
+    {
+     "name": "vrsta_radnje",
+     "caption": "Radnja",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Što je napravljeno.",
+     "choices": "Zalijevanje,Prihrana,Prskanje,Okopavanje,Rezidba,Berba",
+     "default": "\"Zalijevanje\""
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Pojedinosti (sredstvo, količina)."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     3,
+     "2026-04-21",
+     "Zalijevanje",
+     null
+    ],
+    [
+     2,
+     1,
+     "2026-03-10",
+     "Prihrana",
+     "Organsko gnojivo 50 g/m²"
+    ],
+    [
+     3,
+     1,
+     "2026-03-12",
+     "Okopavanje",
+     null
+    ]
+   ]
+  }
+ ]
+}

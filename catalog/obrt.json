@@ -1,0 +1,239 @@
+{
+ "id": "obrt",
+ "title": "Obrt: knjiga prometa i godišnji obračun",
+ "descr": "Obrtnik ili freelancer: evidencija primitaka i izdataka kroz godinu i godišnji sažetak dohotka, doprinosa i poreza. Primjer za učenje i polaznu točku; stope, konta i obrasce uskladi s važećim propisima i svojim računovođom.",
+ "tags": "hrvatska,racunovodstvo,obrt",
+ "tables": [
+  {
+   "name": "promet_obrta",
+   "caption": "Knjiga primitaka i izdataka",
+   "descr": "Svaki primitak i izdatak s dokumentom, svrhom i načinom plaćanja.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra zapisa.",
+     "pk": true
+    },
+    {
+     "name": "redni_broj",
+     "caption": "Redni broj",
+     "type": "integer",
+     "role": "redoslijed",
+     "descr": "Redni broj u knjizi unutar godine.",
+     "required": true,
+     "validation": "[value] > 0",
+     "validation_msg": "Redni broj mora biti veći od nule."
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum prometa.",
+     "default": "Date()"
+    },
+    {
+     "name": "broj_dokumenta",
+     "caption": "Dokument",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj primke, izdatnice ili računa na koji se kretanje odnosi."
+    },
+    {
+     "name": "svrha",
+     "caption": "Svrha",
+     "type": "text",
+     "role": "opis",
+     "descr": "Kratki opis (npr. Konzum, kirija ožujak).",
+     "width": 220
+    },
+    {
+     "name": "vrsta_prometa",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Je li novac primljen ili isplaćen.",
+     "choices": "Primitak,Izdatak",
+     "default": "\"Primitak\""
+    },
+    {
+     "name": "kategorija_izdatka",
+     "caption": "Kategorija",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Za izdatke: o čemu je riječ.",
+     "choices": "Roba i materijal,Usluge,Najam,Gorivo i prijevoz,Telekomunikacije,Osiguranje,Doprinosi,Ostalo",
+     "default": "\"Ostalo\""
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos prometa.",
+     "decimals": 2
+    },
+    {
+     "name": "nacin_placanja",
+     "caption": "Način plaćanja",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Kako kupac plaća.",
+     "choices": "Virman,Gotovina,Kartica,Pouzeće",
+     "default": "\"Virman\""
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-01-15",
+     "2026-0001",
+     "Račun Kvaka d.o.o.",
+     "Primitak",
+     null,
+     1250,
+     "Virman",
+     null
+    ],
+    [
+     2,
+     2,
+     "2026-01-20",
+     "R-2026-118",
+     "Alati i materijal",
+     "Izdatak",
+     "Roba i materijal",
+     250,
+     "Kartica",
+     null
+    ],
+    [
+     3,
+     3,
+     "2026-02-03",
+     "2026-0002",
+     "Račun Marija Horvat",
+     "Primitak",
+     null,
+     150,
+     "Gotovina",
+     null
+    ],
+    [
+     4,
+     4,
+     "2026-02-10",
+     "HZZO-2",
+     "Doprinos za zdravstveno",
+     "Izdatak",
+     "Doprinosi",
+     120,
+     "Virman",
+     null
+    ]
+   ],
+   "report": true,
+   "report_group": "vrsta_prometa",
+   "report_sort": "datum"
+  },
+  {
+   "name": "obracun_obrta",
+   "caption": "Godišnji obračun",
+   "descr": "Sažetak godine: primici minus izdaci, doprinosi i porez.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra obračuna.",
+     "pk": true
+    },
+    {
+     "name": "godina",
+     "caption": "Godina",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Godina na koju se podatak odnosi.",
+     "required": true,
+     "validation": "[value] >= 2000 And [value] <= 2100",
+     "validation_msg": "Unesi godinu između 2000 i 2100."
+    },
+    {
+     "name": "ukupni_primici",
+     "caption": "Primici",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Zbroj primitaka u godini.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    },
+    {
+     "name": "ukupni_izdaci",
+     "caption": "Izdaci",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Zbroj izdataka u godini.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    },
+    {
+     "name": "dohodak",
+     "caption": "Dohodak",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Bruto minus doprinosi iz plaće.",
+     "decimals": 2
+    },
+    {
+     "name": "doprinosi",
+     "caption": "Doprinosi",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Doprinosi iz plaće.",
+     "decimals": 2
+    },
+    {
+     "name": "porez",
+     "caption": "Porez",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Porez i prirez na dohodak.",
+     "decimals": 2
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     2025,
+     28000,
+     11500,
+     16500,
+     4200,
+     1700,
+     "Predano u veljači 2026."
+    ]
+   ]
+  }
+ ]
+}

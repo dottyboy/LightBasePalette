@@ -1,0 +1,364 @@
+{
+ "id": "proizvodnja",
+ "title": "Proizvodnja i sastavnice",
+ "descr": "Mala proizvodnja: sirovine na zalihi, gotovi proizvodi, sastavnice (što ulazi u proizvod) i radni nalozi.",
+ "tags": "posao,proizvodnja,zalihe",
+ "tables": [
+  {
+   "name": "sirovina",
+   "caption": "Sirovine",
+   "descr": "Materijali koji ulaze u proizvodnju.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra sirovine.",
+     "pk": true
+    },
+    {
+     "name": "kod",
+     "caption": "Kod",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Vlastita ili tvornička oznaka artikla (npr. barkod).",
+     "width": 120
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv sirovine.",
+     "required": true
+    },
+    {
+     "name": "jedinica_mjere",
+     "caption": "Jedinica",
+     "type": "text",
+     "role": "mjera",
+     "descr": "Jedinica u kojoj se roba vodi na zalihi.",
+     "choices": "kom,kg,l,m,pak,pal",
+     "default": "\"kom\""
+    },
+    {
+     "name": "nabavna_cijena",
+     "caption": "Nabavna cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Zadnja nabavna cijena po jedinici.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "trenutna_zaliha",
+     "caption": "Zaliha",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Količina na skladištu; zbroj svih ulaza i izlaza.",
+     "decimals": 2,
+     "default": "0"
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "DRV-HR",
+     "Hrastova daska",
+     "m",
+     18,
+     40,
+     1
+    ],
+    [
+     2,
+     "LAK-01",
+     "Lak za drvo",
+     "l",
+     14,
+     12,
+     1
+    ],
+    [
+     3,
+     "VIJ-50",
+     "Vijci 50 mm",
+     "kom",
+     0.05,
+     800,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "gotov_proizvod",
+   "caption": "Gotovi proizvodi",
+   "descr": "Što se proizvodi i prodaje.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra proizvoda.",
+     "pk": true
+    },
+    {
+     "name": "kod",
+     "caption": "Kod",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Vlastita ili tvornička oznaka artikla (npr. barkod).",
+     "width": 120
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv proizvoda.",
+     "required": true
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Opis proizvoda."
+    },
+    {
+     "name": "prodajna_cijena",
+     "caption": "Prodajna cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Cijena po kojoj se prodaje.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "STO-01",
+     "Stol od hrasta",
+     "Blagovaonski stol 160x80",
+     380,
+     1
+    ],
+    [
+     2,
+     "POL-01",
+     "Polica za knjige",
+     "Zidna polica 100 cm",
+     85,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "sastavnica",
+   "caption": "Sastavnice",
+   "descr": "Koliko koje sirovine treba za jedan proizvod.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra stavke.",
+     "pk": true
+    },
+    {
+     "name": "proizvod_id",
+     "caption": "Proizvod",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Proizvod.",
+     "ref": "gotov_proizvod.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "sirovina_id",
+     "caption": "Sirovina",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Sirovina.",
+     "ref": "sirovina.sifra",
+     "required": true
+    },
+    {
+     "name": "kolicina",
+     "caption": "Količina",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Količina po jednom proizvodu.",
+     "decimals": 3,
+     "required": true,
+     "validation": "[value] > 0",
+     "validation_msg": "Količina mora biti veća od nule."
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     1,
+     5.5,
+     null
+    ],
+    [
+     2,
+     1,
+     2,
+     0.4,
+     "Dva sloja"
+    ],
+    [
+     3,
+     1,
+     3,
+     24,
+     null
+    ],
+    [
+     4,
+     2,
+     1,
+     1.2,
+     null
+    ],
+    [
+     5,
+     2,
+     2,
+     0.1,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "radni_nalog",
+   "caption": "Radni nalozi",
+   "descr": "Nalozi za proizvodnju količine proizvoda.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra naloga.",
+     "pk": true
+    },
+    {
+     "name": "broj",
+     "caption": "Broj",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Službeni broj dokumenta u obliku godina-redni broj (npr. 2026-0001).",
+     "required": true,
+     "width": 110
+    },
+    {
+     "name": "proizvod_id",
+     "caption": "Proizvod",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Što se proizvodi.",
+     "ref": "gotov_proizvod.sifra",
+     "required": true
+    },
+    {
+     "name": "kolicina",
+     "caption": "Količina",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Količina za proizvodnju.",
+     "decimals": 2,
+     "default": "1",
+     "validation": "[value] > 0",
+     "validation_msg": "Količina mora biti veća od nule."
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum izdavanja.",
+     "default": "Date()"
+    },
+    {
+     "name": "rok",
+     "caption": "Rok",
+     "type": "date",
+     "role": "datum",
+     "descr": "Do kada nalog mora biti gotov."
+    },
+    {
+     "name": "status_radnog_naloga",
+     "caption": "Status",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Napredak naloga.",
+     "choices": "Planiran,U proizvodnji,Završen,Otkazan",
+     "default": "\"Planiran\""
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "RN-2026-001",
+     1,
+     4,
+     "2026-03-01",
+     "2026-03-20",
+     "U proizvodnji",
+     null
+    ],
+    [
+     2,
+     "RN-2026-002",
+     2,
+     10,
+     "2026-03-05",
+     "2026-03-30",
+     "Planiran",
+     "Za kupca Kvaka"
+    ]
+   ]
+  }
+ ]
+}

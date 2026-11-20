@@ -1,0 +1,41 @@
+== 11_podforma_mreza
+-- partner 1 | caption=F11
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Alfa] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[150] ro=0 bg=000000 fg=000000 b=0
+  subRacuni Subform v=1 e=1 bg=000000
+  txtUk TextBox v=1 e=1 text=[30] ro=1 bg=000000 fg=000000 b=0
+  query: rec=1/5 state=browse
+  sub=2
+-- partner 2 | caption=F11
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Beta] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Split] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[50] ro=0 bg=000000 fg=000000 b=0
+  subRacuni Subform v=1 e=1 bg=000000
+  txtUk TextBox v=1 e=1 text=[] ro=1 bg=000000 fg=000000 b=0
+  query: rec=2/5 state=browse
+  sub=0
+-- partner 3 | caption=F11
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Gama] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Rijeka] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[300] ro=0 bg=000000 fg=000000 b=0
+  subRacuni Subform v=1 e=1 bg=000000
+  txtUk TextBox v=1 e=1 text=[5] ro=1 bg=000000 fg=000000 b=0
+  query: rec=3/5 state=browse
+  sub=1
+-- snimka 11_podforma_mreza.png

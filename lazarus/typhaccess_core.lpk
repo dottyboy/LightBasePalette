@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <Name Value="typhaccess_core"/>
+    <Type Value="RunAndDesignTime"/>
+    <Author Value="TyphAccess"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="../src/core;../src/gui"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/$(LCLWidgetType)"/>
+      </SearchPaths>
+      <Parsing>
+        <SyntaxOptions>
+          <SyntaxMode Value="ObjFPC"/>
+          <UseAnsiStrings Value="False"/>
+        </SyntaxOptions>
+      </Parsing>
+    </CompilerOptions>
+    <Description Value="TyphAccess jezgra: baza, izrazi, 4GL, izvjesca, kontrole, tema, izvori podataka"/>
+    <License Value="Vlastita biblioteka"/>
+    <Version Major="0" Minor="1"/>
+    <Files Count="144">
+      <Item1>
+        <Filename Value="../src/core/ta_analytics.pas"/>
+        <UnitName Value="ta_analytics"/>
+      </Item2>
+      <Item3>
+        <Filename Value="../src/core/ta_app.pas"/>
+        <UnitName Value="ta_app"/>
+      </Item4>
+      <Item5>
+        <Filename Value="../src/core/ta_appspec.pas"/>
+        <UnitName Value="ta_appspec"/>
+      </Item6>
+      <Item7>
+        <Filename Value="../src/core/ta_audit.pas"/>
+        <UnitName Value="ta_audit"/>
+      </Item8>
+      <Item9>
+        <Filename Value="../src/core/ta_backtest.pas"/>
+        <UnitName Value="ta_backtest"/>
+      </Item10>
+      <Item11>
+        <Filename Value="../src/core/ta_barcode.pas"/>
+        <UnitName Value="ta_barcode"/>
+      </Item12>
+      <Item13>
+        <Filename Value="../src/core/ta_bizgen.pas"/>
+        <UnitName Value="ta_bizgen"/>
+      </Item14>
+      <Item15>
+        <Filename Value="../src/core/ta_blocks.pas"/>
+        <UnitName Value="ta_blocks"/>
+      </Item16>
+      <Item17>
+        <Filename Value="../src/core/ta_blocksdemo.pas"/>
+        <UnitName Value="ta_blocksdemo"/>
+      </Item18>
+      <Item19>
+        <Filename Value="../src/core/ta_calcgen.pas"/>
+        <UnitName Value="ta_calcgen"/>
+      </Item20>
+      <Item21>
+        <Filename Value="../src/core/ta_catalog.pas"/>
+        <UnitName Value="ta_catalog"/>
+      </Item22>
+      <Item23>
+        <Filename Value="../src/core/ta_catalogdata.pas"/>
+        <UnitName Value="ta_catalogdata"/>
+      </Item24>
+      <Item25>
+        <Filename Value="../src/core/ta_condfmt.pas"/>
+        <UnitName Value="ta_condfmt"/>
+      </Item26>
+      <Item27>
+        <Filename Value="../src/core/ta_controls.pas"/>
+        <UnitName Value="ta_controls"/>
+      </Item28>
+      <Item29>
+        <Filename Value="../src/core/ta_crosstab.pas"/>
+        <UnitName Value="ta_crosstab"/>
+      </Item30>
+      <Item31>
+        <Filename Value="../src/core/ta_dataimport.pas"/>
+        <UnitName Value="ta_dataimport"/>
+      </Item32>
+      <Item33>
+        <Filename Value="../src/core/ta_datarefresh.pas"/>
+        <UnitName Value="ta_datarefresh"/>
+      </Item34>
+      <Item35>
+        <Filename Value="../src/core/ta_datascrape.pas"/>
+        <UnitName Value="ta_datascrape"/>
+      </Item36>
+      <Item37>
+        <Filename Value="../src/core/ta_datatools.pas"/>
+        <UnitName Value="ta_datatools"/>
+      </Item38>
+      <Item39>
+        <Filename Value="../src/core/ta_doctypes.pas"/>
+        <UnitName Value="ta_doctypes"/>
+      </Item40>
+      <Item41>
+        <Filename Value="../src/core/ta_download.pas"/>
+        <UnitName Value="ta_download"/>
+      </Item42>
+      <Item43>
+        <Filename Value="../src/core/ta_enginebt.pas"/>
+        <UnitName Value="ta_enginebt"/>
+      </Item44>
+      <Item45>
+        <Filename Value="../src/core/ta_expr.pas"/>
+        <UnitName Value="ta_expr"/>
+      </Item46>
+      <Item47>
+        <Filename Value="../src/core/ta_exprdb.pas"/>
+        <UnitName Value="ta_exprdb"/>
+      </Item48>
+      <Item49>
+        <Filename Value="../src/core/ta_exprsql.pas"/>
+        <UnitName Value="ta_exprsql"/>
+      </Item50>
+      <Item51>
+        <Filename Value="../src/core/ta_fgl.pas"/>
+        <UnitName Value="ta_fgl"/>
+      </Item52>
+      <Item53>
+        <Filename Value="../src/core/ta_fglblocks.pas"/>
+        <UnitName Value="ta_fglblocks"/>
+      </Item54>
+      <Item55>
+        <Filename Value="../src/core/ta_filestore.pas"/>
+        <UnitName Value="ta_filestore"/>
+      </Item56>
+      <Item61>
+        <Filename Value="../src/core/ta_fixtureimport.pas"/>
+        <UnitName Value="ta_fixtureimport"/>
+      </Item62>
+      <Item63>
+        <Filename Value="../src/core/ta_formdef.pas"/>
+        <UnitName Value="ta_formdef"/>
+      </Item64>
+      <Item65>
+        <Filename Value="../src/core/ta_gridtools.pas"/>
+        <UnitName Value="ta_gridtools"/>
+      </Item66>
+      <Item67>
+        <Filename Value="../src/core/ta_hub3.pas"/>
+        <UnitName Value="ta_hub3"/>
+      </Item68>
+      <Item69>
+        <Filename Value="../src/core/ta_iconmap.pas"/>
+        <UnitName Value="ta_iconmap"/>
+      </Item70>
+      <Item71>
+        <Filename Value="../src/gui/ta_icons.pas"/>
+        <UnitName Value="ta_icons"/>
+      </Item72>
+      <Item73>
+        <Filename Value="../src/gui/ta_iconsdata.pas"/>
+        <UnitName Value="ta_iconsdata"/>
+      </Item74>
+      <Item75>
+        <Filename Value="../src/core/ta_importexport.pas"/>
+        <UnitName Value="ta_importexport"/>
+      </Item76>
+      <Item77>
+        <Filename Value="../src/core/ta_layout.pas"/>
+        <UnitName Value="ta_layout"/>
+      </Item78>
+      <Item79>
+        <Filename Value="../src/core/ta_league.pas"/>
+        <UnitName Value="ta_league"/>
+      </Item80>
+      <Item81>
+        <Filename Value="../src/core/ta_letter.pas"/>
+        <UnitName Value="ta_letter"/>
+      </Item82>
+      <Item83>
+        <Filename Value="../src/core/ta_locale.pas"/>
+        <UnitName Value="ta_locale"/>
+      </Item84>
+      <Item85>
+        <Filename Value="../src/core/ta_maint.pas"/>
+        <UnitName Value="ta_maint"/>
+      </Item86>
+      <Item87>
+        <Filename Value="../src/core/ta_marketfit.pas"/>
+        <UnitName Value="ta_marketfit"/>
+      </Item88>
+      <Item89>
+        <Filename Value="../src/core/ta_mdbimport.pas"/>
+        <UnitName Value="ta_mdbimport"/>
+      </Item90>
+      <Item91>
+        <Filename Value="../src/core/ta_meta.pas"/>
+        <UnitName Value="ta_meta"/>
+      </Item92>
+      <Item93>
+        <Filename Value="../src/core/ta_migrate.pas"/>
+        <UnitName Value="ta_migrate"/>
+      </Item94>
+      <Item95>
+        <Filename Value="../src/core/ta_newton.pas"/>
+        <UnitName Value="ta_newton"/>
+      </Item96>
+      <Item97>
+        <Filename Value="../src/core/ta_northwind.pas"/>
+        <UnitName Value="ta_northwind"/>
+      </Item98>
+      <Item99>
+        <Filename Value="../src/core/ta_offers.pas"/>
+        <UnitName Value="ta_offers"/>
+      </Item100>
+      <Item101>
+        <Filename Value="../src/gui/ta_pagesetup.pas"/>
+        <UnitName Value="ta_pagesetup"/>
+      </Item102>
+      <Item103>
+        <Filename Value="../src/core/ta_pairs.pas"/>
+        <UnitName Value="ta_pairs"/>
+      </Item104>
+      <Item105>
+        <Filename Value="../src/core/ta_params.pas"/>
+        <UnitName Value="ta_params"/>
+      </Item106>
+      <Item107>
+        <Filename Value="../src/core/ta_parse.pas"/>
+        <UnitName Value="ta_parse"/>
+      </Item108>
+      <Item109>
+        <Filename Value="../src/core/ta_pdf417.pas"/>
+        <UnitName Value="ta_pdf417"/>
+      </Item110>
+      <Item111>
+        <Filename Value="../src/core/ta_pdf417data.pas"/>
+        <UnitName Value="ta_pdf417data"/>
+      </Item112>
+      <Item113>
+        <Filename Value="../src/core/ta_predict.pas"/>
+        <UnitName Value="ta_predict"/>
+      </Item114>
+      <Item115>
+        <Filename Value="../src/core/ta_propmap.pas"/>
+        <UnitName Value="ta_propmap"/>
+      </Item116>
+      <Item117>
+        <Filename Value="../src/core/ta_qbe.pas"/>
+        <UnitName Value="ta_qbe"/>
+      </Item118>
+      <Item119>
+        <Filename Value="../src/core/ta_reliability.pas"/>
+        <UnitName Value="ta_reliability"/>
+      </Item120>
+      <Item121>
+        <Filename Value="../src/core/ta_report.pas"/>
+        <UnitName Value="ta_report"/>
+      </Item122>
+      <Item123>
+        <Filename Value="../src/core/ta_reportdef.pas"/>
+        <UnitName Value="ta_reportdef"/>
+      </Item124>
+      <Item125>
+        <Filename Value="../src/core/ta_reportengine.pas"/>
+        <UnitName Value="ta_reportengine"/>
+      </Item126>
+      <Item127>
+        <Filename Value="../src/gui/ta_richedit.pas"/>
+        <UnitName Value="ta_richedit"/>
+      </Item128>
+      <Item129>
+        <Filename Value="../src/core/ta_richtext.pas"/>
+        <UnitName Value="ta_richtext"/>
+      </Item130>
+      <Item131>
+        <Filename Value="../src/core/ta_script.pas"/>
+        <UnitName Value="ta_script"/>
+      </Item132>
+      <Item133>
+        <Filename Value="../src/core/ta_showcase.pas"/>
+        <UnitName Value="ta_showcase"/>
+      </Item134>
+      <Item135>
+        <Filename Value="../src/core/ta_showcase2.pas"/>
+        <UnitName Value="ta_showcase2"/>
+      </Item136>
+      <Item137>
+        <Filename Value="../src/core/ta_showcasedata.pas"/>
+        <UnitName Value="ta_showcasedata"/>
+      </Item138>
+      <Item139>
+        <Filename Value="../src/gui/ta_sidemenu.pas"/>
+        <UnitName Value="ta_sidemenu"/>
+      </Item140>
+      <Item141>
+        <Filename Value="../src/core/ta_slipgen.pas"/>
+        <UnitName Value="ta_slipgen"/>
+      </Item142>
+      <Item143>
+        <Filename Value="../src/core/ta_svg.pas"/>
+        <UnitName Value="ta_svg"/>
+      </Item144>
+      <Item145>
+        <Filename Value="../src/core/ta_switchgen.pas"/>
+        <UnitName Value="ta_switchgen"/>
+      </Item146>
+      <Item147>
+        <Filename Value="../src/core/ta_tasks.pas"/>
+        <UnitName Value="ta_tasks"/>
+      </Item148>
+      <Item149>
+        <Filename Value="../src/core/ta_types.pas"/>
+        <UnitName Value="ta_types"/>
+      </Item150>
+      <Item151>
+        <Filename Value="../src/core/ta_validation.pas"/>
+        <UnitName Value="ta_validation"/>
+      </Item152>
+      <Item153>
+        <Filename Value="../src/core/ta_wizardframework.pas"/>
+        <UnitName Value="ta_wizardframework"/>
+      </Item154>
+      <Item155>
+        <Filename Value="../src/core/ta_wizardgen.pas"/>
+        <UnitName Value="ta_wizardgen"/>
+      </Item156>
+      <Item157>
+        <Filename Value="../src/core/ta_words.pas"/>
+        <UnitName Value="ta_words"/>
+      </Item158>
+      <Item159>
+        <Filename Value="../src/core/ta_tokens.pas"/>
+        <UnitName Value="ta_tokens"/>
+      </Item160>
+      <Item161>
+        <Filename Value="../src/core/ta_family.pas"/>
+        <UnitName Value="ta_family"/>
+      </Item162>
+      <Item163>
+        <Filename Value="../src/core/ta_edit.pas"/>
+        <UnitName Value="ta_edit"/>
+      </Item164>
+      <Item165>
+        <Filename Value="../src/core/ta_source.pas"/>
+        <UnitName Value="ta_source"/>
+      </Item166>
+      <Item167>
+        <Filename Value="../src/core/ta_synhl.pas"/>
+        <UnitName Value="ta_synhl"/>
+      </Item168>
+      <Item169>
+        <Filename Value="../src/core/ta_editor.pas"/>
+        <UnitName Value="ta_editor"/>
+      </Item170>
+      <Item171>
+        <Filename Value="../src/core/ta_skeleton.pas"/>
+        <UnitName Value="ta_skeleton"/>
+      </Item172>
+      <Item173>
+        <Filename Value="../src/core/ta_skelflow.pas"/>
+        <UnitName Value="ta_skelflow"/>
+      </Item174>
+      <Item175>
+        <Filename Value="../src/core/ta_blockwiz.pas"/>
+        <UnitName Value="ta_blockwiz"/>
+      </Item176>
+      <Item177>
+        <Filename Value="../src/core/ta_fglpalette.pas"/>
+        <UnitName Value="ta_fglpalette"/>
+      </Item178>
+      <Item179>
+        <Filename Value="../src/core/ta_rowmodel.pas"/>
+        <UnitName Value="ta_rowmodel"/>
+      </Item180>
+      <Item181>
+        <Filename Value="../src/core/ta_rowsource.pas"/>
+        <UnitName Value="ta_rowsource"/>
+      </Item182>
+      <Item183>
+        <Filename Value="../src/gui/ta_rowhost.pas"/>
+        <UnitName Value="ta_rowhost"/>
+      </Item184>
+      <Item185>
+        <Filename Value="../src/core/ta_keymap.pas"/>
+        <UnitName Value="ta_keymap"/>
+      </Item186>
+      <Item187>
+        <Filename Value="../src/gui/ta_contform.pas"/>
+        <UnitName Value="ta_contform"/>
+      </Item188>
+      <Item189>
+        <Filename Value="../src/core/ta_bindengine.pas"/>
+        <UnitName Value="ta_bindengine"/>
+      </Item190>
+      <Item96>
+        <Filename Value="../src/core/ta_check.pas"/>
+        <UnitName Value="ta_check"/>
+      </Item96>
+      <Item97>
+        <Filename Value="../src/core/ta_button.pas"/>
+        <UnitName Value="ta_button"/>
+      </Item97>
+      <Item98>
+        <Filename Value="../src/core/ta_label.pas"/>
+        <UnitName Value="ta_label"/>
+      </Item98>
+      <Item99>
+        <Filename Value="../src/core/ta_memo.pas"/>
+        <UnitName Value="ta_memo"/>
+      </Item99>
+      <Item100>
+        <Filename Value="../src/core/ta_choice.pas"/>
+        <UnitName Value="ta_choice"/>
+      </Item100>
+      <Item101>
+        <Filename Value="../src/core/ta_list.pas"/>
+        <UnitName Value="ta_list"/>
+      </Item101>
+      <Item102>
+        <Filename Value="../src/core/ta_grid.pas"/>
+        <UnitName Value="ta_grid"/>
+      </Item102>
+      <Item103>
+        <Filename Value="../src/core/ta_panel.pas"/>
+        <UnitName Value="ta_panel"/>
+      </Item103>
+      <Item104>
+        <Filename Value="../src/core/ta_pages.pas"/>
+        <UnitName Value="ta_pages"/>
+      </Item104>
+      <Item105>
+        <Filename Value="../src/core/ta_progress.pas"/>
+        <UnitName Value="ta_progress"/>
+      </Item105>
+      <Item106>
+        <Filename Value="../src/core/ta_calendar.pas"/>
+        <UnitName Value="ta_calendar"/>
+      </Item106>
+      <Item107>
+        <Filename Value="../src/core/ta_image.pas"/>
+        <UnitName Value="ta_image"/>
+      </Item107>
+      <Item108>
+        <Filename Value="../src/core/ta_barcodebox.pas"/>
+        <UnitName Value="ta_barcodebox"/>
+      </Item108>
+      <Item109>
+        <Filename Value="../src/core/ta_chartbox.pas"/>
+        <UnitName Value="ta_chartbox"/>
+      </Item109>
+      <Item110>
+        <Filename Value="../src/core/ta_menu.pas"/>
+        <UnitName Value="ta_menu"/>
+      </Item110>
+      <Item111>
+        <Filename Value="../src/core/ta_propclass.pas"/>
+        <UnitName Value="ta_propclass"/>
+      </Item111>
+      <Item112>
+        <Filename Value="../src/core/ta_famctl.pas"/>
+        <UnitName Value="ta_famctl"/>
+      </Item112>
+      <Item113>
+        <Filename Value="../src/core/ta_i18n.pas"/>
+        <UnitName Value="ta_i18n"/>
+      </Item113>
+      <Item114>
+        <Filename Value="../src/core/ta_i18n_hr.pas"/>
+        <UnitName Value="ta_i18n_hr"/>
+      </Item114>
+      <Item115>
+        <Filename Value="../src/core/ta_dict.pas"/>
+        <UnitName Value="ta_dict"/>
+      </Item115>
+      <Item116>
+        <Filename Value="../src/core/ta_autoenter.pas"/>
+        <UnitName Value="ta_autoenter"/>
+      </Item116>
+      <Item117>
+        <Filename Value="../src/core/ta_i18n_hr_ui.pas"/>
+        <UnitName Value="ta_i18n_hr_ui"/>
+      </Item117>
+      <Item118>
+        <Filename Value="../src/core/ta_i18n_hr_core.pas"/>
+        <UnitName Value="ta_i18n_hr_core"/>
+      </Item118>
+      <Item119>
+        <Filename Value="../src/core/ta_i18n_hr_more.pas"/>
+        <UnitName Value="ta_i18n_hr_more"/>
+      </Item119>
+      <Item120>
+        <Filename Value="../src/core/ta_i18n_en.pas"/>
+        <UnitName Value="ta_i18n_en"/>
+      </Item120>
+      <Item121>
+        <Filename Value="../src/core/ta_mask.pas"/>
+        <UnitName Value="ta_mask"/>
+      </Item121>
+      <Item122>
+        <Filename Value="../src/core/ta_savedfinds.pas"/>
+        <UnitName Value="ta_savedfinds"/>
+      </Item122>
+      <Item123>
+        <Filename Value="../src/core/ta_schemaplan.pas"/>
+        <UnitName Value="ta_schemaplan"/>
+      </Item123>
+      <Item124>
+        <Filename Value="../src/core/ta_appgen.pas"/>
+        <UnitName Value="ta_appgen"/>
+      </Item124>
+      <Item125>
+        <Filename Value="../src/core/ta_ownedit.pas"/>
+        <UnitName Value="ta_ownedit"/>
+      </Item125>
+      <Item126>
+        <Filename Value="../src/core/ta_owncombo.pas"/>
+        <UnitName Value="ta_owncombo"/>
+      </Item126>
+      <Item127>
+        <Filename Value="../src/core/ta_ownpopup.pas"/>
+        <UnitName Value="ta_ownpopup"/>
+      </Item127>
+      <Item128>
+        <Filename Value="../src/core/ta_owndate.pas"/>
+        <UnitName Value="ta_owndate"/>
+      </Item128>
+      <Item129>
+        <Filename Value="../src/core/ta_ownspin.pas"/>
+        <UnitName Value="ta_ownspin"/>
+      </Item129>
+      <Item130>
+        <Filename Value="../src/core/ta_ownlov.pas"/>
+        <UnitName Value="ta_ownlov"/>
+      </Item130>
+      <Item131>
+        <Filename Value="../src/core/ta_ownmemo.pas"/>
+        <UnitName Value="ta_ownmemo"/>
+      </Item131>
+      <Item132>
+        <Filename Value="../src/core/ta_ownlist.pas"/>
+        <UnitName Value="ta_ownlist"/>
+      </Item132>
+      <Item133>
+        <Filename Value="../src/core/ta_owncalendar.pas"/>
+        <UnitName Value="ta_owncalendar"/>
+      </Item133>
+      <Item134>
+        <Filename Value="../src/core/ta_owngrid.pas"/>
+        <UnitName Value="ta_owngrid"/>
+      </Item134>
+      <Item135>
+        <Filename Value="../src/core/ta_gridview.pas"/>
+        <UnitName Value="ta_gridview"/>
+      </Item135>
+      <Item136>
+        <Filename Value="../src/core/ta_richbase.pas"/>
+        <UnitName Value="ta_richbase"/>
+      </Item136>
+      <Item137>
+        <Filename Value="../src/core/ta_ownrich.pas"/>
+        <UnitName Value="ta_ownrich"/>
+      </Item137>
+          <Item138>
+        <Filename Value="../src/core/ta_owntree.pas"/>
+        <UnitName Value="ta_owntree"/>
+      </Item138>
+          <Item139>
+        <Filename Value="../src/core/ta_ownboard.pas"/>
+        <UnitName Value="ta_ownboard"/>
+      </Item139>
+      <Item140>
+        <Filename Value="../src/gui/ta_formboard.pas"/>
+        <UnitName Value="ta_formboard"/>
+      </Item140>
+          <Item141>
+        <Filename Value="../src/core/ta_owndash.pas"/>
+        <UnitName Value="ta_owndash"/>
+      </Item141>
+      <Item142>
+        <Filename Value="../src/gui/ta_formdash.pas"/>
+        <UnitName Value="ta_formdash"/>
+      </Item142>
+          <Item143>
+        <Filename Value="../src/core/ta_owntimeline.pas"/>
+        <UnitName Value="ta_owntimeline"/>
+      </Item143>
+      <Item144>
+        <Filename Value="../src/gui/ta_formtimeline.pas"/>
+        <UnitName Value="ta_formtimeline"/>
+      </Item144>
+          <Item145>
+        <Filename Value="../src/core/ta_esphome.pas"/>
+        <UnitName Value="ta_esphome"/>
+      </Item145>
+          <Item144>
+        <Filename Value="../src/core/ta_fiscalhook.pas"/>
+        <UnitName Value="ta_fiscalhook"/>
+      </Item144>
+    </Files>
+    <RequiredPkgs Count="7">
+      <Item1>
+        <PackageName Value="adLCL"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="pl_ZeosDBO"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="pl_PascalScript"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="pl_FpSpreadsheet"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="pl_RichMemo"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="pl_Image32"/>
+      </Item6>
+      <Item7>
+        <PackageName Value="bs_synedit"/>
+      </Item7>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

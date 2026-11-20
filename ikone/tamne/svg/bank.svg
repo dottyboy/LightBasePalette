@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+<path fill-rule="nonzero" fill="rgb(11.764706%, 22.745098%, 54.117647%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 2.5 9 L 12 3 L 21.5 9 Z M 2.5 9 "/>
+<path fill-rule="nonzero" fill="rgb(79.607843%, 83.529412%, 88.235294%)" fill-opacity="1" d="M 5 10.5 L 7 10.5 L 7 17.5 L 5 17.5 Z M 5 10.5 "/>
+<path fill-rule="nonzero" fill="rgb(79.607843%, 83.529412%, 88.235294%)" fill-opacity="1" d="M 9.5 10.5 L 11.5 10.5 L 11.5 17.5 L 9.5 17.5 Z M 9.5 10.5 "/>
+<path fill-rule="nonzero" fill="rgb(79.607843%, 83.529412%, 88.235294%)" fill-opacity="1" d="M 14 10.5 L 16 10.5 L 16 17.5 L 14 17.5 Z M 14 10.5 "/>
+<path fill-rule="nonzero" fill="rgb(79.607843%, 83.529412%, 88.235294%)" fill-opacity="1" d="M 17 10.5 L 19 10.5 L 19 17.5 L 17 17.5 Z M 17 10.5 "/>
+<path fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 3 19.5 L 21 19.5 "/>
+</svg>

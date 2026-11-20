@@ -1,0 +1,30 @@
+== 02_izracun
+-- otvoreno | caption=F02
+  txtOpis TextBox v=1 e=1 text=[a] ro=0 bg=000000 fg=000000 b=0
+  txtKol TextBox v=1 e=1 text=[2] ro=0 bg=000000 fg=000000 b=0
+  txtCij TextBox v=1 e=1 text=[10.5] ro=0 bg=000000 fg=000000 b=0
+  txtIzn TextBox v=1 e=1 text=[21.00] ro=1 bg=000000 fg=000000 b=0
+  lblNaz Label v=1 e=1 cap=[Stavka: A] fg=000000 b=0
+  query: rec=1/3 state=browse
+-- sljedeci | caption=F02
+  txtOpis TextBox v=1 e=1 text=[b] ro=0 bg=000000 fg=000000 b=0
+  txtKol TextBox v=1 e=1 text=[5] ro=0 bg=000000 fg=000000 b=0
+  txtCij TextBox v=1 e=1 text=[3] ro=0 bg=000000 fg=000000 b=0
+  txtIzn TextBox v=1 e=1 text=[15.00] ro=1 bg=000000 fg=000000 b=0
+  lblNaz Label v=1 e=1 cap=[Stavka: B] fg=000000 b=0
+  query: rec=2/3 state=browse
+-- kolicina 10 | caption=F02
+  txtOpis TextBox v=1 e=1 text=[b] ro=0 bg=000000 fg=000000 b=0
+  txtKol TextBox v=1 e=1 text=[10] ro=0 bg=000000 fg=000000 b=0
+  txtCij TextBox v=1 e=1 text=[3] ro=0 bg=000000 fg=000000 b=0
+  txtIzn TextBox v=1 e=1 text=[30.00] ro=1 bg=000000 fg=000000 b=0
+  lblNaz Label v=1 e=1 cap=[Stavka: B] fg=000000 b=0
+  query: rec=2/3 state=browse
+-- cijena 2,5 | caption=F02
+  txtOpis TextBox v=1 e=1 text=[b] ro=0 bg=000000 fg=000000 b=0
+  txtKol TextBox v=1 e=1 text=[10] ro=0 bg=000000 fg=000000 b=0
+  txtCij TextBox v=1 e=1 text=[2.5] ro=0 bg=000000 fg=000000 b=0
+  txtIzn TextBox v=1 e=1 text=[25.00] ro=1 bg=000000 fg=000000 b=0
+  lblNaz Label v=1 e=1 cap=[Stavka: B] fg=000000 b=0
+  query: rec=2/3 state=browse
+-- snimka 02_izracun.png

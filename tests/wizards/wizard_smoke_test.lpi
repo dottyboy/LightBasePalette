@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="12"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasScaledStatement Value="False"/>
+      </Flags>
+      <SessionStorage Value="InProjectDir"/>
+      <Title Value="WizardSmokeTest"/>
+      <UseAppBundle Value="False"/>
+      <ResourceType Value="res"/>
+    </General>
+    <BuildModes Count="1">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <RequiredPackages Count="3">
+      <Item1><PackageName Value="LCL"/></Item1>
+      <Item2><PackageName Value="zcomponent"/></Item2>
+      <Item3><PackageName Value="PascalScript"/></Item3>
+    </RequiredPackages>
+    <Units Count="1">
+      <Unit0>
+        <Filename Value="wizard_smoke_test.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit0>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <Target>
+      <Filename Value="wizard_smoke_test"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir);../../src/core"/>
+      <OtherUnitFiles Value="../../src/core;../../src/gui"/>
+      <UnitOutputDirectory Value="lib"/>
+    </SearchPaths>
+  </CompilerOptions>
+</CONFIG>

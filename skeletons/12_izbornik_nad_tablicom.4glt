@@ -1,0 +1,33 @@
+@format 1
+@kostur  Izbornik nad tablicom
+@opis    Izbornik s pregledom i brojem zapisa tablice (osnova za veću aplikaciju).
+@kontekst  gumb
+@kategorija  Izbornici
+@utor tablica : tablica                                   "Koja tablica?"
+@utor stupci  : stupci(tablica) zadano=sviOsimId           "Koji se stupci prikazuju u pregledu?"
+@preduvjet tablica ima barem 2 stupca
+---
+MAIN
+  MENU "{tablica}"
+    COMMAND "Pregled" "Prikaz svih zapisa"
+      CALL pregled()
+    COMMAND "Broj zapisa" "Koliko je zapisa u tablici"
+      CALL broj()
+    COMMAND "Izlaz" "Kraj"
+      EXIT MENU
+  END MENU
+END MAIN
+
+FUNCTION pregled()
+  DEFINE r RECORD LIKE {tablica}.*
+  DECLARE c CURSOR FOR SELECT * FROM {tablica}
+  FOREACH c INTO r.*
+    DISPLAY {stupci:ispis}
+  END FOREACH
+END FUNCTION
+
+FUNCTION broj()
+  DEFINE n INTEGER
+  SELECT COUNT(*) INTO n FROM {tablica}
+  DISPLAY "Zapisa u {tablica}: ", n
+END FUNCTION

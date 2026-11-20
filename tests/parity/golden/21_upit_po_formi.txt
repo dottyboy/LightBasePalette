@@ -1,0 +1,159 @@
+== 21_upit_po_formi
+-- otvoreno | caption=F21
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Alfa] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[150] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/5 state=browse
+  stanje=spremljen upit=0
+-- izmijenjeno (promijenjen) | caption=F21
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Alfa 2] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[150] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/5 state=browse
+  stanje=promijenjen upit=0
+-- poniteno (spremljen) | caption=F21
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Alfa] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[150] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/5 state=browse
+  stanje=spremljen upit=0
+-- novi zapis | caption=F21
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  query: rec=6/5 state=insert
+  stanje=novi upit=0
+-- upit: polja prazna | caption=F21
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  query: rec=5/5 state=browse
+  stanje=upit upit=1
+-- upit grad=Zagreb | caption=F21
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Alfa] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[150] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/2 state=browse
+  stanje=spremljen upit=0
+-- upit iznos>100 | caption=F21
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Alfa] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[150] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/2 state=browse
+  stanje=spremljen upit=0
+-- sljedeci unutar rezultata | caption=F21
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Gama] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Rijeka] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[300] ro=0 bg=000000 fg=000000 b=0
+  query: rec=2/2 state=browse
+  stanje=spremljen upit=0
+-- upit bez rezultata, vraceno prethodno | caption=F21
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Alfa] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[150] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/2 state=browse
+  MSG: Upit nije vratio nijedan zapis.
+  stanje=spremljen upit=0
+-- neispravan uzorak, ostaje upit | caption=F21
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[abc] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/2 state=browse
+  MSG: iznos: Očekujem broj: abc
+  stanje=upit upit=1
+-- poniten upit | caption=F21
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Alfa] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[150] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/2 state=browse
+  stanje=spremljen upit=0
+-- upit naziv=Ga* | caption=F21
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Gama] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Rijeka] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[300] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/1 state=browse
+  stanje=spremljen upit=0
+-- upit ocisten, svi zapisi | caption=F21
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Alfa] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[150] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/5 state=browse
+  stanje=spremljen upit=0
+-- kretanje u upitu je zabranjeno | caption=F21
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/5 state=browse
+  MSG: Forma je u načinu upita: F8 izvršava upit, Esc ga poništava.
+  stanje=upit upit=1
+-- snimka 21_upit_po_formi.png

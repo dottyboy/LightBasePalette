@@ -1,0 +1,547 @@
+{
+ "id": "recepti",
+ "title": "Kuharski recepti",
+ "descr": "Zbirka recepata s namirnicama i količinama, kategorijama, ocjenama i tjednim planom obroka.",
+ "tags": "osobno,kuhinja,hrana",
+ "tables": [
+  {
+   "name": "kategorija_recepta",
+   "caption": "Kategorije recepata",
+   "descr": "Skupine jela po kojima se recepti razvrstavaju.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra kategorije.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv kategorije (npr. Juhe, Deserti).",
+     "required": true
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Što spada u kategoriju."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Juhe i variva",
+     "Juhe, čorbe i variva"
+    ],
+    [
+     2,
+     "Glavna jela",
+     "Mesna, riblja i vegetarijanska jela"
+    ],
+    [
+     3,
+     "Prilozi i salate",
+     "Prilozi uz glavno jelo"
+    ],
+    [
+     4,
+     "Deserti",
+     "Kolači, torte i slatka jela"
+    ]
+   ]
+  },
+  {
+   "name": "namirnica",
+   "caption": "Namirnice",
+   "descr": "Sastojci koji se koriste u receptima, s mjernom jedinicom i energetskom vrijednošću.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra namirnice.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv namirnice.",
+     "required": true
+    },
+    {
+     "name": "skupina",
+     "caption": "Skupina",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Vrsta namirnice za razvrstavanje popisa za kupnju.",
+     "choices": "Povrće,Voće,Meso,Riba,Mliječni proizvodi,Žitarice,Začini,Ostalo",
+     "default": "\"Ostalo\""
+    },
+    {
+     "name": "mjerna_jedinica",
+     "caption": "Jedinica",
+     "type": "text",
+     "role": "mjera",
+     "descr": "Uobičajena jedinica u kojoj se namirnica mjeri u receptima.",
+     "choices": "g,kg,ml,dl,l,kom,žlica,žličica,prstohvat",
+     "default": "\"g\""
+    },
+    {
+     "name": "kcal_100",
+     "caption": "kcal na 100 g",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Energetska vrijednost na 100 grama ili 100 ml.",
+     "validation": "[value] >= 0",
+     "validation_msg": "Vrijednost ne može biti negativna."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Brašno",
+     "Žitarice",
+     "g",
+     364,
+     1
+    ],
+    [
+     2,
+     "Jaja",
+     "Ostalo",
+     "kom",
+     143,
+     1
+    ],
+    [
+     3,
+     "Mlijeko",
+     "Mliječni proizvodi",
+     "dl",
+     64,
+     1
+    ],
+    [
+     4,
+     "Šećer",
+     "Ostalo",
+     "g",
+     400,
+     1
+    ],
+    [
+     5,
+     "Mrkva",
+     "Povrće",
+     "g",
+     41,
+     1
+    ],
+    [
+     6,
+     "Krumpir",
+     "Povrće",
+     "g",
+     77,
+     1
+    ],
+    [
+     7,
+     "Piletina (prsa)",
+     "Meso",
+     "g",
+     165,
+     1
+    ],
+    [
+     8,
+     "Maslinovo ulje",
+     "Ostalo",
+     "žlica",
+     884,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "recept",
+   "caption": "Recepti",
+   "descr": "Recepti s vremenom pripreme, težinom, ocjenom i uputama.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra recepta.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv jela.",
+     "required": true
+    },
+    {
+     "name": "kategorija_id",
+     "caption": "Kategorija",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Kategorija jela.",
+     "ref": "kategorija_recepta.sifra"
+    },
+    {
+     "name": "porcije",
+     "caption": "Porcije",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Za koliko osoba je recept ili obrok.",
+     "default": "4",
+     "validation": "[value] > 0",
+     "validation_msg": "Broj porcija mora biti veći od nule."
+    },
+    {
+     "name": "priprema_min",
+     "caption": "Priprema (min)",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Vrijeme pripreme sastojaka u minutama.",
+     "validation": "[value] >= 0",
+     "validation_msg": "Vrijeme ne može biti negativno."
+    },
+    {
+     "name": "kuhanje_min",
+     "caption": "Kuhanje (min)",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Vrijeme kuhanja ili pečenja u minutama.",
+     "validation": "[value] >= 0",
+     "validation_msg": "Vrijeme ne može biti negativno."
+    },
+    {
+     "name": "tezina",
+     "caption": "Težina",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Koliko je recept zahtjevan.",
+     "choices": "Lagano,Srednje,Teško",
+     "default": "\"Srednje\""
+    },
+    {
+     "name": "upute",
+     "caption": "Upute",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Postupak pripreme korak po korak."
+    },
+    {
+     "name": "ocjena",
+     "caption": "Ocjena",
+     "type": "integer",
+     "role": "rezultat",
+     "descr": "Osobna ocjena od 1 do 5.",
+     "validation": "[value] >= 1 And [value] <= 5",
+     "validation_msg": "Ocjena je od 1 do 5."
+    },
+    {
+     "name": "omiljeno",
+     "caption": "Omiljeno",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Označi recepte koje često radiš.",
+     "default": "False"
+    },
+    {
+     "name": "datum_dodavanja",
+     "caption": "Dodano",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je recept unesen.",
+     "default": "Date()"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Palačinke",
+     4,
+     4,
+     10,
+     20,
+     "Lagano",
+     "Umutiti jaja, mlijeko i brašno. Peći tanke palačinke na zagrijanoj tavi.",
+     5,
+     1,
+     "2026-01-10"
+    ],
+    [
+     2,
+     "Pileća juha",
+     1,
+     6,
+     20,
+     90,
+     "Srednje",
+     "Kuhati piletinu s mrkvom 1,5 sat. Procijediti i dodati rezance.",
+     4,
+     0,
+     "2026-01-12"
+    ],
+    [
+     3,
+     "Pečeni krumpir s piletinom",
+     2,
+     4,
+     15,
+     50,
+     "Lagano",
+     "Poredati u lim, preliti uljem, peći na 200 °C.",
+     4,
+     1,
+     "2026-02-01"
+    ]
+   ],
+   "report": true,
+   "report_group": "kategorija_id",
+   "report_sort": "naziv"
+  },
+  {
+   "name": "recept_namirnica",
+   "caption": "Sastojci recepta",
+   "descr": "Koja namirnica i u kojoj količini ulazi u koji recept.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra retka.",
+     "pk": true
+    },
+    {
+     "name": "recept_id",
+     "caption": "Recept",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Recept kojem sastojak pripada.",
+     "ref": "recept.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "namirnica_id",
+     "caption": "Namirnica",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Sastojak.",
+     "ref": "namirnica.sifra",
+     "required": true
+    },
+    {
+     "name": "kolicina",
+     "caption": "Količina",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Količina sastojka za zadani broj porcija.",
+     "decimals": 2,
+     "required": true,
+     "validation": "[value] > 0",
+     "validation_msg": "Količina mora biti veća od nule."
+    },
+    {
+     "name": "mjerna_jedinica",
+     "caption": "Jedinica",
+     "type": "text",
+     "role": "mjera",
+     "descr": "Uobičajena jedinica u kojoj se namirnica mjeri u receptima.",
+     "choices": "g,kg,ml,dl,l,kom,žlica,žličica,prstohvat",
+     "default": "\"g\""
+    },
+    {
+     "name": "biljeska_sastojka",
+     "caption": "Bilješka",
+     "type": "text",
+     "role": "biljeska",
+     "descr": "Način pripreme sastojka (npr. sitno nasjeckano)."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     1,
+     250,
+     "g",
+     null
+    ],
+    [
+     2,
+     1,
+     2,
+     2,
+     "kom",
+     null
+    ],
+    [
+     3,
+     1,
+     3,
+     5,
+     "dl",
+     "mlako"
+    ],
+    [
+     4,
+     1,
+     4,
+     20,
+     "g",
+     null
+    ],
+    [
+     5,
+     2,
+     7,
+     600,
+     "g",
+     "cijela prsa"
+    ],
+    [
+     6,
+     2,
+     5,
+     200,
+     "g",
+     "narezana"
+    ],
+    [
+     7,
+     3,
+     6,
+     800,
+     "g",
+     "narezan na kriške"
+    ],
+    [
+     8,
+     3,
+     7,
+     500,
+     "g",
+     null
+    ],
+    [
+     9,
+     3,
+     8,
+     3,
+     "žlica",
+     null
+    ]
+   ]
+  },
+  {
+   "name": "plan_obroka",
+   "caption": "Plan obroka",
+   "descr": "Što se kuha kojeg dana; osnova za popis namirnica za kupnju.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra stavke plana.",
+     "pk": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Dan na koji je obrok planiran.",
+     "default": "Date()"
+    },
+    {
+     "name": "obrok",
+     "caption": "Obrok",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Doba dana.",
+     "choices": "Doručak,Ručak,Užina,Večera",
+     "default": "\"Ručak\""
+    },
+    {
+     "name": "recept_id",
+     "caption": "Recept",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Što se kuha.",
+     "ref": "recept.sifra",
+     "required": true
+    },
+    {
+     "name": "porcije",
+     "caption": "Porcije",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Za koliko osoba je recept ili obrok.",
+     "default": "4",
+     "validation": "[value] > 0",
+     "validation_msg": "Broj porcija mora biti veći od nule."
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "2026-03-02",
+     "Ručak",
+     2,
+     6,
+     null
+    ],
+    [
+     2,
+     "2026-03-02",
+     "Večera",
+     3,
+     4,
+     "Ostaje za sutra"
+    ],
+    [
+     3,
+     "2026-03-03",
+     "Užina",
+     1,
+     4,
+     "Za goste"
+    ]
+   ]
+  }
+ ]
+}

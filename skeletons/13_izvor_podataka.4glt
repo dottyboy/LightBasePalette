@@ -1,0 +1,20 @@
+@format 1
+@kostur  Izvor podataka za popis
+@opis    Funkcija koja vraća retke tablice (COLUMNS i EMIT) za padajući popis, popis, grafikon ili izvješće: izvor fgl:naziv().
+@kontekst  izvor
+@kategorija  Izvori
+@utor tablica : tablica                                   "Koja tablica?"
+@utor naziv   : tekst zadano="Izvor{tablica}"             "Naziv funkcije (i programa)"
+@utor kljuc   : stupac(tablica) zadano=kljuc              "Stupac koji se sprema (ključ)"
+@utor oznaka  : stupac:tekst(tablica)                     "Stupac koji se prikazuje"
+@utor uvjet   : tekst zadano="1 = 1"                      "Uvjet (WHERE)"
+@preduvjet tablica ima stupac tipa tekst
+---
+FUNCTION {naziv}()
+  DEFINE k, o TEXT
+  COLUMNS kljuc TEXT, oznaka TEXT
+  DECLARE c CURSOR FOR SELECT {kljuc}, {oznaka} FROM {tablica} WHERE {uvjet} ORDER BY {oznaka}
+  FOREACH c INTO k, o
+    EMIT k, o
+  END FOREACH
+END FUNCTION

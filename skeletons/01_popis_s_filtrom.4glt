@@ -1,0 +1,24 @@
+@format 1
+@kostur  Popis s filtrom
+@opis    Prikaz tablice uz pretragu po izabranim stupcima (CONSTRUCT).
+@kontekst  unos
+@kategorija  Popisi
+@utor tablica : tablica                                   "Koja tablica?"
+@utor stupci  : stupci(tablica) zadano=sviOsimId          "Koji se stupci prikazuju i pretrazuju?"
+@utor naslov  : tekst zadano="{tablica}"                  "Naslov pretrage"
+@preduvjet tablica ima barem 2 stupca
+---
+MAIN
+  DEFINE r RECORD LIKE {tablica}.*
+  DEFINE uvjet, upit TEXT
+  CONSTRUCT BY NAME uvjet ON {stupci:tablicno} TITLE "{naslov}"
+  IF INT_FLAG THEN
+    EXIT PROGRAM
+  END IF
+  LET upit = "SELECT * FROM {tablica} WHERE " || uvjet
+  PREPARE p1 FROM upit
+  DECLARE c CURSOR FOR p1
+  FOREACH c INTO r.*
+    DISPLAY {stupci:ispis}
+  END FOREACH
+END MAIN

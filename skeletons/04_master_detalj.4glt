@@ -1,0 +1,31 @@
+@format 1
+@kostur  Master-detalj
+@opis    Glavni zapisi s pripadnim retcima detalja (veza po stranom ključu).
+@kontekst  gumb
+@kategorija  Popisi
+@utor detalj        : tablica zadano=imaFk                       "Tablica detalja (ima strani ključ)"
+@utor glavna        : tablica zadano="ciljFk(detalj)"            "Glavna tablica (na koju pokazuje ključ)"
+@utor veza          : veza(detalj,glavna)                       "Veza (strani ključ detalja)"
+@utor stupciglavne  : stupci(glavna) zadano=sviOsimId           "Stupci glavne tablice"
+@utor stupcidetalja : stupci(detalj) zadano=sviOsimId           "Stupci detalja"
+@preduvjet tablica ima strani kljuc
+@predlazi  tablica ima strani kljuc => preporuci
+---
+MAIN
+  DEFINE g RECORD LIKE {glavna}.*
+  DEFINE d RECORD LIKE {detalj}.*
+  DEFINE kljuc {veza:ciljtip}
+  DEFINE n INTEGER
+  DECLARE cg CURSOR FOR SELECT * FROM {glavna} ORDER BY {veza:cilj}
+  DECLARE cd CURSOR FOR SELECT * FROM {detalj} WHERE {veza} = $kljuc
+  FOREACH cg INTO g.*
+    DISPLAY {stupciglavne:ispis_g}
+    LET kljuc = g.{veza:cilj}
+    LET n = 0
+    FOREACH cd INTO d.*
+      LET n = n + 1
+      DISPLAY "    ", {stupcidetalja:ispis_d}
+    END FOREACH
+    DISPLAY "    (", n, " redaka)"
+  END FOREACH
+END MAIN

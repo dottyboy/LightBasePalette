@@ -1,0 +1,42 @@
+== 15_filter_pretraga
+-- otvoreno s filtrom iznos>20, naziv silazno | caption=F15
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Gama] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Rijeka] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[300] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/4 state=browse
+-- sljedeci | caption=F15
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Epsilon] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Pula] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[99.5] ro=0 bg=000000 fg=000000 b=0
+  query: rec=2/4 state=browse
+-- pretraga Alfa | caption=F15
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Alfa] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[150] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/1 state=browse
+-- pretraga ociscena | caption=F15
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Gama] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Rijeka] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[300] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/4 state=browse
+-- snimka 15_filter_pretraga.png

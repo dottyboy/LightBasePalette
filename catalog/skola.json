@@ -1,0 +1,440 @@
+{
+ "id": "skola",
+ "title": "Škola i ocjene",
+ "descr": "Razredna evidencija: razredi, učenici, predmeti, ocjene po provjerama i izostanci.",
+ "tags": "obrazovanje,skola,evidencija",
+ "tables": [
+  {
+   "name": "razred",
+   "caption": "Razredi",
+   "descr": "Razredni odjeli u školskoj godini.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra razreda.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Oznaka razreda (npr. 5.b).",
+     "required": true
+    },
+    {
+     "name": "skolska_godina",
+     "caption": "Školska godina",
+     "type": "text",
+     "role": "oznaka",
+     "descr": "Npr. 2025./2026."
+    },
+    {
+     "name": "razrednik",
+     "caption": "Razrednik",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Nastavnik razrednik."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "5.a",
+     "2025./2026.",
+     "Ivana Barić"
+    ],
+    [
+     2,
+     "5.b",
+     "2025./2026.",
+     "Tomislav Jurić"
+    ]
+   ]
+  },
+  {
+   "name": "ucenik",
+   "caption": "Učenici",
+   "descr": "Učenici upisani u razrede.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra učenika.",
+     "pk": true
+    },
+    {
+     "name": "ime",
+     "caption": "Ime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Osobno ime.",
+     "required": true
+    },
+    {
+     "name": "prezime",
+     "caption": "Prezime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Prezime.",
+     "required": true
+    },
+    {
+     "name": "oib",
+     "caption": "OIB",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Osobni identifikacijski broj, 11 znamenki (kod tvrtke ili osobe).",
+     "validation": "Len([value]) = 11 And IsNumeric([value])",
+     "validation_msg": "OIB mora imati točno 11 znamenki."
+    },
+    {
+     "name": "datum_rodjenja",
+     "caption": "Datum rođenja",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum rođenja osobe."
+    },
+    {
+     "name": "razred_id",
+     "caption": "Razred",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Razred u koji je učenik upisan.",
+     "ref": "razred.sifra"
+    },
+    {
+     "name": "adresa",
+     "caption": "Adresa",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Ulica i kućni broj.",
+     "width": 200
+    },
+    {
+     "name": "kontakt_roditelja",
+     "caption": "Kontakt roditelja",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Telefon ili e-pošta roditelja."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Luka",
+     "Marić",
+     "66666666666",
+     "2014-04-12",
+     1,
+     "Zagrebačka 5, Zagreb",
+     "roditelj.maric@mail.hr",
+     1,
+     null
+    ],
+    [
+     2,
+     "Mia",
+     "Knežević",
+     "77777777773",
+     "2014-09-30",
+     1,
+     "Savska 18, Zagreb",
+     "091 800 9000",
+     1,
+     "Alergija na orašaste plodove"
+    ],
+    [
+     3,
+     "Filip",
+     "Božić",
+     "88888888880",
+     "2014-01-22",
+     2,
+     "Ulica grada Vukovara 7, Zagreb",
+     "bozic.roditelji@mail.hr",
+     1,
+     null
+    ]
+   ]
+  },
+  {
+   "name": "predmet",
+   "caption": "Predmeti",
+   "descr": "Nastavni predmeti i nastavnici.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra predmeta.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv predmeta.",
+     "required": true
+    },
+    {
+     "name": "nastavnik",
+     "caption": "Nastavnik",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Tko predaje."
+    },
+    {
+     "name": "tjedni_sati",
+     "caption": "Sati tjedno",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Broj sati tjedno.",
+     "validation": "[value] > 0",
+     "validation_msg": "Broj sati mora biti veći od nule."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Hrvatski jezik",
+     "Ivana Barić",
+     5
+    ],
+    [
+     2,
+     "Matematika",
+     "Tomislav Jurić",
+     4
+    ],
+    [
+     3,
+     "Priroda i društvo",
+     "Nikola Vuković",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "ocjena_ucenika",
+   "caption": "Ocjene",
+   "descr": "Ocjene po predmetu i vrsti provjere.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra ocjene.",
+     "pk": true
+    },
+    {
+     "name": "ucenik_id",
+     "caption": "Učenik",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Kome je ocjena upisana.",
+     "ref": "ucenik.sifra",
+     "required": true
+    },
+    {
+     "name": "predmet_id",
+     "caption": "Predmet",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Iz kojeg predmeta.",
+     "ref": "predmet.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum ocjenjivanja.",
+     "default": "Date()"
+    },
+    {
+     "name": "ocjena",
+     "caption": "Ocjena",
+     "type": "integer",
+     "role": "rezultat",
+     "descr": "Osobna ocjena od 1 do 5.",
+     "validation": "[value] >= 1 And [value] <= 5",
+     "validation_msg": "Ocjena je od 1 do 5."
+    },
+    {
+     "name": "vrsta_provjere",
+     "caption": "Vrsta provjere",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Kako je znanje provjereno.",
+     "choices": "Usmeno,Pisano,Kontrolni,Projekt",
+     "default": "\"Pisano\""
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     1,
+     "2026-02-10",
+     5,
+     "Pisano",
+     null
+    ],
+    [
+     2,
+     1,
+     2,
+     "2026-02-17",
+     4,
+     "Kontrolni",
+     null
+    ],
+    [
+     3,
+     2,
+     1,
+     "2026-02-10",
+     5,
+     "Pisano",
+     null
+    ],
+    [
+     4,
+     2,
+     3,
+     "2026-03-02",
+     3,
+     "Usmeno",
+     "Treba više vježbati"
+    ],
+    [
+     5,
+     3,
+     2,
+     "2026-02-17",
+     2,
+     "Kontrolni",
+     "Popravni u ožujku"
+    ]
+   ],
+   "report": true,
+   "report_group": "predmet_id",
+   "report_sort": "datum"
+  },
+  {
+   "name": "izostanak",
+   "caption": "Izostanci",
+   "descr": "Izostanci s nastave i je li opravdan.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra izostanka.",
+     "pk": true
+    },
+    {
+     "name": "ucenik_id",
+     "caption": "Učenik",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Tko je izostao.",
+     "ref": "ucenik.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Dan izostanka.",
+     "default": "Date()"
+    },
+    {
+     "name": "sati_izostanka",
+     "caption": "Sati",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Broj sati izostanka.",
+     "default": "1",
+     "validation": "[value] > 0",
+     "validation_msg": "Broj sati mora biti veći od nule."
+    },
+    {
+     "name": "opravdano",
+     "caption": "Opravdano",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Označi kad je izostanak opravdan.",
+     "default": "False"
+    },
+    {
+     "name": "razlog",
+     "caption": "Razlog",
+     "type": "text",
+     "role": "opis",
+     "descr": "Zašto je izostao."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-02-20",
+     6,
+     1,
+     "Bolest"
+    ],
+    [
+     2,
+     3,
+     "2026-03-03",
+     2,
+     0,
+     null
+    ],
+    [
+     3,
+     2,
+     "2026-03-05",
+     6,
+     1,
+     "Liječnički pregled"
+    ]
+   ]
+  }
+ ]
+}

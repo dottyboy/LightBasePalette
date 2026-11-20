@@ -1,0 +1,20 @@
+== 19_gridformat
+-- otvoreno | caption=F19
+  query: rec=1/5 state=browse
+  grid cols: Id Naziv Grad Aktivan Iznos
+  footer=[Zapisa: 5   |   Zbroj iznos: 609.50] filterErr=[]
+  row | 1 | Alfa | Zagreb | 1 | 150
+  row | 2 | Beta | Split | 0 | 50
+  row | 3 | Gama | Rijeka | 1 | 300
+  row | 4 | Delta | Zagreb | 0 | 10
+  row | 5 | Epsilon | Pula | 1 | 99.5
+-- sortirano po nazivu | caption=F19
+  query: rec=1/5 state=browse
+  grid cols: Id Naziv ▲ Grad Aktivan Iznos
+  footer=[Zapisa: 5   |   Zbroj iznos: 609.50] filterErr=[]
+  row | 1 | Alfa | Zagreb | 1 | 150
+  row | 2 | Beta | Split | 0 | 50
+  row | 4 | Delta | Zagreb | 0 | 10
+  row | 5 | Epsilon | Pula | 1 | 99.5
+  row | 3 | Gama | Rijeka | 1 | 300
+-- snimka 19_gridformat.png

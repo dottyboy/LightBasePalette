@@ -1,0 +1,385 @@
+{
+ "id": "osiguranja",
+ "title": "Osiguranja i police",
+ "descr": "Evidencija osiguravajućih polica: osiguravatelji, police s premijom i rokovima, uplate premije i prijave šteta.",
+ "tags": "osobno,financije,osiguranje",
+ "tables": [
+  {
+   "name": "osiguravatelj",
+   "caption": "Osiguravatelji",
+   "descr": "Osiguravajuća društva.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra osiguravatelja.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv društva.",
+     "required": true
+    },
+    {
+     "name": "kontakt_osoba",
+     "caption": "Kontakt osoba",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Zastupnik ili agent."
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "email",
+     "caption": "E-pošta",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa elektroničke pošte; provjerava se oblik a@b.c.",
+     "validation": "[value] Like \"*@*.*\"",
+     "validation_msg": "Unesi ispravnu adresu e-pošte (npr. ime@tvrtka.hr).",
+     "width": 200
+    },
+    {
+     "name": "web",
+     "caption": "Web",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa web stranice.",
+     "width": 180
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Sigurnost d.d.",
+     "Petra Marić",
+     "01 600 7000",
+     "agent@sigurnost.example",
+     "www.sigurnost.example"
+    ],
+    [
+     2,
+     "Croatia polica",
+     "Ivo Jurić",
+     "01 499 2000",
+     "ivo.juric@polica.example",
+     null
+    ]
+   ]
+  },
+  {
+   "name": "polica",
+   "caption": "Police",
+   "descr": "Police osiguranja s trajanjem i premijom.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra police.",
+     "pk": true
+    },
+    {
+     "name": "broj_police",
+     "caption": "Broj police",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj s police.",
+     "required": true
+    },
+    {
+     "name": "osiguravatelj_id",
+     "caption": "Osiguravatelj",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Kod koga je osigurano.",
+     "ref": "osiguravatelj.sifra",
+     "required": true
+    },
+    {
+     "name": "vrsta_osiguranja",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Što se osigurava.",
+     "choices": "Auto,Kuća,Život,Zdravlje,Putno,Imovina,Odgovornost",
+     "default": "\"Auto\""
+    },
+    {
+     "name": "predmet_osiguranja",
+     "caption": "Predmet",
+     "type": "text",
+     "role": "opis",
+     "descr": "Što je osigurano (vozilo, nekretnina, osoba)."
+    },
+    {
+     "name": "pocetak",
+     "caption": "Početak",
+     "type": "date",
+     "role": "datum",
+     "descr": "Prvi dan osiguranja."
+    },
+    {
+     "name": "kraj",
+     "caption": "Kraj",
+     "type": "date",
+     "role": "datum",
+     "descr": "Zadnji dan osiguranja."
+    },
+    {
+     "name": "premija",
+     "caption": "Premija",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos premije po razdoblju.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Premija ne može biti negativna."
+    },
+    {
+     "name": "razdoblje_naplate",
+     "caption": "Naplata",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Koliko se često naplaćuje.",
+     "choices": "Mjesečno,Tromjesečno,Godišnje",
+     "default": "\"Mjesečno\""
+    },
+    {
+     "name": "osigurana_svota",
+     "caption": "Osigurana svota",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Najveći iznos koji osiguravatelj isplaćuje.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Svota ne može biti negativna."
+    },
+    {
+     "name": "status_police",
+     "caption": "Status",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Je li polica na snazi.",
+     "choices": "Aktivna,Istekla,Otkazana",
+     "default": "\"Aktivna\""
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "AO-2025-4411",
+     1,
+     "Auto",
+     "Škoda Octavia ZG1234AB",
+     "2025-12-01",
+     "2026-11-30",
+     420,
+     "Godišnje",
+     30000,
+     "Aktivna"
+    ],
+    [
+     2,
+     "KU-2024-0192",
+     2,
+     "Kuća",
+     "Obiteljska kuća, Zagreb",
+     "2024-06-01",
+     "2026-05-31",
+     25,
+     "Mjesečno",
+     150000,
+     "Aktivna"
+    ],
+    [
+     3,
+     "ZD-2023-7731",
+     1,
+     "Zdravlje",
+     "Dopunsko osiguranje",
+     "2023-01-01",
+     "2024-12-31",
+     9,
+     "Mjesečno",
+     0,
+     "Istekla"
+    ]
+   ],
+   "report": true,
+   "report_group": "status_police",
+   "report_sort": "kraj"
+  },
+  {
+   "name": "placanje_premije",
+   "caption": "Plaćanje premije",
+   "descr": "Uplate premije po polici.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra uplate.",
+     "pk": true
+    },
+    {
+     "name": "polica_id",
+     "caption": "Polica",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Polica.",
+     "ref": "polica.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum uplate.",
+     "default": "Date()"
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Uplaćena premija.",
+     "decimals": 2
+    },
+    {
+     "name": "nacin_placanja",
+     "caption": "Način plaćanja",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Kako kupac plaća.",
+     "choices": "Virman,Gotovina,Kartica,Pouzeće",
+     "default": "\"Kartica\""
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2025-11-28",
+     420,
+     "Virman"
+    ],
+    [
+     2,
+     2,
+     "2026-03-01",
+     25,
+     "Kartica"
+    ],
+    [
+     3,
+     2,
+     "2026-02-01",
+     25,
+     "Kartica"
+    ]
+   ]
+  },
+  {
+   "name": "steta",
+   "caption": "Štete",
+   "descr": "Prijavljene štete i isplate.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra štete.",
+     "pk": true
+    },
+    {
+     "name": "polica_id",
+     "caption": "Polica",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Polica po kojoj je prijavljeno.",
+     "ref": "polica.sifra",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum štete.",
+     "default": "Date()"
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Što se dogodilo."
+    },
+    {
+     "name": "iznos_stete",
+     "caption": "Procijenjena šteta",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Procjena štete.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    },
+    {
+     "name": "isplaceno",
+     "caption": "Isplaćeno",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos koji je isplatio osiguravatelj.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    },
+    {
+     "name": "status_stete",
+     "caption": "Status",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Napredak obrade.",
+     "choices": "Prijavljena,U obradi,Isplaćena,Odbijena",
+     "default": "\"Prijavljena\""
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-01-14",
+     "Oštećen odbojnik pri parkiranju.",
+     650,
+     520,
+     "Isplaćena"
+    ],
+    [
+     2,
+     2,
+     "2026-02-20",
+     "Oluja oštetila crijep na krovu.",
+     1800,
+     0,
+     "U obradi"
+    ]
+   ]
+  }
+ ]
+}

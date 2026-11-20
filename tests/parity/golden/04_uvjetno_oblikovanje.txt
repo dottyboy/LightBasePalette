@@ -1,0 +1,52 @@
+== 04_uvjetno_oblikovanje
+-- Alfa 150 | caption=F04
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Alfa] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[150] ro=0 bg=E9E9FF fg=0000C0 b=1
+  query: rec=1/5 state=browse
+-- Beta 50 | caption=F04
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Beta] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Split] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[50] ro=0 bg=000000 fg=000000 b=0
+  query: rec=2/5 state=browse
+-- Gama 300 | caption=F04
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Gama] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Rijeka] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=1 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[300] ro=0 bg=E9E9FF fg=0000C0 b=1
+  query: rec=3/5 state=browse
+-- Delta 10 | caption=F04
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Delta] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[10] ro=0 bg=E9FFE9 fg=006000 b=0
+  query: rec=4/5 state=browse
+-- Delta 500 | caption=F04
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Delta] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[Zagreb] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[500] ro=0 bg=E9E9FF fg=0000C0 b=1
+  query: rec=4/5 state=browse
+-- snimka 04_uvjetno_oblikovanje.png

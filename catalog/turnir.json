@@ -1,0 +1,181 @@
+{
+ "id": "turnir",
+ "title": "Turnir ili liga",
+ "descr": "Mala liga ili turnir: timovi, utakmice s rezultatima i izvješće po kolima (tablicu bodova dobiješ upitom).",
+ "tags": "sport,liga,natjecanje",
+ "tables": [
+  {
+   "name": "tim",
+   "caption": "Timovi",
+   "descr": "Ekipe koje sudjeluju.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra tima.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv tima.",
+     "required": true
+    },
+    {
+     "name": "grad",
+     "caption": "Grad",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Iz kojeg je mjesta tim."
+    },
+    {
+     "name": "trener",
+     "caption": "Trener",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Ime trenera ili voditelja."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Dinamo mladi",
+     "Zagreb",
+     "Pero Perić"
+    ],
+    [
+     2,
+     "Rudar",
+     "Labin",
+     "Ivo Ivić"
+    ],
+    [
+     3,
+     "Zagorac",
+     "Krapina",
+     "Ana Anić"
+    ],
+    [
+     4,
+     "Primorac",
+     "Rijeka",
+     "Luka Lukić"
+    ]
+   ]
+  },
+  {
+   "name": "utakmica",
+   "caption": "Utakmice",
+   "descr": "Odigrane i najavljene utakmice.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra utakmice.",
+     "pk": true
+    },
+    {
+     "name": "kolo",
+     "caption": "Kolo",
+     "type": "integer",
+     "role": "redoslijed",
+     "descr": "Redni broj kola.",
+     "required": true,
+     "validation": "[value] > 0",
+     "validation_msg": "Kolo mora biti veće od nule."
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum utakmice.",
+     "default": "Date()"
+    },
+    {
+     "name": "domaci_id",
+     "caption": "Domaćin",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Tim domaćin.",
+     "ref": "tim.sifra",
+     "required": true
+    },
+    {
+     "name": "gost_id",
+     "caption": "Gost",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Gostujući tim.",
+     "ref": "tim.sifra",
+     "required": true
+    },
+    {
+     "name": "golovi_domaci",
+     "caption": "Golovi domaćin",
+     "type": "integer",
+     "role": "rezultat",
+     "descr": "Golovi domaćina; prazno dok se ne odigra.",
+     "validation": "[value] >= 0",
+     "validation_msg": "Golovi ne mogu biti negativni."
+    },
+    {
+     "name": "golovi_gost",
+     "caption": "Golovi gost",
+     "type": "integer",
+     "role": "rezultat",
+     "descr": "Golovi gosta; prazno dok se ne odigra.",
+     "validation": "[value] >= 0",
+     "validation_msg": "Golovi ne mogu biti negativni."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-03-07",
+     1,
+     2,
+     3,
+     1
+    ],
+    [
+     2,
+     1,
+     "2026-03-07",
+     3,
+     4,
+     0,
+     0
+    ],
+    [
+     3,
+     2,
+     "2026-03-14",
+     2,
+     3,
+     2,
+     2
+    ],
+    [
+     4,
+     2,
+     "2026-03-14",
+     4,
+     1,
+     null,
+     null
+    ]
+   ],
+   "report": true,
+   "report_group": "kolo",
+   "report_sort": "datum"
+  }
+ ]
+}

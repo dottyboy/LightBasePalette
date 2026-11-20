@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+<path fill-rule="nonzero" fill="rgb(11.764706%, 16.078431%, 23.137255%)" fill-opacity="1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 18.300781 4.5 C 19.515625 4.5 20.5 5.484375 20.5 6.699219 L 20.5 18.300781 C 20.5 19.515625 19.515625 20.5 18.300781 20.5 L 5.699219 20.5 C 4.484375 20.5 3.5 19.515625 3.5 18.300781 L 3.5 6.699219 C 3.5 5.484375 4.484375 4.5 5.699219 4.5 Z M 18.300781 4.5 "/>
+<path fill-rule="nonzero" fill="rgb(85.882353%, 91.764706%, 99.607843%)" fill-opacity="1" d="M 4.300781 5.300781 L 19.699219 5.300781 L 19.699219 9.5 L 4.300781 9.5 Z M 4.300781 5.300781 "/>
+<path fill="none" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 3.5 9.5 L 20.5 9.5 "/>
+<path fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 8.5 3 L 8.5 6.5 "/>
+<path fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(79.607843%, 83.529412%, 88.235294%)" stroke-opacity="1" stroke-miterlimit="10" d="M 15.5 3 L 15.5 6.5 "/>
+<path fill-rule="nonzero" fill="rgb(37.647059%, 64.705882%, 98.039216%)" fill-opacity="1" d="M 7.5 12 L 10.5 12 L 10.5 15 L 7.5 15 Z M 7.5 12 "/>
+</svg>

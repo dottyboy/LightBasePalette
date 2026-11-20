@@ -1,0 +1,558 @@
+// Proizvodni procesi: serije (šarže) po fazama, radnje, mjerenja, zaliha repromaterijala, trošak i cijena po prinosu,
+// pogoni s uređajima (senzori, izlazi), rasporedi, automatika, alarmi i povezivanje više lokacija. Primjer je općenit: radi za svaku
+// proizvodnju s fazama i mjerenjima (povrće, gljive, pekara, sirana, ...).
+// Izrada: typhaccess --make-app=procesi.opis Procesi.db
+// Cijena artikla je prosječna ponderirana cijena svih primki (zbroj količina*cijena / zbroj količina).
+
+aplikacija "Proizvodni procesi"
+  naslov: Proizvodni procesi
+  izbornik: bocni
+
+// ---------- šifrarnici ----------
+
+tablica vrste_proizvoda "Vrste proizvoda"
+  naziv Text obavezno
+  jedinica Text zadano='kg'
+  napomena Memo
+
+tablica faze "Faze procesa"
+  vrsta_id Integer veza=vrste_proizvoda.id obavezno
+  redni Integer zadano=1
+  naziv Text obavezno
+  trajanje_dana Integer zadano=0
+
+tablica lokacije "Lokacije"
+  naziv Text obavezno
+  broj Integer
+    opis: broj lokacije (1, 2, 3...), jedinstven; zapisi lokacije u središnjoj bazi dobivaju id-eve pomaknute za broj * 1.000.000.000
+  zona Text zadano='Europe/Zagreb'
+  napomena Text
+
+tablica tehnologije "Tehnologije"
+  naziv Text obavezno
+  opis Text
+
+tablica pogoni "Pogoni"
+  naziv Text obavezno
+  tip Text
+  lokacija_id Integer veza=lokacije.id
+  tehnologija_id Integer veza=tehnologije.id
+  povrsina Decimal/1 zadano=0
+  tema Text
+    opis: MQTT tema pogona, npr. procesi/zg/pogon1
+  ploca Text zadano='esp32dev'
+    opis: ESP32 ploča za ESPHome (esp32dev, esp32-s3-devkitc-1 ...)
+  zadnji_signal DateTime
+
+tablica grupe_artikala "Grupe artikala"
+  naziv Text obavezno
+
+tablica vrste_radnji "Vrste radnji"
+  naziv Text obavezno
+  cijena_sata Currency zadano=0
+
+tablica dobavljaci "Dobavljači"
+  naziv Text obavezno
+  kontakt Text
+  telefon Text
+
+tablica artikli "Artikli (repromaterijal)"
+  sifra Text obavezno
+  naziv Text obavezno
+  grupa_id Integer veza=grupe_artikala.id
+  jmj Text zadano='kom'
+  min_zaliha Decimal/2 zadano=0
+  karenca_dana Integer zadano=0
+
+// ---------- primke: ulaz repromaterijala ----------
+
+tablica primke bezforme bezizvjesca
+  broj Text
+  datum Date
+    zadano: Today()
+  dobavljac_id Integer veza=dobavljaci.id
+  napomena Memo
+
+tablica primke_stavke
+  primka_id Integer veza=primke.id kaskada
+  artikl_id Integer veza=artikli.id obavezno
+  kolicina Decimal/2 zadano=1
+    pravilo: [kolicina] > 0 | Količina mora biti veća od nule
+  cijena Decimal/4 zadano=0
+  iznos Currency zadano=0
+
+forma Primka
+  izvor: primke
+  naslov: Primka repromaterijala
+  polja: broj, datum, dobavljac_id, napomena
+  detalji: primke_stavke(primka_id)
+  izracun: kolicina,cijena -> iznos = Zaokruzi([kolicina] * [cijena], 2)
+  izracunato: Ukupno = Nz(DSum("iznos", "primke_stavke", "primka_id = " & [id]), 0)
+
+// ---------- uređaji: senzori i izvršni članovi (svaki pogon ima svoje) ----------
+
+tablica vrste_uredjaja "Vrste uređaja"
+  naziv Text obavezno
+  uloga Text zadano='senzor'
+    opis: senzor ili izvrsni
+  jedinica Text
+  min_zadano Decimal/1
+  max_zadano Decimal/1
+
+tablica uredjaji "Uređaji"
+  pogon_id Integer veza=pogoni.id obavezno
+  vrsta_id Integer veza=vrste_uredjaja.id obavezno
+  naziv Text obavezno
+  tema Text
+    opis: podtema uređaja, npr. ph ili pumpa1
+  min Decimal/1
+  max Decimal/1
+  ml_po_min Decimal/2
+    opis: dozator: koliko ml pumpa dozira u minuti (kalibracija)
+  artikl_id Integer veza=artikli.id
+    opis: dozator: što dozira (gnojivo, regulator pH, zaštitno sredstvo)
+  najdulje_s Integer zadano=0
+    opis: sigurnosna granica: najdulje neprekidno uključenje u sekundama (0 = bez)
+  model Text
+    opis: ESPHome model. Senzori: dht22, sht3x, ds18b20, bh1750, adc. Izlazi: rele, dozator, prozor
+  pin Text
+    opis: GPIO prikljucak (npr. 16 ili GPIO16); prozor: pin za otvaranje
+  pin2 Text
+    opis: prozor: pin za zatvaranje
+  adresa Text
+    opis: I2C adresa (npr. 0x44) ili adresa Dallas senzora
+  invertirano YesNo
+    opis: relej se ukljucuje niskom razinom
+  kal_a Decimal/4
+    opis: adc kalibracija: vrijednost = kal_a * ocitanje + kal_b
+  kal_b Decimal/4
+  aktivan YesNo zadano=1
+
+tablica predlosci_rasporeda "Predlošci rasporeda"
+  naziv Text obavezno
+  vrsta_id Integer veza=vrste_uredjaja.id
+    opis: za koju vrstu uređaja (npr. svjetlo)
+  verzija Integer zadano=1
+    opis: raste sama kad se promijene stavke (otisak)
+  otisak Text
+  napomena Text
+
+tablica predlosci_stavke
+  predlozak_id Integer veza=predlosci_rasporeda.id kaskada
+  dani Text zadano='1234567'
+  od Text
+  do Text
+  svakih_min Integer zadano=0
+  trajanje_s Integer zadano=0
+
+forma "Predložak rasporeda"
+  izvor: predlosci_rasporeda
+  polja: naziv, vrsta_id, verzija, napomena
+  detalji: predlosci_stavke(predlozak_id)
+
+tablica rasporedi "Rasporedi"
+  uredjaj_id Integer veza=uredjaji.id obavezno
+  naziv Text obavezno
+  aktivan YesNo zadano=1
+  izvor Text zadano='lokalno'
+    opis: lokalno, predlozak ili naziv predloška i verzija
+  predlozak_id Integer veza=predlosci_rasporeda.id
+    opis: raspored prati ovaj predložak
+  predlozak_verzija Integer
+    opis: verzija predloška koja je primijenjena
+  automatski YesNo zadano=1
+    opis: nova verzija predloška primjenjuje se sama (inače se samo prijavi u izvješću)
+
+tablica rasporedi_stavke
+  raspored_id Integer veza=rasporedi.id kaskada
+  dani Text zadano='1234567'
+    opis: dani u tjednu, 1 = ponedjeljak
+  od Text
+  do Text
+  svakih_min Integer zadano=0
+    opis: umjesto od-do: ponavljaj svakih N minuta
+  trajanje_s Integer zadano=0
+    opis: koliko traje jedno uključenje kad je zadano ponavljanje
+
+forma Raspored
+  izvor: rasporedi
+  polja: uredjaj_id, naziv, aktivan, izvor, predlozak_id, predlozak_verzija, automatski
+  detalji: rasporedi_stavke(raspored_id)
+
+forma "Raspored (vremenska crta)"
+  izvor: rasporedi
+  raspored: crta
+  crta: glavni=SELECT r.id, u.naziv || ' - ' || r.naziv FROM rasporedi r JOIN uredjaji u ON u.id = r.uredjaj_id ORDER BY 2 ;; stavke=rasporedi_stavke ;; veza=raspored_id ;; dani=dani ;; od=od ;; do=do ;; svakih=svakih_min ;; trajanje=trajanje_s
+
+tablica sync_stanje bezforme bezizvjesca
+  tablica Text obavezno
+  zadnji_id Integer zadano=0
+
+tablica sinkronizacije bezforme
+  lokacija Integer
+  vrijeme DateTime
+  smjer Text
+  redaka Integer
+
+tablica pravila "Pravila automatike"
+  naziv Text obavezno
+  senzor_id Integer veza=uredjaji.id obavezno
+  operator Text zadano='>'
+    opis: > ili <
+  prag Decimal/2 obavezno
+  izvrsni_id Integer veza=uredjaji.id obavezno
+  akcija Text zadano='ukljuci'
+    opis: ukljuci, iskljuci ili doziraj
+  kolicina Decimal/2 zadano=0
+    opis: za doziranje: količina u jedinici artikla (npr. ml)
+  min_razmak_min Integer zadano=30
+    opis: najkraći razmak između dva djelovanja
+  max_dnevno Integer zadano=0
+    opis: najviše puta dnevno (0 = bez granice)
+  aktivan YesNo zadano=1
+
+tablica ocitanja bezforme
+  uredjaj_id Integer veza=uredjaji.id obavezno
+  vrijeme DateTime obavezno
+  vrijednost Decimal/3
+
+tablica naredbe "Naredbe uređajima"
+  uredjaj_id Integer veza=uredjaji.id obavezno
+  vrijeme DateTime
+  akcija Text obavezno
+    opis: ukljuci, iskljuci, doziraj, postavi
+  vrijednost Decimal/2
+  artikl_id Integer veza=artikli.id
+  kolicina Decimal/2 zadano=0
+    opis: za doziranje: utrošeno u jedinici artikla; ulazi u stanje zaliha
+  izvor Text zadano='korisnik'
+    opis: korisnik, raspored ili pravilo
+  stanje Text zadano='cekanje'
+    opis: cekanje, izvrseno ili pogreska
+
+tablica alarmi "Alarmi"
+  uredjaj_id Integer veza=uredjaji.id
+  pogon_id Integer veza=pogoni.id
+  vrijeme DateTime
+  vrsta Text
+  poruka Text
+  potvrdjeno YesNo zadano=0
+  zatvoreno DateTime
+    opis: kad je alarm prestao (vrijednost je opet u granicama) ili ga je netko potvrdio
+
+// ---------- serije ----------
+
+tablica serije "Serije"
+  naziv Text obavezno
+  vrsta_id Integer veza=vrste_proizvoda.id obavezno
+  pogon_id Integer veza=pogoni.id
+  faza_id Integer veza=faze.id
+  datum_pocetka Date
+    zadano: Today()
+  broj_komada Integer zadano=1
+  zavrsen YesNo zadano=0
+  napomena Memo
+
+forma "Ploča procesa"
+  izvor: serije
+  raspored: ploca
+  ploca: faza_id | naziv | vrsta_id, pogon_id, datum_pocetka | Serije
+
+// ---------- radnje: zaljevanje, gnojidba, obrezivanje, zaštita... (potrošnja zalihe) ----------
+
+tablica radnje bezforme bezizvjesca
+  serija_id Integer veza=serije.id obavezno
+  datum Date
+    zadano: Today()
+  vrsta_id Integer veza=vrste_radnji.id obavezno
+  sati Decimal/2 zadano=0
+  napomena Memo
+
+tablica radnje_potrosnja
+  radnja_id Integer veza=radnje.id kaskada
+  artikl_id Integer veza=artikli.id obavezno
+  kolicina Decimal/2 zadano=1
+    pravilo: [kolicina] > 0 | Količina mora biti veća od nule
+
+forma Radnja
+  izvor: radnje
+  naslov: Radnja na procesu
+  polja: serija_id, datum, vrsta_id, sati, napomena
+  detalji: radnje_potrosnja(radnja_id)
+  izracunato: Trošak radnje = Nz(DLookup("Ukupno", "Radnje s troskom", "id = " & [id]), 0) | 0.00
+
+// ---------- mjerenja i prinosi ----------
+
+tablica mjerenja "Mjerenja"
+  serija_id Integer veza=serije.id
+  pogon_id Integer veza=pogoni.id
+  datum Date
+    zadano: Today()
+  temperatura Decimal/1
+  vlaga Decimal/1
+  svjetlo Decimal/0
+  napomena Text
+
+tablica prinosi "Prinosi"
+  serija_id Integer veza=serije.id obavezno
+  datum Date
+    zadano: Today()
+  kolicina Decimal/2 zadano=0
+    pravilo: [kolicina] >= 0 | Količina ne može biti negativna
+  kvaliteta Text
+  napomena Text
+
+// ---------- upiti ----------
+
+upit "Stanje zaliha"
+  SELECT a.sifra AS Sifra, a.naziv AS Artikl, a.jmj AS Jmj,
+         COALESCE((SELECT SUM(kolicina) FROM primke_stavke WHERE artikl_id = a.id), 0) AS Primljeno,
+         (COALESCE((SELECT SUM(kolicina) FROM radnje_potrosnja WHERE artikl_id = a.id), 0) + COALESCE((SELECT SUM(kolicina) FROM naredbe WHERE artikl_id = a.id AND stanje IN ('poslano', 'izvrseno')), 0)) AS Utroseno,
+         COALESCE((SELECT SUM(kolicina) FROM primke_stavke WHERE artikl_id = a.id), 0)
+           - (COALESCE((SELECT SUM(kolicina) FROM radnje_potrosnja WHERE artikl_id = a.id), 0) + COALESCE((SELECT SUM(kolicina) FROM naredbe WHERE artikl_id = a.id AND stanje IN ('poslano', 'izvrseno')), 0)) AS Zaliha,
+         ROUND(COALESCE((SELECT SUM(kolicina * cijena) / SUM(kolicina) FROM primke_stavke WHERE artikl_id = a.id), 0), 4) AS Prosjecna_cijena,
+         ROUND((COALESCE((SELECT SUM(kolicina) FROM primke_stavke WHERE artikl_id = a.id), 0)
+           - (COALESCE((SELECT SUM(kolicina) FROM radnje_potrosnja WHERE artikl_id = a.id), 0) + COALESCE((SELECT SUM(kolicina) FROM naredbe WHERE artikl_id = a.id AND stanje IN ('poslano', 'izvrseno')), 0)))
+           * COALESCE((SELECT SUM(kolicina * cijena) / SUM(kolicina) FROM primke_stavke WHERE artikl_id = a.id), 0), 2) AS Vrijednost,
+         a.min_zaliha AS Minimum
+  FROM artikli a
+  ORDER BY a.naziv
+
+upit "Za dokupiti"
+  SELECT a.sifra AS Sifra, a.naziv AS Artikl, a.jmj AS Jmj, a.min_zaliha AS Minimum,
+         COALESCE((SELECT SUM(kolicina) FROM primke_stavke WHERE artikl_id = a.id), 0)
+           - (COALESCE((SELECT SUM(kolicina) FROM radnje_potrosnja WHERE artikl_id = a.id), 0) + COALESCE((SELECT SUM(kolicina) FROM naredbe WHERE artikl_id = a.id AND stanje IN ('poslano', 'izvrseno')), 0)) AS Zaliha,
+         a.min_zaliha - (COALESCE((SELECT SUM(kolicina) FROM primke_stavke WHERE artikl_id = a.id), 0)
+           - (COALESCE((SELECT SUM(kolicina) FROM radnje_potrosnja WHERE artikl_id = a.id), 0) + COALESCE((SELECT SUM(kolicina) FROM naredbe WHERE artikl_id = a.id AND stanje IN ('poslano', 'izvrseno')), 0))) AS Dokupiti
+  FROM artikli a
+  WHERE COALESCE((SELECT SUM(kolicina) FROM primke_stavke WHERE artikl_id = a.id), 0)
+          - (COALESCE((SELECT SUM(kolicina) FROM radnje_potrosnja WHERE artikl_id = a.id), 0) + COALESCE((SELECT SUM(kolicina) FROM naredbe WHERE artikl_id = a.id AND stanje IN ('poslano', 'izvrseno')), 0)) < a.min_zaliha
+  ORDER BY a.naziv
+
+upit "Trošak serije"
+  SELECT u.naziv AS Procesi, v.naziv AS Vrsta,
+         ROUND(COALESCE((SELECT SUM(rp.kolicina * COALESCE((SELECT SUM(ps.kolicina * ps.cijena) / SUM(ps.kolicina)
+                 FROM primke_stavke ps WHERE ps.artikl_id = rp.artikl_id), 0))
+               FROM radnje_potrosnja rp JOIN radnje r ON r.id = rp.radnja_id WHERE r.serija_id = u.id), 0), 2) AS Materijal,
+         ROUND(COALESCE((SELECT SUM(r.sati * vr.cijena_sata)
+               FROM radnje r JOIN vrste_radnji vr ON vr.id = r.vrsta_id WHERE r.serija_id = u.id), 0), 2) AS Rad,
+         ROUND(COALESCE((SELECT SUM(rp.kolicina * COALESCE((SELECT SUM(ps.kolicina * ps.cijena) / SUM(ps.kolicina)
+                 FROM primke_stavke ps WHERE ps.artikl_id = rp.artikl_id), 0))
+               FROM radnje_potrosnja rp JOIN radnje r ON r.id = rp.radnja_id WHERE r.serija_id = u.id), 0)
+           + COALESCE((SELECT SUM(r.sati * vr.cijena_sata)
+               FROM radnje r JOIN vrste_radnji vr ON vr.id = r.vrsta_id WHERE r.serija_id = u.id), 0), 2) AS Ukupno,
+         COALESCE((SELECT SUM(kolicina) FROM prinosi WHERE serija_id = u.id), 0) AS Ubrano,
+         v.jedinica AS Jedinica
+  FROM serije u JOIN vrste_proizvoda v ON v.id = u.vrsta_id
+  ORDER BY u.naziv
+
+upit "Cijena po jedinici"
+  SELECT Procesi, Vrsta, Ukupno, Ubrano, Jedinica,
+         CASE WHEN Ubrano > 0 THEN ROUND(Ukupno / Ubrano, 2) END AS Trosak_po_jedinici,
+         CASE WHEN Ubrano > 0 THEN ROUND(Ukupno / Ubrano * 1.3, 2) END AS Cijena_marza_30
+  FROM (
+    SELECT u.naziv AS Procesi, v.naziv AS Vrsta, v.jedinica AS Jedinica,
+           ROUND(COALESCE((SELECT SUM(rp.kolicina * COALESCE((SELECT SUM(ps.kolicina * ps.cijena) / SUM(ps.kolicina)
+                   FROM primke_stavke ps WHERE ps.artikl_id = rp.artikl_id), 0))
+                 FROM radnje_potrosnja rp JOIN radnje r ON r.id = rp.radnja_id WHERE r.serija_id = u.id), 0)
+             + COALESCE((SELECT SUM(r.sati * vr.cijena_sata)
+                 FROM radnje r JOIN vrste_radnji vr ON vr.id = r.vrsta_id WHERE r.serija_id = u.id), 0), 2) AS Ukupno,
+           COALESCE((SELECT SUM(kolicina) FROM prinosi WHERE serija_id = u.id), 0) AS Ubrano
+    FROM serije u JOIN vrste_proizvoda v ON v.id = u.vrsta_id)
+
+upit "Ploca senzora"
+  SELECT u.id AS id,
+         CASE WHEN (SELECT COUNT(*) FROM lokacije) > 1 THEN COALESCE((SELECT l.naziv FROM lokacije l WHERE l.id = p.lokacija_id), '') || ' / ' ELSE '' END || p.naziv AS Pogon,
+         'zadnji signal: ' || COALESCE(substr(p.zadnji_signal, 12, 5), '-') AS Signal,
+         (SELECT COUNT(*) FROM alarmi al WHERE al.zatvoreno IS NULL
+            AND COALESCE(al.pogon_id, (SELECT x.pogon_id FROM uredjaji x WHERE x.id = al.uredjaj_id)) = p.id) AS Alarmi,
+         u.naziv AS Uredjaj, vu.uloga AS Uloga,
+         CASE WHEN vu.uloga = 'izvrsni' THEN '' ELSE vu.jedinica END AS Jedinica,
+         (SELECT o.vrijednost FROM ocitanja o WHERE o.uredjaj_id = u.id ORDER BY o.vrijeme DESC, o.id DESC LIMIT 1) AS Vrijednost,
+         (SELECT COUNT(*) FROM naredbe n WHERE n.uredjaj_id = u.id AND n.stanje IN ('cekanje', 'poslano')) AS Cekanje,
+         CASE WHEN vu.uloga = 'izvrsni' THEN 'u redu'
+              WHEN (SELECT o.vrijednost FROM ocitanja o WHERE o.uredjaj_id = u.id ORDER BY o.vrijeme DESC, o.id DESC LIMIT 1) IS NULL THEN 'nema podataka'
+              WHEN u.min IS NOT NULL AND (SELECT o.vrijednost FROM ocitanja o WHERE o.uredjaj_id = u.id ORDER BY o.vrijeme DESC, o.id DESC LIMIT 1) < u.min THEN 'PRENISKO'
+              WHEN u.max IS NOT NULL AND (SELECT o.vrijednost FROM ocitanja o WHERE o.uredjaj_id = u.id ORDER BY o.vrijeme DESC, o.id DESC LIMIT 1) > u.max THEN 'PREVISOKO'
+              ELSE 'u redu' END AS Stanje
+  FROM uredjaji u JOIN pogoni p ON p.id = u.pogon_id JOIN vrste_uredjaja vu ON vu.id = u.vrsta_id
+  WHERE COALESCE(u.aktivan, 1) = 1
+  ORDER BY p.naziv, vu.uloga, vu.naziv
+
+upit "Pregled lokacija"
+  SELECT l.naziv AS Lokacija, COALESCE(l.broj, 0) AS Broj,
+         (SELECT COUNT(*) FROM pogoni p WHERE p.lokacija_id = l.id) AS Pogona,
+         (SELECT COUNT(*) FROM alarmi al WHERE al.zatvoreno IS NULL
+            AND COALESCE(al.pogon_id, (SELECT x.pogon_id FROM uredjaji x WHERE x.id = al.uredjaj_id)) IN (SELECT p.id FROM pogoni p WHERE p.lokacija_id = l.id)) AS Alarma,
+         (SELECT MAX(p.zadnji_signal) FROM pogoni p WHERE p.lokacija_id = l.id) AS Zadnji_signal,
+         (SELECT MAX(s.vrijeme) FROM sinkronizacije s WHERE s.lokacija = l.broj AND s.smjer = 'gore') AS Zadnja_sinkronizacija
+  FROM lokacije l
+  ORDER BY l.broj, l.naziv
+
+upit "Rasporedi zastarjeli"
+  SELECT u.naziv AS Uredjaj, r.naziv AS Raspored, pr.naziv AS Predlozak,
+         r.predlozak_verzija AS Primijenjena, pr.verzija AS Nova
+  FROM rasporedi r JOIN predlosci_rasporeda pr ON pr.id = r.predlozak_id JOIN uredjaji u ON u.id = r.uredjaj_id
+  WHERE COALESCE(r.predlozak_verzija, 0) < pr.verzija
+  ORDER BY u.naziv
+
+izvjesce "Pregled lokacija"
+  izvor: Pregled lokacija
+  vrsta: tablicno
+
+izvjesce "Rasporedi zastarjeli"
+  izvor: Rasporedi zastarjeli
+  vrsta: tablicno
+
+upit "Otvoreni alarmi"
+  SELECT al.id AS id, al.vrijeme AS Vrijeme, COALESCE(p.naziv, p2.naziv, '') AS Pogon, COALESCE(u.naziv, '') AS Uredjaj,
+         al.vrsta AS Vrsta, al.poruka AS Poruka
+  FROM alarmi al LEFT JOIN uredjaji u ON u.id = al.uredjaj_id LEFT JOIN pogoni p ON p.id = al.pogon_id
+       LEFT JOIN pogoni p2 ON p2.id = u.pogon_id
+  WHERE al.zatvoreno IS NULL
+  ORDER BY al.vrijeme DESC
+
+izvjesce "Otvoreni alarmi"
+  izvor: Otvoreni alarmi
+  vrsta: tablicno
+
+program "Potvrdi alarme"
+  MAIN
+    UPDATE alarmi SET potvrdjeno = 1, zatvoreno = datetime('now', 'localtime') WHERE zatvoreno IS NULL
+    DISPLAY "Alarmi su potvrđeni."
+  END MAIN
+
+forma "Nadzorna ploča"
+  izvor: Ploca senzora
+  raspored: nadzor
+  nadzor: grupa=Pogon ;; naziv=Uredjaj ;; vrijednost=Vrijednost ;; jedinica=Jedinica ;; stanje=Stanje ;; info=Signal ;; serija=SELECT vrijednost FROM ocitanja WHERE uredjaj_id = :id ORDER BY vrijeme DESC, id DESC LIMIT 60 ;; osvjezi=5 ;; uloga=Uloga ;; cekanje=Cekanje ;; alarmi=Alarmi ;; klik=INSERT INTO naredbe(uredjaj_id, vrijeme, akcija, izvor, stanje) VALUES (:id, datetime('now', 'localtime'), :akcija, 'korisnik', 'cekanje')
+
+upit "Trenutno stanje"
+  SELECT p.naziv AS Pogon, vu.naziv AS Uredjaj_vrsta, u.naziv AS Uredjaj, vu.jedinica AS Jedinica,
+         (SELECT o.vrijednost FROM ocitanja o WHERE o.uredjaj_id = u.id ORDER BY o.vrijeme DESC, o.id DESC LIMIT 1) AS Vrijednost,
+         (SELECT o.vrijeme FROM ocitanja o WHERE o.uredjaj_id = u.id ORDER BY o.vrijeme DESC, o.id DESC LIMIT 1) AS Vrijeme,
+         u.min AS Min, u.max AS Max,
+         CASE WHEN (SELECT o.vrijednost FROM ocitanja o WHERE o.uredjaj_id = u.id ORDER BY o.vrijeme DESC, o.id DESC LIMIT 1) IS NULL THEN 'nema podataka'
+              WHEN u.min IS NOT NULL AND (SELECT o.vrijednost FROM ocitanja o WHERE o.uredjaj_id = u.id ORDER BY o.vrijeme DESC, o.id DESC LIMIT 1) < u.min THEN 'PRENISKO'
+              WHEN u.max IS NOT NULL AND (SELECT o.vrijednost FROM ocitanja o WHERE o.uredjaj_id = u.id ORDER BY o.vrijeme DESC, o.id DESC LIMIT 1) > u.max THEN 'PREVISOKO'
+              ELSE 'u redu' END AS Stanje
+  FROM uredjaji u JOIN pogoni p ON p.id = u.pogon_id JOIN vrste_uredjaja vu ON vu.id = u.vrsta_id
+  WHERE vu.uloga = 'senzor' AND COALESCE(u.aktivan, 1) = 1
+  ORDER BY p.naziv, vu.naziv
+
+upit "Doziranje"
+  SELECT n.vrijeme AS Vrijeme, p.naziv AS Pogon, u.naziv AS Dozator, a.naziv AS Sredstvo,
+         n.kolicina AS Kolicina, a.jmj AS Jmj, n.izvor AS Izvor, n.stanje AS Stanje
+  FROM naredbe n JOIN uredjaji u ON u.id = n.uredjaj_id JOIN pogoni p ON p.id = u.pogon_id
+       LEFT JOIN artikli a ON a.id = n.artikl_id
+  WHERE n.akcija = 'doziraj'
+  ORDER BY n.vrijeme DESC
+
+izvjesce "Trenutno stanje"
+  izvor: Trenutno stanje
+  vrsta: tablicno
+
+izvjesce "Doziranje"
+  izvor: Doziranje
+  vrsta: tablicno
+
+upit "Radnje s troskom"
+  SELECT r.id AS id, r.datum AS Datum, u.naziv AS Procesi, vr.naziv AS Radnja, r.sati AS Sati,
+         ROUND(COALESCE((SELECT SUM(rp.kolicina * COALESCE((SELECT SUM(ps.kolicina * ps.cijena) / SUM(ps.kolicina)
+                 FROM primke_stavke ps WHERE ps.artikl_id = rp.artikl_id), 0))
+               FROM radnje_potrosnja rp WHERE rp.radnja_id = r.id), 0), 2) AS Materijal,
+         ROUND(r.sati * vr.cijena_sata, 2) AS Rad,
+         ROUND(COALESCE((SELECT SUM(rp.kolicina * COALESCE((SELECT SUM(ps.kolicina * ps.cijena) / SUM(ps.kolicina)
+                 FROM primke_stavke ps WHERE ps.artikl_id = rp.artikl_id), 0))
+               FROM radnje_potrosnja rp WHERE rp.radnja_id = r.id), 0) + r.sati * vr.cijena_sata, 2) AS Ukupno
+  FROM radnje r JOIN serije u ON u.id = r.serija_id JOIN vrste_radnji vr ON vr.id = r.vrsta_id
+  ORDER BY r.datum DESC, r.id DESC
+
+upit "Trosak po vrsti radnje"
+  SELECT Radnja, COUNT(*) AS Broj, ROUND(SUM(Sati), 2) AS Sati, ROUND(SUM(Materijal), 2) AS Materijal,
+         ROUND(SUM(Rad), 2) AS Rad, ROUND(SUM(Ukupno), 2) AS Ukupno
+  FROM (SELECT vr.naziv AS Radnja, r.sati AS Sati,
+         COALESCE((SELECT SUM(rp.kolicina * COALESCE((SELECT SUM(ps.kolicina * ps.cijena) / SUM(ps.kolicina)
+                 FROM primke_stavke ps WHERE ps.artikl_id = rp.artikl_id), 0))
+               FROM radnje_potrosnja rp WHERE rp.radnja_id = r.id), 0) AS Materijal,
+         r.sati * vr.cijena_sata AS Rad,
+         COALESCE((SELECT SUM(rp.kolicina * COALESCE((SELECT SUM(ps.kolicina * ps.cijena) / SUM(ps.kolicina)
+                 FROM primke_stavke ps WHERE ps.artikl_id = rp.artikl_id), 0))
+               FROM radnje_potrosnja rp WHERE rp.radnja_id = r.id), 0) + r.sati * vr.cijena_sata AS Ukupno
+        FROM radnje r JOIN vrste_radnji vr ON vr.id = r.vrsta_id)
+  GROUP BY Radnja
+  ORDER BY Ukupno DESC
+
+izvjesce "Radnje s troškom"
+  izvor: Radnje s troskom
+  vrsta: tablicno
+  polja: Datum, Procesi, Radnja, Sati, Materijal, Rad, Ukupno
+  zbrojevi: da
+
+izvjesce "Trošak po vrsti radnje"
+  izvor: Trosak po vrsti radnje
+  vrsta: tablicno
+  zbrojevi: da
+
+izvjesce "Stanje zaliha"
+  izvor: Stanje zaliha
+  vrsta: tablicno
+  zbrojevi: da
+
+izvjesce "Za dokupiti"
+  izvor: Za dokupiti
+  vrsta: tablicno
+
+izvjesce "Trošak serije"
+  izvor: Trošak serije
+  vrsta: tablicno
+  zbrojevi: da
+
+izvjesce "Cijena po jedinici"
+  izvor: Cijena po jedinici
+  vrsta: tablicno
+
+izbornik
+  # Procesi
+  Ploča procesa -> forma Ploča procesa
+  Serije -> forma Serije
+  Radnje -> forma Radnja
+  Mjerenja -> forma Mjerenja
+  Prinosi -> forma Prinosi
+  # Pogoni
+  Nadzorna ploča -> forma Nadzorna ploča
+  Trenutno stanje -> izvjesce Trenutno stanje
+  Uređaji -> forma Uređaji
+  Izradi ESPHome konfiguracije -> esphome:
+  Raspored (vremenska crta) -> forma Raspored (vremenska crta)
+  Rasporedi (tablica) -> forma Raspored
+  Predlošci rasporeda -> forma Predložak rasporeda
+  Rasporedi koji kasne za predloškom -> izvjesce Rasporedi zastarjeli
+  Pregled lokacija -> izvjesce Pregled lokacija
+  Pravila automatike -> forma Pravila automatike
+  Naredbe -> forma Naredbe uređajima
+  Alarmi (sve) -> forma Alarmi
+  Otvoreni alarmi -> izvjesce Otvoreni alarmi
+  Potvrdi sve alarme -> program Potvrdi alarme
+  Doziranje -> izvjesce Doziranje
+  # Zaliha
+  Primka -> forma Primka
+  Artikli -> forma Artikli
+  Stanje zaliha -> izvjesce Stanje zaliha
+  Za dokupiti -> izvjesce Za dokupiti
+  # Troškovi
+  Trošak serije -> izvjesce Trošak serije
+  Radnje s troškom -> izvjesce Radnje s troškom
+  Trošak po vrsti radnje -> izvjesce Trošak po vrsti radnje
+  Cijena po jedinici -> izvjesce Cijena po jedinici
+  # Šifrarnici
+  Vrste proizvoda -> forma Vrste proizvoda
+  Faze procesa -> forma Faze procesa
+  Lokacije -> forma Lokacije
+  Pogoni -> forma Pogoni
+  Tehnologije -> forma Tehnologije
+  Vrste uređaja -> forma Vrste uređaja
+  Vrste radnji -> forma Vrste radnji
+  Grupe artikala -> forma Grupe artikala
+  Dobavljači -> forma Dobavljači
+  Izlaz -> zatvori

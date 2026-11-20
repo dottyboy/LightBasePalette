@@ -1,0 +1,50 @@
+== 06_zadano_provjera
+-- novi (zadane vrijednosti) | caption=F06
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[NepoznatGrad] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[] ro=0 bg=000000 fg=000000 b=0
+  query: rec=6/5 state=insert
+-- negativan iznos | caption=F06
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Probni] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[NepoznatGrad] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[-5] ro=0 bg=DDDDFF fg=000000 b=0
+  query: rec=6/5 state=insert
+-- spremanje odbijeno | caption=F06
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Probni] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[NepoznatGrad] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[-5] ro=0 bg=DDDDFF fg=000000 b=0
+  query: rec=6/5 state=insert
+  MSG: Spremanje nije uspjelo: iznos: Iznos ne smije biti negativan
+-- ispravljeno i spremljeno | caption=F06
+  l1 Label v=1 e=1 cap=[Naziv] fg=000000 b=0
+  txtNaziv TextBox v=1 e=1 text=[Probni] ro=0 bg=000000 fg=000000 b=0
+  l2 Label v=1 e=1 cap=[Grad] fg=000000 b=0
+  txtGrad TextBox v=1 e=1 text=[NepoznatGrad] ro=0 bg=000000 fg=000000 b=0
+  l3 Label v=1 e=1 cap=[Aktivan] fg=000000 b=0
+  chkAkt CheckBox v=1 e=1 chk=0 bg=000000
+  l4 Label v=1 e=1 cap=[Iznos] fg=000000 b=0
+  txtIznos TextBox v=1 e=1 text=[5.00] ro=0 bg=000000 fg=000000 b=0
+  query: rec=6/6 state=browse
+-- snimka 06_zadano_provjera.png
+-- tablica partneri
+   | 1 | Alfa | Zagreb | 1 | 150
+   | 2 | Beta | Split | 0 | 50
+   | 3 | Gama | Rijeka | 1 | 300
+   | 4 | Delta | Zagreb | 0 | 10
+   | 5 | Epsilon | Pula | 1 | 99.5
+   | 6 | Probni | NepoznatGrad | 0 | 5

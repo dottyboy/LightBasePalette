@@ -1,0 +1,465 @@
+{
+ "id": "place_hr",
+ "title": "Obračun plaće (Hrvatska)",
+ "descr": "Obračun plaće po uobičajenom hrvatskom postupku: bruto, doprinosi iz plaće (MIO I. i II. stup), dohodak, osobni odbitak, porez i prirez, neto i trošak poslodavca; tablica stopa i JOPPD izvješća. Primjer za učenje i polaznu točku; stope, konta i obrasce uskladi s važećim propisima i svojim računovođom.",
+ "tags": "hrvatska,racunovodstvo,place",
+ "tables": [
+  {
+   "name": "porezna_stopa",
+   "caption": "Stope doprinosa i poreza",
+   "descr": "Stope za obračun s datumom važenja; mijenjaju se zakonom pa se čuvaju kao podaci, ne u formulama.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra stope.",
+     "pk": true
+    },
+    {
+     "name": "vrsta_davanja",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Na što se stopa odnosi.",
+     "choices": "MIO I. stup,MIO II. stup,Zdravstveno,Porez 20 %,Porez 30 %,Prirez",
+     "default": "\"MIO I. stup\""
+    },
+    {
+     "name": "stopa",
+     "caption": "Stopa (%)",
+     "type": "decimal",
+     "role": "postotak",
+     "descr": "Postotak koji se primjenjuje.",
+     "decimals": 2,
+     "required": true,
+     "validation": "[value] >= 0 And [value] <= 100",
+     "validation_msg": "Stopa je između 0 i 100."
+    },
+    {
+     "name": "vrijedi_od",
+     "caption": "Vrijedi od",
+     "type": "date",
+     "role": "datum",
+     "descr": "Od kada se stopa primjenjuje."
+    },
+    {
+     "name": "vrijedi_do",
+     "caption": "Vrijedi do",
+     "type": "date",
+     "role": "datum",
+     "descr": "Do kada vrijedi; prazno ako je još na snazi."
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Izvor stope (zakon, članak)."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "MIO I. stup",
+     15,
+     "2019-01-01",
+     null,
+     "Doprinos iz plaće"
+    ],
+    [
+     2,
+     "MIO II. stup",
+     5,
+     "2019-01-01",
+     null,
+     "Doprinos iz plaće"
+    ],
+    [
+     3,
+     "Zdravstveno",
+     16.5,
+     "2019-01-01",
+     null,
+     "Doprinos na plaću, tereti poslodavca"
+    ],
+    [
+     4,
+     "Porez 20 %",
+     20,
+     "2024-01-01",
+     null,
+     "Niža stopa, ovisi o gradu ili općini"
+    ],
+    [
+     5,
+     "Porez 30 %",
+     30,
+     "2024-01-01",
+     null,
+     "Viša stopa na dio osnovice"
+    ]
+   ]
+  },
+  {
+   "name": "radnik",
+   "caption": "Radnici",
+   "descr": "Osobni podaci potrebni za obračun plaće.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra radnika.",
+     "pk": true
+    },
+    {
+     "name": "ime",
+     "caption": "Ime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Osobno ime.",
+     "required": true
+    },
+    {
+     "name": "prezime",
+     "caption": "Prezime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Prezime.",
+     "required": true
+    },
+    {
+     "name": "oib",
+     "caption": "OIB",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Osobni identifikacijski broj, 11 znamenki (kod tvrtke ili osobe).",
+     "validation": "Len([value]) = 11 And IsNumeric([value])",
+     "validation_msg": "OIB mora imati točno 11 znamenki."
+    },
+    {
+     "name": "iban",
+     "caption": "IBAN",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Međunarodni broj računa, npr. HR12 3456 7890 1234 5678 9.",
+     "validation": "Len([value]) >= 15",
+     "validation_msg": "IBAN je prekratak.",
+     "width": 220
+    },
+    {
+     "name": "osobni_odbitak_faktor",
+     "caption": "Faktor osobnog odbitka",
+     "type": "decimal",
+     "role": "postotak",
+     "descr": "Faktor osobnog odbitka (1 = osnovni; veći s uzdržavanom djecom).",
+     "decimals": 2,
+     "default": "1",
+     "validation": "[value] >= 0",
+     "validation_msg": "Faktor ne može biti negativan."
+    },
+    {
+     "name": "prirez_stopa",
+     "caption": "Prirez (%)",
+     "type": "decimal",
+     "role": "postotak",
+     "descr": "Stopa prireza mjesta prebivališta.",
+     "decimals": 2,
+     "default": "0",
+     "validation": "[value] >= 0",
+     "validation_msg": "Stopa ne može biti negativna."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Marta",
+     "Novak",
+     "22222222226",
+     "HR4423600001101234565",
+     1.5,
+     0,
+     1
+    ],
+    [
+     2,
+     "Petra",
+     "Kovač",
+     "33333333333",
+     "HR7624020061100000001",
+     1,
+     10,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "obracun_place",
+   "caption": "Obračuni plaće",
+   "descr": "Mjesečni obračun po radniku. Iznosi kao u primjeru: bruto 1500, MIO 20 %, osobni odbitak 560, porez 20 %.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra obračuna.",
+     "pk": true
+    },
+    {
+     "name": "radnik_id",
+     "caption": "Radnik",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Za koga je obračun.",
+     "ref": "radnik.sifra",
+     "required": true
+    },
+    {
+     "name": "godina",
+     "caption": "Godina",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Godina na koju se podatak odnosi.",
+     "required": true,
+     "validation": "[value] >= 2000 And [value] <= 2100",
+     "validation_msg": "Unesi godinu između 2000 i 2100."
+    },
+    {
+     "name": "mjesec",
+     "caption": "Mjesec",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Mjesec (1-12).",
+     "required": true,
+     "validation": "[value] >= 1 And [value] <= 12",
+     "validation_msg": "Mjesec je od 1 do 12."
+    },
+    {
+     "name": "bruto",
+     "caption": "Bruto",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Bruto plaća za mjesec.",
+     "decimals": 2
+    },
+    {
+     "name": "mio_1_stup",
+     "caption": "MIO I. stup",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Doprinos za mirovinsko osiguranje na temelju generacijske solidarnosti.",
+     "decimals": 2
+    },
+    {
+     "name": "mio_2_stup",
+     "caption": "MIO II. stup",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Doprinos za mirovinsko osiguranje na temelju individualne kapitalizirane štednje.",
+     "decimals": 2
+    },
+    {
+     "name": "dohodak",
+     "caption": "Dohodak",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Bruto minus doprinosi iz plaće.",
+     "decimals": 2
+    },
+    {
+     "name": "osobni_odbitak",
+     "caption": "Osobni odbitak",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos osobnog odbitka za mjesec.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Iznos ne može biti negativan."
+    },
+    {
+     "name": "porezna_osnovica",
+     "caption": "Porezna osnovica",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Dohodak minus osobni odbitak (najmanje nula).",
+     "decimals": 2
+    },
+    {
+     "name": "porez",
+     "caption": "Porez",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Porez i prirez na dohodak.",
+     "decimals": 2
+    },
+    {
+     "name": "neto",
+     "caption": "Neto",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos za isplatu na račun.",
+     "decimals": 2
+    },
+    {
+     "name": "zdravstveno",
+     "caption": "Zdravstveno (poslodavac)",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Doprinos za zdravstveno osiguranje na plaću.",
+     "decimals": 2
+    },
+    {
+     "name": "trosak_poslodavca",
+     "caption": "Trošak poslodavca",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Bruto plaća uvećana za doprinose na plaću.",
+     "decimals": 2
+    },
+    {
+     "name": "datum_isplate",
+     "caption": "Datum isplate",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je novac isplaćen."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     2026,
+     2,
+     1500,
+     225,
+     75,
+     1200,
+     840,
+     360,
+     72,
+     1128,
+     247.5,
+     1747.5,
+     "2026-03-05"
+    ],
+    [
+     2,
+     2,
+     2026,
+     2,
+     1500,
+     225,
+     75,
+     1200,
+     560,
+     640,
+     140.8,
+     1059.2,
+     247.5,
+     1747.5,
+     "2026-03-05"
+    ]
+   ],
+   "report": true,
+   "report_group": "radnik_id",
+   "report_sort": "mjesec"
+  },
+  {
+   "name": "joppd_obrazac",
+   "caption": "JOPPD izvješća",
+   "descr": "Evidencija predanih JOPPD obrazaca (izvješće o primicima, porezu i doprinosima).",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra izvješća.",
+     "pk": true
+    },
+    {
+     "name": "oznaka_izvjesca",
+     "caption": "Oznaka izvješća",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Oznaka izvješća u JOPPD obrascu."
+    },
+    {
+     "name": "godina",
+     "caption": "Godina",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Godina na koju se podatak odnosi.",
+     "required": true,
+     "validation": "[value] >= 2000 And [value] <= 2100",
+     "validation_msg": "Unesi godinu između 2000 i 2100."
+    },
+    {
+     "name": "mjesec",
+     "caption": "Mjesec",
+     "type": "integer",
+     "role": "datum",
+     "descr": "Mjesec (1-12).",
+     "required": true,
+     "validation": "[value] >= 1 And [value] <= 12",
+     "validation_msg": "Mjesec je od 1 do 12."
+    },
+    {
+     "name": "datum_podnosenja",
+     "caption": "Podneseno",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je JOPPD predan."
+    },
+    {
+     "name": "status_joppd",
+     "caption": "Status",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Stanje predaje.",
+     "choices": "Priprema,Predano,Odbijeno",
+     "default": "\"Priprema\""
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "202602-1",
+     2026,
+     2,
+     "2026-03-05",
+     "Predano",
+     null
+    ],
+    [
+     2,
+     "202603-1",
+     2026,
+     3,
+     null,
+     "Priprema",
+     null
+    ]
+   ]
+  }
+ ]
+}

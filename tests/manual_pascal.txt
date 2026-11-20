@@ -1,0 +1,34 @@
+01	Dvaput(21)	42
+01	Pozdrav("Ana")	Bok, Ana!
+02	Faktorijel(5)	120
+02	ZbrojDo(10)	55
+02	Fibonacci(10)	55
+03	Inicijali("Ana Marija Horvat")	AMH
+03	Obrni("Zagreb")	bergaZ
+03	BrojRijeci("jedan dva tri")	3
+04	Zaokruzi(2.3456, 2)	2,35
+04	Rata(1000, 12, 12)	88,85
+05	Saldo()	1364,5
+05	Potroseno("Hrana")	105,5
+05	BrojTransakcija()	4
+06	NajveciTrosak()	-60
+10	PostanskiBrojOk("France", "75001")	Da
+10	PostanskiBrojOk("France", "7500")	Ne
+10	PostanskiBrojOk("Australia", "2000")	Da
+10	PostanskiBrojOk("Croatia", "10000")	Da
+11	Dob("1980-05-17", "2026-11-05")	46
+12	NazivKategorije("1")	Hrana
+12	NazivKategorije("3")	Prijevoz
+13	Prazno("")	Da
+13	Prazno("  ")	Da
+13	Prazno("Hrana")	Ne
+14	ZadnjiOpis()	Plac
+15	IdKategorije("Hrana")	1
+15	IdKategorije("Nema je")	
+16	RazdobljeOk("2026-03-01", "2026-03-31")	Da
+16	RazdobljeOk("2026-03-31", "2026-03-01")	Ne
+17	PrvoVeliko("  hrana i piće ")	Hrana i piće
+17	PrvoVeliko("iPhone")	IPhone
+18	PromijenjenaPolja(5)	ClientName, AccountCurrent
+18	PromijenjenaPolja(2)	AccountBalance
+18	PromijenjenaPolja(0)	

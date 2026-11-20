@@ -1,0 +1,115 @@
+Iif(1 > 0, "da", "ne")	da
+Nz(Null, 5)	5
+IsNull(Null)	Da
+IsNumeric("12,5")	Da
+IsDate("31.12.2026")	Da
+IsEmpty("  ")	Da
+Switch(1 > 2, "a", 2 > 1, "b")	b
+Choose(2, "x", "y", "z")	y
+Coalesce(Null, "", "x")	x
+Between(5, 1, 10)	Da
+InList("b", "a", "b", "c")	Da
+Len("čaj")	3
+Left("Zagreb", 3)	Zag
+Right("Zagreb", 3)	reb
+Mid("Zagreb", 2, 3)	agr
+UCase("šuma")	ŠUMA
+LCase("ČĆŽ")	čćž
+PlainText("<p>Bok <b>svijete</b></p>")	Bok svijete
+Trim("  a  ")	a
+LTrim("  a")	a
+RTrim("a  ")	a
+Proper("ivan horvat-kovač")	Ivan Horvat-Kovač
+InStr("Zagreb", "gre")	3
+Replace("a-b-c", "-", "/")	a/b/c
+Len(Space(4))	4
+String(3, "x")	xxx
+Chr(65)	A
+Asc("A")	65
+Str(12.5)	12.5
+Format(DateSerial(2026,3,15), "dd.mm.yyyy")	15.03.2026
+StartsWith("Zagreb", "za")	Da
+EndsWith("Zagreb", "REB")	Da
+Contains("Zagreb", "gre")	Da
+LPad("7", 3, "0")	007
+RPad("ab", 4, ".")	ab..
+StrReverse("abc")	cba
+Concat("a", 1, "b")	a1b
+Split("a;b;c", ";", 2)	b
+Shorten("Zagreb je velik", 8)	Zagreb …
+Initials("ivan horvat")	IH
+Abs(-3)	3
+Int(-2.5)	-3
+Fix(-2.5)	-2
+Sgn(-5)	-1
+Sqr(16)	4
+Mod(17, 5)	2
+Power(2, 10)	1024
+Round(Pi(), 4)	3,1416
+Round(Pmt(0.01, 12, 1000), 2)	88,85
+Exp(0)	1
+Log(1)	0
+Rnd() < 1	Da
+Round(2.567, 2)	2,57
+Zaokruzi(1.005, 2)	1,01
+Max(3, 7, 5)	7
+Min(3, 7, 5)	3
+Ceil(2.1)	3
+Floor(2.9)	2
+Percent(25, 200)	12,5
+Clamp(15, 0, 10)	10
+CInt(2.7)	3
+CLng(2.7)	3
+CDbl("12,5")	12,5
+CStr(12)	12
+CBool(1)	Da
+CDate("2026-03-15")	15.03.2026
+DateValue("2026-03-15 10:30")	15.03.2026
+Val("42")	42
+Date() = Today()	Da
+Today() = Date()	Da
+Now() >= Date()	Da
+Hour(Time()) >= 0	Da
+Year(DateSerial(2026,3,15))	2026
+Month(DateSerial(2026,3,15))	3
+Day(DateSerial(2026,3,15))	15
+Hour(TimeSerial(13, 30, 0))	13
+Minute(TimeSerial(13, 30, 0))	30
+Second(TimeSerial(13, 30, 15))	15
+Weekday(DateSerial(2026,3,15))	1
+MonthName(3)	ožujak
+WeekdayName(2)	ponedjeljak
+DayName(DateSerial(2026,3,16))	ponedjeljak
+DateSerial(2026, 3, 15)	15.03.2026
+Hour(TimeSerial(13, 30, 0))	13
+DateAdd("m", 1, DateSerial(2026,1,31))	28.02.2026
+DateDiff("d", DateSerial(2026,1,1), DateSerial(2026,3,1))	59
+DatePart("q", DateSerial(2026,5,10))	2
+EOMonth(DateSerial(2026,2,10))	28.02.2026
+BOMonth(DateSerial(2026,2,10))	01.02.2026
+Quarter(DateSerial(2026,5,10))	2
+WeekNumber(DateSerial(2026,3,16))	12
+AddDays(DateSerial(2026,3,15), 20)	04.04.2026
+AddMonths(DateSerial(2026,1,31), 1)	28.02.2026
+DaysBetween(DateSerial(2026,1,1), DateSerial(2026,1,31))	30
+WorkDays(DateSerial(2026,3,16), DateSerial(2026,3,20))	5
+RadniDani(DateSerial(2026,4,1), DateSerial(2026,4,10))	7
+Praznik(DateSerial(2026,8,15))	Velika Gospa
+Uskrs(2026)	05.04.2026
+IsWeekend(DateSerial(2026,3,14))	Da
+AddWorkDays(DateSerial(2026,3,13), 1)	16.03.2026
+BOYear(DateSerial(2026,6,15))	01.01.2026
+EOYear(DateSerial(2026,6,15))	31.12.2026
+DayOfYear(DateSerial(2026,3,1))	60
+DaysInMonth(DateSerial(2024,2,10))	29
+MonthsBetween(DateSerial(2026,1,15), DateSerial(2026,4,14))	2
+Age(DateSerial(1990,6,15), DateSerial(2026,3,1))	35
+IsLeapYear(2028)	Da
+ValidOib("69435151530")	Da
+ValidIban("HR1210010051863000160")	Da
+BrojSlovima(21)	dvadeset jedan
+IznosSlovima(1234.5)	tisuću dvjesto trideset četiri eura i pedeset centi
+Eur(1234.5)	1.234,50 €
+Left(Hub3Uplata(10, "Ivan Horvat", "Ilica 1", "10000 Zagreb", "Firma d.o.o.", "Savska 2", "10000 Zagreb", "HR1210010051863000160"), 8)	HRVHUB30
+Eval("2 + 3 * 4")	14
+CurrentRole()	admin

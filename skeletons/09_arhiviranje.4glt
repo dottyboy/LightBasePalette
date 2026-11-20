@@ -1,0 +1,19 @@
+@format 1
+@kostur  Arhiviranje
+@opis    Kopira retke u tablicu arhive iste strukture i briše ih iz izvorne tablice, u jednoj transakciji.
+@kontekst  gumb
+@kategorija  Održavanje
+@utor tablica : tablica                                   "Koja tablica?"
+@utor arhiva  : tekst zadano="{tablica}_arhiva"           "Tablica arhive (ista struktura)"
+@utor uvjet   : tekst zadano="1 = 0"                      "Što se arhivira (WHERE)"
+@preduvjet tablica ima barem 2 stupca
+---
+MAIN
+  DEFINE n INTEGER
+  BEGIN WORK
+  INSERT INTO {arhiva} SELECT * FROM {tablica} WHERE {uvjet}
+  LET n = SQLCA.SQLERRD[3]
+  DELETE FROM {tablica} WHERE {uvjet}
+  COMMIT WORK
+  DISPLAY "Arhivirano: ", n
+END MAIN

@@ -1,0 +1,430 @@
+{
+ "id": "restoran",
+ "title": "Restoran i narudžbe",
+ "descr": "Ugostiteljski lokal: stolovi, jelovnik, narudžbe po stolu sa stavkama i naplata.",
+ "tags": "ugostiteljstvo,narudzbe,prodaja",
+ "tables": [
+  {
+   "name": "stol",
+   "caption": "Stolovi",
+   "descr": "Stolovi u lokalu s brojem mjesta i zonom.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra stola.",
+     "pk": true
+    },
+    {
+     "name": "oznaka_stola",
+     "caption": "Oznaka",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj ili naziv stola.",
+     "required": true,
+     "width": 90
+    },
+    {
+     "name": "broj_mjesta",
+     "caption": "Mjesta",
+     "type": "integer",
+     "role": "kolicina",
+     "descr": "Broj mjesta za sjedenje.",
+     "default": "4",
+     "validation": "[value] > 0",
+     "validation_msg": "Broj mjesta mora biti veći od nule."
+    },
+    {
+     "name": "zona",
+     "caption": "Zona",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Gdje se stol nalazi.",
+     "choices": "Unutra,Terasa,Šank,Separe",
+     "default": "\"Unutra\""
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "S1",
+     2,
+     "Unutra",
+     1
+    ],
+    [
+     2,
+     "S2",
+     4,
+     "Unutra",
+     1
+    ],
+    [
+     3,
+     "T1",
+     6,
+     "Terasa",
+     1
+    ],
+    [
+     4,
+     "Š1",
+     2,
+     "Šank",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "jelo",
+   "caption": "Jelovnik",
+   "descr": "Jela i pića s cijenama.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra jela.",
+     "pk": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv jela ili pića.",
+     "required": true
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Sastojci, alergeni."
+    },
+    {
+     "name": "kategorija_jela",
+     "caption": "Kategorija",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Dio jelovnika.",
+     "choices": "Predjelo,Glavno jelo,Prilog,Desert,Piće",
+     "default": "\"Glavno jelo\""
+    },
+    {
+     "name": "cijena",
+     "caption": "Cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Cijena po porciji.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Pršut i sir",
+     "Pršut, paški sir, masline",
+     "Predjelo",
+     11.5,
+     1
+    ],
+    [
+     2,
+     "Biftek s umakom",
+     "Goveđi file, krumpir",
+     "Glavno jelo",
+     24,
+     1
+    ],
+    [
+     3,
+     "Rižoto od lignji",
+     "Lignje, riža, bijelo vino",
+     "Glavno jelo",
+     16,
+     1
+    ],
+    [
+     4,
+     "Palačinke",
+     "S marmeladom i orasima",
+     "Desert",
+     6,
+     1
+    ],
+    [
+     5,
+     "Gazirani sok 0,3 l",
+     null,
+     "Piće",
+     3,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "narudzba_stola",
+   "caption": "Narudžbe",
+   "descr": "Račun po stolu; ukupni iznos je zbroj stavki.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra narudžbe.",
+     "pk": true
+    },
+    {
+     "name": "stol_id",
+     "caption": "Stol",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Za koji stol.",
+     "ref": "stol.sifra",
+     "required": true
+    },
+    {
+     "name": "vrijeme_narudzbe",
+     "caption": "Vrijeme",
+     "type": "datetime",
+     "role": "datum",
+     "descr": "Kada je narudžba otvorena.",
+     "default": "Now()"
+    },
+    {
+     "name": "konobar",
+     "caption": "Konobar",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Tko poslužuje."
+    },
+    {
+     "name": "status_narudzbe_stola",
+     "caption": "Status",
+     "type": "text",
+     "role": "status",
+     "descr": "Stanje narudžbe.",
+     "choices": "Otvorena,Poslužena,Plaćena,Stornirana",
+     "default": "\"Otvorena\""
+    },
+    {
+     "name": "nacin_placanja",
+     "caption": "Način plaćanja",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Kako kupac plaća.",
+     "choices": "Virman,Gotovina,Kartica,Pouzeće",
+     "default": "\"Virman\""
+    },
+    {
+     "name": "ukupno",
+     "caption": "Ukupno",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos za platiti (osnovica + PDV).",
+     "decimals": 2
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Slobodna bilješka koja se ne koristi u izračunima."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     2,
+     "2026-03-14 13:05:00",
+     "Iva",
+     "Plaćena",
+     "Kartica",
+     59.5,
+     null
+    ],
+    [
+     2,
+     3,
+     "2026-03-14 20:10:00",
+     "Iva",
+     "Poslužena",
+     "Gotovina",
+     87,
+     "Rođendan"
+    ],
+    [
+     3,
+     4,
+     "2026-03-15 09:30:00",
+     "Marin",
+     "Otvorena",
+     "Gotovina",
+     6,
+     null
+    ]
+   ],
+   "report": true,
+   "report_group": "status_narudzbe_stola",
+   "report_sort": "vrijeme_narudzbe"
+  },
+  {
+   "name": "stavka_narudzbe_stola",
+   "caption": "Stavke narudžbe",
+   "descr": "Što je naručeno na narudžbi.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra stavke.",
+     "pk": true
+    },
+    {
+     "name": "narudzba_id",
+     "caption": "Narudžba",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Narudžba.",
+     "ref": "narudzba_stola.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "jelo_id",
+     "caption": "Jelo",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Naručeno jelo ili piće.",
+     "ref": "jelo.sifra",
+     "required": true
+    },
+    {
+     "name": "kolicina",
+     "caption": "Količina",
+     "type": "decimal",
+     "role": "kolicina",
+     "descr": "Količina.",
+     "decimals": 2,
+     "default": "1",
+     "validation": "[value] > 0",
+     "validation_msg": "Količina mora biti veća od nule."
+    },
+    {
+     "name": "cijena",
+     "caption": "Cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Cijena po jedinici.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    },
+    {
+     "name": "iznos",
+     "caption": "Iznos",
+     "type": "currency",
+     "role": "iznos",
+     "descr": "Iznos stavke.",
+     "decimals": 2
+    },
+    {
+     "name": "napomena",
+     "caption": "Napomena",
+     "type": "memo",
+     "role": "biljeska",
+     "descr": "Posebni zahtjevi (npr. bez luka)."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     1,
+     1,
+     11.5,
+     11.5,
+     null
+    ],
+    [
+     2,
+     1,
+     2,
+     1,
+     24,
+     24,
+     "Srednje pečeno"
+    ],
+    [
+     3,
+     1,
+     3,
+     1,
+     16,
+     16,
+     null
+    ],
+    [
+     4,
+     1,
+     5,
+     3,
+     3,
+     9,
+     null
+    ],
+    [
+     5,
+     2,
+     2,
+     3,
+     24,
+     72,
+     null
+    ],
+    [
+     6,
+     2,
+     4,
+     2,
+     6,
+     12,
+     null
+    ],
+    [
+     7,
+     3,
+     4,
+     1,
+     6,
+     6,
+     null
+    ]
+   ]
+  }
+ ]
+}

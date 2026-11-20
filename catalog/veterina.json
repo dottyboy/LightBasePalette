@@ -1,0 +1,334 @@
+{
+ "id": "veterina",
+ "title": "Veterinarska ambulanta",
+ "descr": "Vlasnici i ljubimci, pregledi s dijagnozom i terapijom te cijepljenja s podsjetnikom.",
+ "tags": "zdravlje,ljubimci,ambulanta",
+ "tables": [
+  {
+   "name": "vlasnik_ljubimca",
+   "caption": "Vlasnici",
+   "descr": "Osobe čiji su ljubimci u ambulanti.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra vlasnika.",
+     "pk": true
+    },
+    {
+     "name": "ime",
+     "caption": "Ime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Osobno ime.",
+     "required": true
+    },
+    {
+     "name": "prezime",
+     "caption": "Prezime",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Prezime.",
+     "required": true
+    },
+    {
+     "name": "telefon",
+     "caption": "Telefon",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Broj telefona ili mobitela, slobodnog oblika."
+    },
+    {
+     "name": "email",
+     "caption": "E-pošta",
+     "type": "text",
+     "role": "kontakt",
+     "descr": "Adresa elektroničke pošte; provjerava se oblik a@b.c.",
+     "validation": "[value] Like \"*@*.*\"",
+     "validation_msg": "Unesi ispravnu adresu e-pošte (npr. ime@tvrtka.hr).",
+     "width": 200
+    },
+    {
+     "name": "adresa",
+     "caption": "Adresa",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Ulica i kućni broj.",
+     "width": 200
+    },
+    {
+     "name": "mjesto",
+     "caption": "Mjesto",
+     "type": "text",
+     "role": "adresa",
+     "descr": "Grad ili naselje."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     "Luka",
+     "Novak",
+     "091 777 8888",
+     "luka.novak@mail.hr",
+     "Savska 10",
+     "Zagreb"
+    ],
+    [
+     2,
+     "Maja",
+     "Vuković",
+     "098 123 4567",
+     null,
+     "Vukovarska 3",
+     "Zagreb"
+    ]
+   ]
+  },
+  {
+   "name": "ljubimac",
+   "caption": "Ljubimci",
+   "descr": "Životinje koje se liječe.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra ljubimca.",
+     "pk": true
+    },
+    {
+     "name": "vlasnik_id",
+     "caption": "Vlasnik",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Vlasnik životinje.",
+     "ref": "vlasnik_ljubimca.sifra",
+     "required": true
+    },
+    {
+     "name": "naziv",
+     "caption": "Naziv",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Ime ljubimca.",
+     "required": true
+    },
+    {
+     "name": "vrsta_zivotinje",
+     "caption": "Vrsta",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Vrsta životinje.",
+     "choices": "Pas,Mačka,Ptica,Glodavac,Gmaz,Drugo",
+     "default": "\"Pas\""
+    },
+    {
+     "name": "pasmina",
+     "caption": "Pasmina",
+     "type": "text",
+     "role": "kategorija",
+     "descr": "Pasmina ili opis (npr. križanac)."
+    },
+    {
+     "name": "datum_rodjenja",
+     "caption": "Datum rođenja",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum rođenja osobe."
+    },
+    {
+     "name": "cip",
+     "caption": "Broj čipa",
+     "type": "text",
+     "role": "identifikator",
+     "descr": "Broj mikročipa, 15 znamenki.",
+     "width": 150
+    },
+    {
+     "name": "aktivan",
+     "caption": "Aktivan",
+     "type": "yesno",
+     "role": "oznaka",
+     "descr": "Isključi umjesto brisanja kad se redak više ne koristi, da stara povijest ostane čitljiva.",
+     "default": "True"
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "Rex",
+     "Pas",
+     "Njemački ovčar",
+     "2019-05-02",
+     "191000123456789",
+     1
+    ],
+    [
+     2,
+     1,
+     "Mica",
+     "Mačka",
+     "Domaća",
+     "2021-08-15",
+     null,
+     1
+    ],
+    [
+     3,
+     2,
+     "Bubi",
+     "Glodavac",
+     "Zlatni hrčak",
+     "2025-10-01",
+     null,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "veterinarski_pregled",
+   "caption": "Pregledi",
+   "descr": "Posjeti ambulanti s dijagnozom i terapijom.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra pregleda.",
+     "pk": true
+    },
+    {
+     "name": "ljubimac_id",
+     "caption": "Ljubimac",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Životinja na pregledu.",
+     "ref": "ljubimac.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum pregleda.",
+     "default": "Date()"
+    },
+    {
+     "name": "dijagnoza",
+     "caption": "Dijagnoza",
+     "type": "text",
+     "role": "opis",
+     "descr": "Utvrđena dijagnoza.",
+     "width": 200
+    },
+    {
+     "name": "opis",
+     "caption": "Opis",
+     "type": "memo",
+     "role": "opis",
+     "descr": "Terapija i upute vlasniku."
+    },
+    {
+     "name": "cijena_pregleda",
+     "caption": "Cijena",
+     "type": "currency",
+     "role": "cijena",
+     "descr": "Naplaćeni iznos.",
+     "decimals": 2,
+     "validation": "[value] >= 0",
+     "validation_msg": "Cijena ne može biti negativna."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "2026-01-10",
+     "Upala uha",
+     "Kapi 7 dana, kontrola.",
+     35
+    ],
+    [
+     2,
+     2,
+     "2026-02-03",
+     "Kontrola",
+     "Bez nalaza.",
+     20
+    ]
+   ]
+  },
+  {
+   "name": "cijepljenje",
+   "caption": "Cijepljenja",
+   "descr": "Cjepiva i datum sljedećeg cijepljenja.",
+   "fields": [
+    {
+     "name": "sifra",
+     "caption": "Šifra",
+     "type": "autonumber",
+     "role": "kljuc",
+     "descr": "Šifra cijepljenja.",
+     "pk": true
+    },
+    {
+     "name": "ljubimac_id",
+     "caption": "Ljubimac",
+     "type": "integer",
+     "role": "veza",
+     "descr": "Životinja.",
+     "ref": "ljubimac.sifra",
+     "required": true,
+     "on_delete": "cascade"
+    },
+    {
+     "name": "cjepivo",
+     "caption": "Cjepivo",
+     "type": "text",
+     "role": "naziv",
+     "descr": "Naziv cjepiva (npr. bjesnoća).",
+     "required": true
+    },
+    {
+     "name": "datum",
+     "caption": "Datum",
+     "type": "date",
+     "role": "datum",
+     "descr": "Datum cijepljenja.",
+     "default": "Date()"
+    },
+    {
+     "name": "sljedece_cijepljenje",
+     "caption": "Sljedeće",
+     "type": "date",
+     "role": "datum",
+     "descr": "Kada je potrebno ponovno cijepiti."
+    }
+   ],
+   "sample": [
+    [
+     1,
+     1,
+     "Bjesnoća",
+     "2025-05-10",
+     "2026-05-10"
+    ],
+    [
+     2,
+     2,
+     "Trovalentno",
+     "2025-09-01",
+     "2026-09-01"
+    ]
+   ]
+  }
+ ]
+}

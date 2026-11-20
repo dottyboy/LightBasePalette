@@ -1,0 +1,25 @@
+== 08_autofill
+-- otvoreno | caption=F08
+  txtArt TextBox v=1 e=1 text=[1] ro=0 bg=000000 fg=000000 b=0
+  txtOpis TextBox v=1 e=1 text=[Vijak] ro=0 bg=000000 fg=000000 b=0
+  txtCij TextBox v=1 e=1 text=[0.5] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/1 state=browse
+-- artikl 2 | caption=F08
+  txtArt TextBox v=1 e=1 text=[2] ro=0 bg=000000 fg=000000 b=0
+  txtOpis TextBox v=1 e=1 text=[Matica] ro=0 bg=000000 fg=000000 b=0
+  txtCij TextBox v=1 e=1 text=[0.25] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/1 state=browse
+-- spremljeno | caption=F08
+  txtArt TextBox v=1 e=1 text=[2] ro=0 bg=000000 fg=000000 b=0
+  txtOpis TextBox v=1 e=1 text=[Matica] ro=0 bg=000000 fg=000000 b=0
+  txtCij TextBox v=1 e=1 text=[0.25] ro=0 bg=000000 fg=000000 b=0
+  query: rec=1/1 state=browse
+-- novi s artiklom 3 | caption=F08
+  txtArt TextBox v=1 e=1 text=[3] ro=0 bg=000000 fg=000000 b=0
+  txtOpis TextBox v=1 e=1 text=[Podloska] ro=0 bg=000000 fg=000000 b=0
+  txtCij TextBox v=1 e=1 text=[0.1] ro=0 bg=000000 fg=000000 b=0
+  query: rec=2/1 state=insert
+-- snimka 08_autofill.png
+-- tablica stavke
+   | 1 | 2 | Matica | 0.25
+   | 2 | 3 | Podloska | 0.1
