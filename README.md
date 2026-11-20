@@ -14,6 +14,16 @@ Od tablica, preko formi, upita i izvješća, do gotove aplikacije s izbornikom, 
 
 Korisnička dokumentacija je **priručnik** ugrađen u program (*Pomoć → Priručnik*, F1); izvor je u `docs/manual/`. Plan rada: `docs/PLAN.md`.
 
+## Kako izgleda
+
+Vlastite kontrole crtaju se same, pa izgledaju isto na Qt-u i GTK-u. Snimke dolaze iz testova usporedbe (`tests/own/golden`).
+
+| Kanban ploča | Nadzorna ploča |
+|---|---|
+| ![Kanban ploča](tests/own/golden/13_ploca.png) | ![Nadzorna ploča](tests/own/golden/14_nadzorna_ploca.png) |
+| **Tjedni raspored** | **Formatirani tekst** |
+| ![Raspored](tests/own/golden/15_raspored.png) | ![Formatirani tekst](tests/own/golden/10_formatirani_tekst.png) |
+
 ## Što treba imati
 
 * **CodeTyphon** (FPC + Lazarus, Qt6 widgetset) s paketima `adLCL`, `pl_ZeosDBO`, `pl_PascalScript`, `pl_FpSpreadsheet`, `pl_RichMemo`;
